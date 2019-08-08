@@ -6,7 +6,18 @@
 
     <groupId>ryuntech.com</groupId>
     <artifactId>ryun-supply</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>ryun-supply-admin</module>
+        <module>ryun-supply-auth</module>
+        <module>ryun-supply-common</module>
+        <module>ryun-supply-config</module>
+        <module>ryun-supply-eureka</module>
+        <module>ryun-supply-gateway</module>
+        <module>ryun-supply-monitor</module>
+        <module>ryun-supply-zipkin</module>
+    </modules>
 
 
 </project>
