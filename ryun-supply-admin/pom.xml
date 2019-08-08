@@ -4,12 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>ryun-supply</artifactId>
-        <groupId>ryuntech.com</groupId>
+        <groupId>com.ryuntech</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <description>Admin后台管理聚合模块</description>
 
     <artifactId>ryun-supply-admin</artifactId>
 
+    <modules>
+        <module>ryun-supply-admin-api</module>
+        <module>ryun-supply-admin-biz</module>
+    </modules>
 
 </project>
