@@ -1,7 +1,10 @@
 package com.ryuntech.admin.api.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -15,7 +18,9 @@ import java.util.Date;
  * @date 2019-05-22
  */
 @Data
-@Table(name = "sys_user")
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@TableName("ryn_partner_staff_user")
 public class SysUser implements Serializable {
 
     /**

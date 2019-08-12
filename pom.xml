@@ -20,6 +20,7 @@
         <module>ryun-supply-gateway</module>
         <module>ryun-supply-monitor</module>
         <module>ryun-supply-zipkin</module>
+        <module>ryun-supply-generator</module>
     </modules>
 
     <properties>

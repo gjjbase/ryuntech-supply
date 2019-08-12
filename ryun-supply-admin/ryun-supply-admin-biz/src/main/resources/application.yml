@@ -39,7 +39,11 @@ management:
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: cn.tycoding.api.admin.api.entity
+  type-aliases-package: com.ryuntech.admin.api.entity
+
+
+mybatis-plus:
+    mapper-locations: classpath:/mapper/*Mapper.xml
 
 #mybaatis分页插件pagehelper设置
 pagehelper:
