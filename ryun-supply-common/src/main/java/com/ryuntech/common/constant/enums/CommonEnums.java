@@ -20,6 +20,4 @@ public enum CommonEnums {
     private final int code;
     private final String msg;
 
-    CommonEnums(int i, String 用户名或密码错误) {
-    }
 }
