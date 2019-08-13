@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ryun-supply-sdk-core</artifactId>
-
+    <!-- 模块依赖 -->
+<dependencies>
+    <dependency>
+        <groupId>com.ryuntech</groupId>
+        <artifactId>ryun-supply-sdk-util</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+</dependencies>
 
 </project>

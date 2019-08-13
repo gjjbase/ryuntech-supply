@@ -17,5 +17,12 @@
         <module>ryun-supply-sdk-util</module>
     </modules>
 
-
+    <dependencies>
+    <!-- 模块依赖 -->
+    <dependency>
+        <groupId>com.ryuntech</groupId>
+        <artifactId>ryun-supply-base</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+    </dependencies>
 </project>
