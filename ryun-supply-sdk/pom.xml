@@ -8,14 +8,14 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ryun-supply-sdk</artifactId>
     <packaging>pom</packaging>
-    <description>Admin后台管理聚合模块</description>
-
-    <artifactId>ryun-supply-admin</artifactId>
-
     <modules>
-        <module>ryun-supply-admin-api</module>
-        <module>ryun-supply-admin-biz</module>
+        <module>ryun-supply-sdk-core</module>
+        <module>ryun-supply-sdk-config</module>
+        <module>ryun-supply-sdk-util</module>
     </modules>
+
 
 </project>

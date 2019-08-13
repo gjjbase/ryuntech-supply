@@ -21,7 +21,8 @@
         <module>ryun-supply-monitor</module>
         <module>ryun-supply-zipkin</module>
         <module>ryun-supply-generator</module>
-        <module>ryun-supply-admin/ryun-supply-base</module>
+        <module>ryun-supply-base</module>
+        <module>ryun-supply-sdk</module>
     </modules>
 
     <properties>

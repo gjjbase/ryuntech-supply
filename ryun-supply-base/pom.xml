@@ -11,9 +11,6 @@
 
     <artifactId>ryun-supply-base</artifactId>
     <packaging>pom</packaging>
-    <modules>
-        <module>../ryun-supply-core</module>
-    </modules>
 
 
 </project>
