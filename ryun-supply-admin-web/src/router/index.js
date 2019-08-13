@@ -56,12 +56,12 @@ export const constantRoutes = [
   },
 
   {
-    path: '项目地址',
+    path: '公司官网',
     component: Layout,
     children: [
       {
-        path: 'https://github.com/TyCoding/cloud-template/',
-        meta: { title: '项目地址', icon: 'github' }
+        path: 'https://www.ryuntech.com',
+        meta: { title: '公司官网', icon: 'github' }
       }
     ]
   },

@@ -1,6 +1,6 @@
 package com.ryuntech.admin.biz;
 
-import com.ryuntech.admin.api.annotation.EnableSctResourceServer;
+import com.ryuntech.admin.api.annotation.EnableRyunResourceServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -13,7 +13,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @author tycoding
  * @date 2019-05-22
  */
-@EnableSctResourceServer
+@EnableRyunResourceServer
 @MapperScan("com.ryuntech.admin.biz.mapper")
 @EnableFeignClients
 @EnableEurekaClient

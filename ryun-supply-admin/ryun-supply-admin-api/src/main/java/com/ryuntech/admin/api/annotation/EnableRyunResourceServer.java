@@ -24,5 +24,5 @@ import java.lang.annotation.*;
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @Import({ResourceServerConfig.class})
-public @interface EnableSctResourceServer {
+public @interface EnableRyunResourceServer {
 }

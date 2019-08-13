@@ -13,15 +13,15 @@
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              Home
+              主页
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/TyCoding/cloud-template/">
-            <el-dropdown-item>Github</el-dropdown-item>
+          <a target="_blank" href="https://www.ryuntech.com">
+            <el-dropdown-item>官网</el-dropdown-item>
           </a>
-          <el-dropdown-item @click.native="changePass">Change Pass</el-dropdown-item>
+          <el-dropdown-item @click.native="changePass">修改密码</el-dropdown-item>
           <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">Log Out</span>
+            <span style="display:block;" @click="logout">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

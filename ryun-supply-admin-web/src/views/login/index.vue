@@ -6,9 +6,9 @@
           {{date}}
         </div>
         <div style="text-align: center">
-          <h1>Spring Cloud Template</h1>
-          <h3>一套极简的Spring Cloud分布式微服务项目模板</h3>
-          <h3>By <a href="https://github.com/TyCoding/cloud-template">TyCoding</a></h3>
+          <h1>睿云科技</h1>
+          <h3>睿云科技-瑞云合伙人后台管理系统</h3>
+          <!--<h3>By <a href="https://github.com/TyCoding/cloud-template">TyCoding</a></h3>-->
         </div>
       </el-card>
       <el-card class="login-right">
@@ -16,7 +16,7 @@
                  auto-complete="on" label-position="left">
 
           <div class="title-container">
-            <h3 class="title">Login SCT</h3>
+            <h3 class="title">登陆</h3>
           </div>
 
           <el-form-item prop="username">
