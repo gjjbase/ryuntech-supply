@@ -55,7 +55,7 @@ public class SysUserController extends BaseController {
     @ApiOperation(value = "根据用户名查询用户信息")
     @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String")
     public Result<SysUser> info(@PathVariable("username") String username) {
-        return new Result<SysUser>(sysUserService.findByName(username));
+        return new Result<>(sysUserService.findByName(username));
     }
 
     /**
@@ -85,7 +85,7 @@ public class SysUserController extends BaseController {
         if (id == null || id == 0) {
             return new Result<>();
         } else {
-            return new Result<>(sysUserService.selectByKey(id));
+            return new Result<>(sysUserService.getById(id));
         }
     }
 
@@ -113,7 +113,7 @@ public class SysUserController extends BaseController {
     @ApiOperation(value = "删除用户")
     @ApiImplicitParam(name = "id", value = "用户编号", required = true, dataType = "Long")
     public Result delete(@PathVariable Long id) {
-        sysUserService.delete(id);
+        sysUserService.removeById(id);
         return new Result();
     }
 

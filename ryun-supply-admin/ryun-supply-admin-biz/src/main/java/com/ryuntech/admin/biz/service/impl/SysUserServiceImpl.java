@@ -1,14 +1,14 @@
 package com.ryuntech.admin.biz.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ryuntech.admin.api.entity.SysUser;
 import com.ryuntech.admin.api.utils.SecurityUtils;
 import com.ryuntech.admin.biz.mapper.SysUserMapper;
 import com.ryuntech.admin.biz.service.SysUserService;
-import com.ryuntech.common.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2019-05-22
  */
 @Service
-public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService {
+public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
@@ -26,20 +26,17 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 
     @Override
     public SysUser findByName(String username) {
-        Example example = new Example(SysUser.class);
-        example.createCriteria().andCondition("username=", username);
-        List<SysUser> list = sysUserMapper.selectByExample(example);
-        return list.size() > 0 ? list.get(0) : null;
+        SysUser sysUser = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("username", username));
+        return sysUser;
     }
 
     @Override
     public List<SysUser> list(SysUser user) {
-        Example example = new Example(SysUser.class);
-        Example.Criteria criteria = example.createCriteria();
+        QueryWrapper queryWrapper=null;
         if (user.getUsername() != null && !user.getUsername().isEmpty()) {
-            criteria.andCondition("username=", user.getUsername());
+             queryWrapper= new QueryWrapper<SysUser>().eq("username", user.getUsername());
         }
-        return this.selectByExample(example);
+        return sysUserMapper.selectList(queryWrapper);
     }
 
     @Override
@@ -51,7 +48,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     @Override
     public void update(SysUser user) {
         user.setPassword(null);
-        this.updateNotNull(user);
+        sysUserMapper.updateById(user);
     }
 
     @Override
@@ -61,7 +58,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
         if (sysUser != null) {
             entity.setId(sysUser.getId());
             entity.setPassword(passwordEncoder.encode(user.getPassword()));
-            this.updateNotNull(entity);
+            sysUserMapper.updateById(entity);
         }
     }
 }

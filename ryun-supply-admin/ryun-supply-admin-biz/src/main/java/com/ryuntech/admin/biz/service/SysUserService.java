@@ -1,7 +1,7 @@
 package com.ryuntech.admin.biz.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.ryuntech.admin.api.entity.SysUser;
-import com.ryuntech.common.service.BaseService;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * @author tycoding
  * @date 2019-05-22
  */
-public interface SysUserService extends BaseService<SysUser> {
+public interface SysUserService  extends IService<SysUser> {
 
     /**
      * 根据用户名查询用户信息
