@@ -1,9 +1,9 @@
 package com.ryuntech.generator.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ryuntech.generator.entity.FinanceUserInfo;
 import com.ryuntech.generator.mapper.FinanceUserInfoMapper;
 import com.ryuntech.generator.service.IFinanceUserInfoService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

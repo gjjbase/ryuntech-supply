@@ -1,7 +1,7 @@
 package com.ryuntech.generator.mapper;
 
-import com.ryuntech.generator.entity.FinanceUserInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ryuntech.generator.entity.FinanceUserInfo;
 
 /**
  * <p>

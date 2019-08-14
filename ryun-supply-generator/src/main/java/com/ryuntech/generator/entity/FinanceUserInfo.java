@@ -1,16 +1,17 @@
 package com.ryuntech.generator.entity;
 
-    import com.baomidou.mybatisplus.annotation.TableName;
-    import java.time.LocalDate;
     import com.baomidou.mybatisplus.annotation.TableField;
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
 * <p>
-    * 
+    *
     * </p>
 *
 * @author ryun
@@ -118,7 +119,7 @@ package com.ryuntech.generator.entity;
     private String registerChannels;
 
             /**
-            * 申请渠道 1-PC 2-h5 3-小程序 
+            * 申请渠道 1-PC 2-h5 3-小程序
             */
         @TableField("REGISTER_WAY")
     private String registerWay;
@@ -208,19 +209,19 @@ package com.ryuntech.generator.entity;
     private String houseType;
 
             /**
-            * 00 按揭房 01全款 
+            * 00 按揭房 01全款
             */
         @TableField("HOUSE_ADDRESS_TYPE")
     private String houseAddressType;
 
             /**
-            * 00 本地 01外地 
+            * 00 本地 01外地
             */
         @TableField("CAR_TYPE")
     private String carType;
 
             /**
-            * 00 按揭车 01全款 
+            * 00 按揭车 01全款
             */
         @TableField("CAR_ADDRESS_TYPE")
     private String carAddressType;

@@ -1,7 +1,7 @@
 package com.ryuntech.generator.service;
 
-import com.ryuntech.generator.entity.FinanceUserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ryuntech.generator.entity.FinanceUserInfo;
 
 /**
  * <p>
