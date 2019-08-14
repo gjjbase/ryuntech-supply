@@ -81,13 +81,54 @@ export const constantRoutes = [
       },
       {
         path: 'user',
-        name: '用户管理',
+        name: '操作员管理',
         component: () => import('@/views/user/index'),
-        meta: { title: '用户管理', icon: 'peoples' }
+        meta: { title: '操作员管理', icon: 'peoples' }
       },
     ]
   },
-
+  {
+    path: '/business',
+    component: Layout,
+    redirect: '/operation/business',
+    name: '业务处理',
+    meta: { title: '业务处理', icon: 'setting' },
+    children: [
+      {
+        path: 'reorder',
+        name: '推荐订单管理',
+        component: () => import('@/views/business/reorder/index'),
+        meta: { title: '推荐订单管理', icon: 'documentation' }
+      },
+      {
+        path: 'operatelog',
+        name: '操作日志管理',
+        component: () => import('@/views/business/operatelog/index'),
+        meta: { title: '操作日志管理', icon: 'peoples' }
+      },
+    ]
+  },
+  {
+    path: '/member',
+    component: Layout,
+    redirect: '/operation/member',
+    name: '会员管理',
+    meta: { title: '会员管理', icon: 'setting' },
+    children: [
+      {
+        path: 'finance',
+        name: '融资用户管理',
+        component: () => import('@/views/member/finance/index'),
+        meta: { title: '融资用户管理', icon: 'peoples' }
+      },
+      {
+        path: 'partner',
+        name: '合伙人会员管理',
+        component: () => import('@/views/member/partner/list'),
+        meta: { title: '合伙人会员管理', icon: 'documentation' }
+      }
+    ]
+  },
   {
     path: '/monitor',
     component: Layout,

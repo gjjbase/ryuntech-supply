@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 * @since 2019-08-12
 */
     @Data
-    @EqualsAndHashCode(callSuper = false)
+        @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     @TableName("ryn_partner_staff_user")
     public class PartnerStaffUser implements Serializable {
