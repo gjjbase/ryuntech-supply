@@ -3,13 +3,15 @@ package com.ryuntech.admin.api.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
 * <p>
@@ -23,7 +25,7 @@ import java.time.LocalDateTime;
         @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     @TableName("ryn_order")
-    public class Order implements Serializable {
+    public class Order extends Model<FinanceUserInfo> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,7 +51,9 @@ import java.time.LocalDateTime;
             * 申请时间
             */
         @TableField("ORDER_TIME")
-    private LocalDate orderTime;
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date orderTime;
 
             /**
             * 是否产生佣金(0 无佣金 1有佣金)
@@ -79,13 +83,17 @@ import java.time.LocalDateTime;
             * 订单关闭时间
             */
         @TableField("ORDER_CLOSE_TIME")
-    private LocalDateTime orderCloseTime;
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date orderCloseTime;
 
             /**
             * 订单失效时间
             */
         @TableField("ORDER_INVALID_TIME")
-    private LocalDateTime orderInvalidTime;
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date orderInvalidTime;
 
             /**
             * 合伙人编号
@@ -115,7 +123,9 @@ import java.time.LocalDateTime;
             * 修改时间
             */
         @TableField("MODIFY_TIME")
-    private LocalDate modifyTime;
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date modifyTime;
 
             /**
             * 订单删除状态 0:订单标记为未删除  1：订单标记为已删除
@@ -139,7 +149,9 @@ import java.time.LocalDateTime;
             * 到账时间
             */
         @TableField("ORDER_PAY_TIME")
-    private LocalDateTime orderPayTime;
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date orderPayTime;
 
             /**
             * 订单生成方式 00=直接申请

@@ -62,8 +62,8 @@
         </el-table-column>
         <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" @click="handleEdit(scope.row.id)" size="mini" icon="el-icon-edit">编辑</el-button>
-            <el-button type="danger" @click="handleDel(scope.row.id)" icon="el-icon-delete" size="mini">删除</el-button>
+            <el-button type="primary" @click="handleEdit(scope.row.orderId)" size="mini" icon="el-icon-edit">编辑</el-button>
+            <el-button type="danger" @click="handleDel(scope.row.orderId)" icon="el-icon-delete" size="mini">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -124,7 +124,7 @@
         this.form = {id: null, createTime: parseTime(new Date())}
         this.dialogVisible = true;
       },
-      handleEdit(id) {
+      handleEdit(orderId) {
         findById(id).then(response => {
           this.form = response.data;
         })

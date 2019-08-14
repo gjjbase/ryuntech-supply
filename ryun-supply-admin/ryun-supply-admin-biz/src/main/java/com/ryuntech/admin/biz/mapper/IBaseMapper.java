@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
+
 public interface IBaseMapper<T> extends BaseMapper<T> {
     IPage<T> Pages(@Param("page") Page<T> page);
 
