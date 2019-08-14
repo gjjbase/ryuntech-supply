@@ -7,3 +7,9 @@ export function getList(query, data) {
     data
   })
 }
+export function findById(userId) {
+  return request({
+    url: '/admin/financeUserInfo/' + userId,
+    method: 'get'
+  })
+}

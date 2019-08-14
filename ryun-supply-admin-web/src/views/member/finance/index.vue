@@ -10,7 +10,7 @@
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label="编号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.userid }}
+            {{ scope.row.userId }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="真实姓名" width="95">
@@ -61,8 +61,8 @@
 
         <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" @click="handleEdit(scope.row.id)" size="mini" icon="el-icon-edit">编辑</el-button>
-            <el-button type="danger" @click="handleDel(scope.row.id)" icon="el-icon-delete" size="mini">删除</el-button>
+            <el-button type="primary" @click="handleEdit(scope.row.userId)" size="mini" icon="el-icon-edit">编辑</el-button>
+            <el-button type="danger" @click="handleDel(scope.row.userId)" icon="el-icon-delete" size="mini">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-  import {getList, findById, del} from '@/api/member/finance/finance'
+  import {getList, findById, del} from '@/api/member/finance'
   import Pagination from '@/components/Pagination'
   import Save from './save'
   import {parseTime} from '@/utils/index'
@@ -123,8 +123,8 @@
         this.form = {id: null, createTime: parseTime(new Date())}
         this.dialogVisible = true;
       },
-      handleEdit(id) {
-        findById(id).then(response => {
+      handleEdit(userId) {
+        findById(userId).then(response => {
           this.form = response.data;
         })
       },

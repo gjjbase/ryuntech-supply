@@ -12,10 +12,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -46,4 +45,36 @@ public class FinanceUserInfoController extends BaseController {
         Page<FinanceUserInfo> page = new Page<>(queryPage.getPageCode(), queryPage.getPageSize());
         return iFinanceUserInfoService.pageList(page);
     }
+
+    /**
+     * 根据ID查询用户信息
+     *
+     * @param userId
+     * @return
+     */
+    @GetMapping("/{userId}")
+    @ApiOperation(value = "查询详细融资客户信息", notes = "userId存在")
+    @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "String")
+    public Result<FinanceUserInfo> findById(@PathVariable String userId) {
+        if (StringUtils.isBlank(userId)) {
+            return new Result<>();
+        } else {
+            return new Result<>(iFinanceUserInfoService.getById(userId));
+        }
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param financeUserInfo
+     * @return
+     */
+    @PutMapping("/edit")
+    @ApiOperation(value = "更新融资用户")
+    @ApiImplicitParam(name = "financeUserInfo", value = "用户实体信息", required = true, dataType = "FinanceUserInfo", paramType = "body")
+    public Result edit(@RequestBody FinanceUserInfo financeUserInfo) {
+        iFinanceUserInfoService.saveOrUpdate(financeUserInfo);
+        return new Result();
+    }
+
 }

@@ -1,8 +1,8 @@
 <template>
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="40%">
     <el-form ref="form" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item v-if="form.userid != null" label="客户编号" prop="id" label-width="120px">
-        <el-input v-model="form.userid" :disabled="true"></el-input>
+      <el-form-item v-if="form.userId != null" label="客户编号" prop="userId" label-width="120px">
+        <el-input v-model="form.userId" :disabled="true"></el-input>
       </el-form-item>
       <el-form-item label="真实姓名" prop="realname" label-width="120px">
         <el-input v-model="form.realname" placeholder="真实姓名"></el-input>
@@ -69,7 +69,7 @@
           createTime: ''
         },
         rules: {
-          username: [{required: true, trigger: 'blur', message: '真实姓名'}],
+          realname: [{required: true, trigger: 'blur', message: '真实姓名'}],
           idNumber: [{required: true, trigger: 'blur', message: '身份证'}],
           mobile: [{required: true, trigger: 'blur', message: '请输入联系电话'}],
           createTime: [{required: true, trigger: 'blur', message: '请选择创建时间'}],

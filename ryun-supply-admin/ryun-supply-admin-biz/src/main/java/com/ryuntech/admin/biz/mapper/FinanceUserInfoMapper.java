@@ -1,11 +1,7 @@
 package com.ryuntech.admin.biz.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ryuntech.admin.api.entity.FinanceUserInfo;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,8 +14,8 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface FinanceUserInfoMapper extends BaseMapper<FinanceUserInfo> {
-    IPage<FinanceUserInfo> Pages(@Param("page") Page<FinanceUserInfo> page);
+public interface FinanceUserInfoMapper extends IBaseMapper<FinanceUserInfo> {
+    /*IPage<FinanceUserInfo> Pages(@Param("page") Page<FinanceUserInfo> page);
 
-    IPage<FinanceUserInfo> pageList(@Param("page") Page<FinanceUserInfo> page);
+    IPage<FinanceUserInfo> pageList(@Param("page") Page<FinanceUserInfo> page);*/
 }

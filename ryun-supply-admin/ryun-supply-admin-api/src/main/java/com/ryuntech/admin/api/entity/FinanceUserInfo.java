@@ -1,6 +1,7 @@
 package com.ryuntech.admin.api.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -11,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
 * <p>
@@ -32,7 +34,8 @@ import java.time.LocalDate;
             * 主键，融资客户编号
             */
         @TableField("USERID")
-    private String userid;
+        @TableId("userId")
+    private String userId;
 
             /**
             * 头像
@@ -49,13 +52,13 @@ import java.time.LocalDate;
         @TableField("CREATE_TIME")
         @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDate createTime;
+    private Date createTime;
 
             /**
             * 注册时间
             */
         @TableField("MEMBER_BIRTHDAY")
-    private LocalDate memberBirthday;
+    private Date memberBirthday;
 
             /**
             * 生日(出生年月日)

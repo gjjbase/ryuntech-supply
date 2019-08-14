@@ -8,35 +8,56 @@
       </div>
       <br/>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label="编号" width="95">
+        <el-table-column align="center" label="订单编号" width="95">
           <template slot-scope="scope">
-            {{ scope.row.id }}
+            {{ scope.row.orderId }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="用户名" width="150">
+        <el-table-column align="center" label="客户编号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.username }}
+            {{ scope.row.memberId }}
           </template>
         </el-table-column>
-        <el-table-column label="密码" width="250" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.password }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="手机号" width="150" align="center">
-          <template slot-scope="scope">
-            {{ scope.row.phone }}
-          </template>
-        </el-table-column>
-        <el-table-column class-name="status-col" label="头像" width="130" align="center">
-          <template slot-scope="scope">
-            <img :src="scope.row.avatar" width="100" height="100"/>
-          </template>
-        </el-table-column>
-        <el-table-column align="center" prop="createTime" label="创建时间" width="200">
+        <el-table-column label="申请时间" width="200" align="center">
           <template slot-scope="scope">
             <i class="el-icon-time"/>
-            <span>{{ scope.row.createTime }}</span>
+            <span>{{ scope.row.orderTime }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="合伙人编号" width="150" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.partnerId }}
+          </template>
+        </el-table-column>
+        <el-table-column class-name="status-col" label="推荐人编号" width="130" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.orderMemo }}
+          </template>
+        </el-table-column>
+        <el-table-column class-name="status-col" label="订单申请金额" width="130" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.orderPayAmount }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="createTime" label="实际到账金额" width="130">
+          <template slot-scope="scope">
+            {{ scope.row.orderFactPayAmount }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="createTime" label="到账时间" width="200">
+          <template slot-scope="scope">
+            <i class="el-icon-time"/>
+            <span>{{ scope.row.orderPayTime }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="createTime" label="订单状态" width="100">
+          <template slot-scope="scope">
+            {{ scope.row.orderStatus }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="createTime" label="佣金状态" width="100">
+          <template slot-scope="scope">
+            {{ scope.row.paymentStatus }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作">
@@ -56,7 +77,7 @@
 </template>
 
 <script>
-  import {getList, findById, del} from '@/api/user'
+  import {getList, findById, del} from '@/api/reorder/reorder'
   import Pagination from '@/components/Pagination'
   import Save from './save'
   import {parseTime} from '@/utils/index'
@@ -94,7 +115,7 @@
       fetchData() {
         this.listLoading = true
         getList(this.listQuery, this.search).then(response => {
-          this.list = response.data.rows
+          this.list = response.data.records
           this.total = response.data.total
           this.listLoading = false
         })

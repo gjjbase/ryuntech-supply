@@ -3,7 +3,7 @@
 <mapper namespace="com.ryuntech.admin.biz.mapper.FinanceUserInfoMapper">
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ryuntech.admin.api.entity.FinanceUserInfo">
-        <result column="USERID" jdbcType="VARCHAR" property="userid" />
+        <result column="USERID" jdbcType="VARCHAR" property="userId" />
         <result column="USER_LOGO" jdbcType="VARCHAR" property="userLogo" />
         <result column="USER_TYPE" jdbcType="VARCHAR" property="userType" />
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />

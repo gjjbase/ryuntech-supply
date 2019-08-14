@@ -1,13 +1,8 @@
 package com.ryuntech.admin.biz.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ryuntech.admin.api.entity.FinanceUserInfo;
 import com.ryuntech.admin.biz.mapper.FinanceUserInfoMapper;
 import com.ryuntech.admin.biz.service.IFinanceUserInfoService;
-import com.ryuntech.common.utils.Result;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,8 +14,8 @@ import org.springframework.stereotype.Service;
  * @since 2019-08-14
  */
 @Service
-public class FinanceUserInfoServiceImpl extends ServiceImpl<FinanceUserInfoMapper, FinanceUserInfo> implements IFinanceUserInfoService {
-    @Autowired
+public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoMapper, FinanceUserInfo> implements IFinanceUserInfoService {
+  /*  @Autowired
     FinanceUserInfoMapper financeUserInfoMapper;
     @Override
     public Result<IPage<FinanceUserInfo>> pages(Page<FinanceUserInfo> page) {
@@ -32,5 +27,5 @@ public class FinanceUserInfoServiceImpl extends ServiceImpl<FinanceUserInfoMappe
     public Result<IPage<FinanceUserInfo>> pageList(Page<FinanceUserInfo> page) {
         IPage<FinanceUserInfo> userIPage = financeUserInfoMapper.pageList(page);
         return new Result(userIPage);
-    }
+    }*/
 }
