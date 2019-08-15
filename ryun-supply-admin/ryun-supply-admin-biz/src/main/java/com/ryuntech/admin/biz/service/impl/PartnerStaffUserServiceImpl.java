@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ryuntech.admin.api.entity.PartnerStaffUser;
 import com.ryuntech.admin.biz.mapper.PartnerStaffUserMapper;
 import com.ryuntech.admin.biz.service.IPartnerStaffUserService;
-import com.ryuntech.common.constant.enums.CommonEnums;
 import com.ryuntech.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Service;
  *  服务实现类
  * </p>
  *
- * @author ryun
+ * @author antu
  * @since 2019-08-12
  */
 @Service

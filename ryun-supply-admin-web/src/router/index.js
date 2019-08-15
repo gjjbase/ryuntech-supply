@@ -124,7 +124,7 @@ export const constantRoutes = [
       {
         path: 'partner',
         name: '合伙人会员管理',
-        component: () => import('@/views/member/partner/list'),
+        component: () => import('@/views/member/partner/index'),
         meta: { title: '合伙人会员管理', icon: 'documentation' }
       }
     ]

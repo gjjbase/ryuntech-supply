@@ -1,8 +1,7 @@
-package com.ryuntech.generator.controller;
+package com.ryuntech.admin.biz.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -10,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
  *  前端控制器
  * </p>
  *
- * @author ryun
- * @since 2019-08-14
+ * @author antu
+ * @since 2019-08-15
  */
 @RestController
-@RequestMapping("/order")
-public class OrderController {
+@RequestMapping("/partner-login-info")
+public class PartnerLoginInfoController {
 
 }

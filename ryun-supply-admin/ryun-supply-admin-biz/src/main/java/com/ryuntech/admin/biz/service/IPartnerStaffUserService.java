@@ -11,7 +11,7 @@ import com.ryuntech.common.utils.Result;
  *  服务类
  * </p>
  *
- * @author ryun
+ * @author antu
  * @since 2019-08-12
  */
 public interface IPartnerStaffUserService extends IService<PartnerStaffUser> {

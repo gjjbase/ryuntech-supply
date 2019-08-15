@@ -7,7 +7,7 @@ import com.ryuntech.admin.api.entity.FinanceUserInfo;
  *  服务类
  * </p>
  *
- * @author ryun
+ * @author antu
  * @since 2019-08-14
  */
 public interface IFinanceUserInfoService extends IBaseService<FinanceUserInfo> {

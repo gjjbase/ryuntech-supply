@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryuntech.admin.biz.mapper.PartnerLoginInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ryuntech.admin.api.entity.PartnerLoginInfo">
+        <id column="USERID" property="userid" />
+        <result column="SESSION_ID" property="sessionId" />
+        <result column="LAST_LOGIN_TIME" property="lastLoginTime" />
+        <result column="CLIENT_IP" property="clientIp" />
+        <result column="LAST_MODIFY_PWD_DATE" property="lastModifyPwdDate" />
+        <result column="ERROR_TIMES" property="errorTimes" />
+        <result column="LAST_MOD_LOGIN_NAME_TIME" property="lastModLoginNameTime" />
+        <result column="LAST_LOGIN_DEVICE_BROWSER" property="lastLoginDeviceBrowser" />
+        <result column="LAST_LOGIN_OS" property="lastLoginOs" />
+        <result column="LOCK_TIME" property="lockTime" />
+        <result column="CLIENT_MAC" property="clientMac" />
+        <result column="LAST_LOGIN_CHANNELS" property="lastLoginChannels" />
+        <result column="LAST_LOGIN_WAY" property="lastLoginWay" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        USERID, SESSION_ID, LAST_LOGIN_TIME, CLIENT_IP, LAST_MODIFY_PWD_DATE, ERROR_TIMES, LAST_MOD_LOGIN_NAME_TIME, LAST_LOGIN_DEVICE_BROWSER, LAST_LOGIN_OS, LOCK_TIME, CLIENT_MAC, LAST_LOGIN_CHANNELS, LAST_LOGIN_WAY
+    </sql>
+    <select id="Pages" resultMap="BaseResultMap">
+        select
+
+        <include refid="Base_Column_List" />
+        from ryn_partner_login_info
+    </select>
+    <select id="pageList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ryn_partner_login_info
+    </select>
+</mapper>

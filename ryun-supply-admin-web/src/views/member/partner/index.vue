@@ -2,35 +2,35 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input style="width: 200px;" v-model="search.username" placeholder="请输入用户名查询"></el-input>
+        <el-input style="width: 200px;" v-model="search.partnerId" placeholder="请输入合伙人编号查询"></el-input>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br/>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label="编号" width="95">
+        <el-table-column align="center" label="合伙人编号" width="95">
           <template slot-scope="scope">
-            {{ scope.row.id }}
+            {{ scope.row.partnerId }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="用户名" width="150">
+        <el-table-column align="center" label="姓名" width="150">
           <template slot-scope="scope">
-            {{ scope.row.username }}
+            {{ scope.row.partnerName }}
           </template>
         </el-table-column>
-        <el-table-column label="密码" width="250" align="center">
+        <el-table-column label="注册手机" width="250" align="center">
           <template slot-scope="scope">
-            <span>{{ scope.row.password }}</span>
+            <span>{{ scope.row.registerMobile }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="手机号" width="150" align="center">
+        <el-table-column label="详细地址" width="150" align="center">
           <template slot-scope="scope">
-            {{ scope.row.phone }}
+            {{ scope.row.companyAddress }}
           </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="头像" width="130" align="center">
+        <el-table-column class-name="status-col" label="证件号码" width="130" align="center">
           <template slot-scope="scope">
-            <img :src="scope.row.avatar" width="100" height="100"/>
+            {{ scope.row.idcartNumber }}
           </template>
         </el-table-column>
         <el-table-column align="center" prop="createTime" label="创建时间" width="200">
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import {getList, findById, del} from '@/api/user'
+    import {getList, findById, del} from '@/api/member/partner'
   import Pagination from '@/components/Pagination'
   import Save from './save'
   import {parseTime} from '@/utils/index'
@@ -94,7 +94,7 @@
       fetchData() {
         this.listLoading = true
         getList(this.listQuery, this.search).then(response => {
-          this.list = response.data.rows
+          this.list = response.data.records
           this.total = response.data.total
           this.listLoading = false
         })

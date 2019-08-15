@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  *  Mapper 接口
  * </p>
  *
- * @author ryun
+ * @author antu
  * @since 2019-08-14
  */
 @Mapper

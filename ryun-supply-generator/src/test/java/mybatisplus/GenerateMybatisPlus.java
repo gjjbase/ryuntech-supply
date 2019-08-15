@@ -42,9 +42,11 @@ public class GenerateMybatisPlus {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir")+"/ryun-supply-generator";
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("ryun");
+        gc.setBaseResultMap(true);
+        gc.setBaseColumnList(true);
+        gc.setAuthor("antu");
         gc.setOpen(false);
-        // gc.setSwagger2(true); 实体属性 Swagger2 注解
+         gc.setSwagger2(true); //实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);
 
         // 数据源配置

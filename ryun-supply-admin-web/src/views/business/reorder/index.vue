@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input style="width: 200px;" v-model="search.username" placeholder="请输入用户名查询"></el-input>
+        <el-input style="width: 200px;" v-model="search.orderId" placeholder="请输入订单号查询"></el-input>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -62,8 +62,10 @@
         </el-table-column>
         <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" @click="handleEdit(scope.row.orderId)" size="mini" icon="el-icon-edit">编辑</el-button>
-            <el-button type="danger" @click="handleDel(scope.row.orderId)" icon="el-icon-delete" size="mini">删除</el-button>
+            <el-button type="primary"  size="mini" icon="el-icon-edit">查看详情</el-button>
+<!--                       @click="handleEdit(scope.row.orderId)" -->
+
+<!--            <el-button type="danger" @click="handleDel(scope.row.orderId)" icon="el-icon-delete" size="mini">删除</el-button>-->
           </template>
         </el-table-column>
       </el-table>

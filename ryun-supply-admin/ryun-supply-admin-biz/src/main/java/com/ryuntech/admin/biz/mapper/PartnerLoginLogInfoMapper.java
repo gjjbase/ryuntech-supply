@@ -1,6 +1,6 @@
 package com.ryuntech.admin.biz.mapper;
 
-import com.ryuntech.admin.api.entity.Order;
+import com.ryuntech.admin.api.entity.PartnerLoginLogInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author antu
- * @since 2019-08-14
+ * @since 2019-08-15
  */
 @Mapper
 @Repository
-public interface OrderMapper extends IBaseMapper<Order> {
+public interface PartnerLoginLogInfoMapper extends IBaseMapper<PartnerLoginLogInfo> {
 
 }

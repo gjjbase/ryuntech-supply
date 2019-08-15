@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryuntech.admin.biz.mapper.PartnerMapper">
+    <resultMap id="BaseResultMap" type="com.ryuntech.admin.api.entity.Partner">
+        <result column="PARTNERID" jdbcType="VARCHAR" property="partnerid" />
+        <result column="PARTNER_NAME" jdbcType="VARCHAR" property="partnerName" />
+        <result column="COMPANY_ADDRESS" jdbcType="VARCHAR" property="companyAddress" />
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName" />
+        <result column="CONTACT_PERSON" jdbcType="VARCHAR" property="contactPerson" />
+        <result column="CONTACT_TYPE" jdbcType="VARCHAR" property="contactType" />
+        <result column="SEX" jdbcType="VARCHAR" property="sex" />
+        <result column="IDCART_TYPE" jdbcType="VARCHAR" property="idcartType" />
+        <result column="IDCART_NUMBER" jdbcType="VARCHAR" property="idcartNumber" />
+        <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+        <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    PARTNERID, PARTNER_NAME, COMPANY_ADDRESS, COMPANY_NAME, CONTACT_PERSON, CONTACT_TYPE,
+    SEX, IDCART_TYPE, IDCART_NUMBER, ADDRESS, EMAIL
+  </sql>
+
+    <select id="Pages" resultMap="BaseResultMap">
+        select
+
+        <include refid="Base_Column_List" />
+        from ryn_partner
+    </select>
+    <select id="pageList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ryn_partner
+    </select>
+</mapper>

@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input style="width: 200px;" v-model="search.username" placeholder="请输入名称查询"></el-input>
+        <el-input style="width: 200px;" v-model="search.realName" placeholder="请输入名称查询"></el-input>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
