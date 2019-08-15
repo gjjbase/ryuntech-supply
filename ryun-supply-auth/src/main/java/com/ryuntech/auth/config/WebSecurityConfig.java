@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /**
  * Security 安全配置
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-24
  */
 @Configuration
@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/info/*", "/actuator/**", "/token/logout")
+                .antMatchers("/user/info/*","/sms/*", "/actuator/**", "/token/logout")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -68,6 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 暴露`/oauth/check_token`端点
-        web.ignoring().mvcMatchers("/oauth/check_token", "/user/info/*");
+        web.ignoring().mvcMatchers("/oauth/check_token", "/user/info/*","/sms/*");
     }
 }

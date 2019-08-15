@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ryuntech.admin.api.entity.SysUser;
 
 /**
- * @author tycoding
+ * @author antu
  * @date 2019-05-22
  */
 

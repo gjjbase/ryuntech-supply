@@ -6,7 +6,7 @@ import com.ryuntech.admin.api.entity.SysUser;
 import java.util.List;
 
 /**
- * @author tycoding
+ * @author antu
  * @date 2019-05-22
  */
 public interface SysUserService  extends IService<SysUser> {

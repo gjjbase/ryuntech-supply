@@ -1,6 +1,6 @@
-package com.ryuntech.admin.api.entity;
+package com.ryuntech.generator.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+    import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 /**
  * 用户远程调用接口
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-22
  */
 @FeignClient(value = "ryun-supply-admin-biz", fallback = RemoteUserServiceFallbackImpl.class)

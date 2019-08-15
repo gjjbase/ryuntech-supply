@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Swagger2配置
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-27
  */
 @Configuration

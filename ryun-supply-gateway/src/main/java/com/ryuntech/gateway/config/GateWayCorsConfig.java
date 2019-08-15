@@ -10,7 +10,7 @@ import org.springframework.web.filter.CorsFilter;
 /**
  * 处理跨域请求
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-23
  */
 @Component

@@ -14,7 +14,7 @@ import java.lang.annotation.*;
  *      @Retention(RetentionPolicy.RUNTIME) 生命周期最大的注解类型，不仅被保存在Class中，在JVM中加载Class之后仍让存在
  * </p>
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-26
  */
 @Documented

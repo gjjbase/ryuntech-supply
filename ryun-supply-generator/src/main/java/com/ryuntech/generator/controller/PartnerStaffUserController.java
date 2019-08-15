@@ -1,7 +1,8 @@
-package com.ryuntech.admin.biz.controller;
+package com.ryuntech.generator.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019-08-15
  */
 @RestController
-@RequestMapping("/partnerStaffUser")
+@RequestMapping("/partner-staff-user")
 public class PartnerStaffUserController {
 
 }

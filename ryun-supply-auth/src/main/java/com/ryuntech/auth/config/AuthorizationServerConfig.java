@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 /**
  * 认证服务器
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-24
  */
 @Configuration

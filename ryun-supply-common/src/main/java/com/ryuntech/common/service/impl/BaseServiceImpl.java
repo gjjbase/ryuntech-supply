@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 封装通用Service接口实现类
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-22
  */
 @Service

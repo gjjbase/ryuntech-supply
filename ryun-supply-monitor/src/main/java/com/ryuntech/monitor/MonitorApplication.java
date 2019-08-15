@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 /**
  * 分布式监控中心 SpringBootAdmin 服务端
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-21
  */
 @EnableAdminServer

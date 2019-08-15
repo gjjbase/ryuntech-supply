@@ -22,7 +22,7 @@
         <module>ryun-supply-zipkin</module>
         <module>ryun-supply-generator</module>
         <module>ryun-supply-base</module>
-        <module>ryun-supply-sdk</module>
+        <module>ryuntech-su-sdk</module>
     </modules>
 
     <properties>

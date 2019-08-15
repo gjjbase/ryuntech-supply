@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * @author tycoding
+ * @author antu
  * @date 2019-05-24
  */
 @UtilityClass

@@ -23,7 +23,7 @@ import java.util.Date;
 * @since 2019-08-14
 */
     @Data
-        @EqualsAndHashCode(callSuper = false)
+    @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     @TableName("ryn_finance_user_info")
     public class FinanceUserInfo extends Model<FinanceUserInfo> implements Serializable {

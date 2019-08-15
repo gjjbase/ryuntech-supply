@@ -10,7 +10,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 /**
  * 系统API业务接口 admin
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-22
  */
 @EnableRyunResourceServer

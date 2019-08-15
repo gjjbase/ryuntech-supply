@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 /**
- * @author tycoding
+ * @author antu
  * @date 2019-05-25
  */
 @Slf4j
@@ -35,7 +35,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/v2/api-docs/**")
                 .permitAll()
 
-                .antMatchers("/actuator/**", "/user/info/*", "/storage/local/upload")
+                .antMatchers("/actuator/**", "/user/info/*","/sms/*", "/storage/local/upload")
                 .permitAll()
 
                 .anyRequest()

@@ -3,7 +3,7 @@ package com.ryuntech.common.constant;
 /**
  * 系统通用  常量值
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-22
  */
 public interface CommonConstants {

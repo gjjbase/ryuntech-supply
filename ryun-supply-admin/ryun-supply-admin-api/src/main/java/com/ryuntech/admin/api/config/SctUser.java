@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * 用于封装UserDetails的User扩展信息
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-24
  */
 public class SctUser extends User {

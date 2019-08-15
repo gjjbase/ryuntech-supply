@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 封装通用Service接口
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-22
  */
 public interface BaseService<T> {

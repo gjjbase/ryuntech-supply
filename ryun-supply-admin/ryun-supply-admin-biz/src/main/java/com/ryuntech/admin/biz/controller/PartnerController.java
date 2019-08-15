@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- *  前端控制器
+ *  合伙人信息前端控制器
  * </p>
  *
  * @author antu
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/partner")
 @Api(value = "PartnerController", tags = {"合伙人管理接口"})
-public class PartnerController {
+public class PartnerController extends BaseController {
     @Autowired
     private IPartnerService iPartnerService;
 
@@ -38,7 +38,7 @@ public class PartnerController {
      */
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询用户列表信息")
-    @ApiImplicitParam(name = "order", value = "查询条件", required = true, dataType = "Order", paramType = "body")
+    @ApiImplicitParam(name = "partner", value = "查询条件", required = true, dataType = "Partner", paramType = "body")
     public Result<IPage<Partner>> list(Partner partner, QueryPage queryPage) {
         Page<Partner> page = new Page<>(queryPage.getPageCode(), queryPage.getPageSize());
         return iPartnerService.pageList(page);
@@ -59,5 +59,36 @@ public class PartnerController {
         } else {
             return new Result<>(iPartnerService.getById(partnerId));
         }
+    }
+/*
+    *//**
+     * 添加用户信息
+     *
+     * @param partner
+     * @return
+     *//*
+    @PostMapping
+    @ApiOperation(value = "添加用户")
+    @ApiImplicitParam(name = "partner", value = "用户实体信息", required = true, dataType = "Partner", paramType = "body")
+    public Result add(@RequestBody Partner partner) {
+        partner.setPartnerId(generateId()+"");
+        iPartnerService.save(partner);
+        return new Result();
+    }*/
+
+
+    /**
+     * 注册
+     *
+     * @param partner
+     * @return
+     */
+    @PostMapping
+    @ApiOperation(value = "用户在注册")
+    @ApiImplicitParam(name = "partner", value = "用户实体信息", required = true, dataType = "Partner", paramType = "body")
+    public Result register(@RequestBody Partner partner) {
+        partner.setPartnerId(generateId()+"");
+        iPartnerService.save(partner);
+        return new Result();
     }
 }

@@ -8,7 +8,7 @@ import zipkin.server.internal.EnableZipkinServer;
 /**
  * 链路追踪 ZipKin
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-21
  */
 @EnableZipkinServer

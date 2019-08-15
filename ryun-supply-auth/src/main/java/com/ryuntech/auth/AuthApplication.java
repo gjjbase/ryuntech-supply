@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * 身份校验 auth
  *
- * @author tycoding
+ * @author antu
  * @date 2019-05-21
  */
 @EnableFeignClients("com.ryuntech.admin.api.feign")
