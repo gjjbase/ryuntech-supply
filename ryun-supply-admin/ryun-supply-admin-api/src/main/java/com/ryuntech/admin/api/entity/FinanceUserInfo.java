@@ -192,7 +192,7 @@ import java.util.Date;
             * 公司名称
             */
         @TableField("BUSSINESS_REGISTER")
-    private LocalDate bussinessRegister;
+    private Date bussinessRegister;
 
             /**
             * 营业执照注册时间

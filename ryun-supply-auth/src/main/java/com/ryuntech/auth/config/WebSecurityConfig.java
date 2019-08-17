@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/info/*","/sms/*", "/actuator/**", "/token/logout")
+                .antMatchers("/user/info/*","/sms/*","/financeUserInfo/addOrder/*", "/actuator/**", "/token/logout")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -68,6 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 暴露`/oauth/check_token`端点
-        web.ignoring().mvcMatchers("/oauth/check_token", "/user/info/*","/sms/*");
+        web.ignoring().mvcMatchers("/oauth/check_token", "/user/info/*","/sms/*","/financeUserInfo/addOrder/*");
     }
 }

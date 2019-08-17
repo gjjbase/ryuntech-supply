@@ -13,3 +13,10 @@ export function findById(userId) {
     method: 'get'
   })
 }
+export function save(data) {
+  return request({
+    url: '/admin/financeUserInfo/addOrder',
+    method: 'post',
+    data
+  })
+}

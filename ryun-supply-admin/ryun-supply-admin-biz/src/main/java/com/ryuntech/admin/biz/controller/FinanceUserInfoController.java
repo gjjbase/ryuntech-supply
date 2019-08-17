@@ -4,6 +4,7 @@ package com.ryuntech.admin.biz.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ryuntech.admin.api.entity.FinanceUserInfo;
+import com.ryuntech.admin.api.vo.FinanceOrder;
 import com.ryuntech.admin.biz.service.IFinanceUserInfoService;
 import com.ryuntech.common.controller.BaseController;
 import com.ryuntech.common.utils.QueryPage;
@@ -76,5 +77,19 @@ public class FinanceUserInfoController extends BaseController {
         iFinanceUserInfoService.saveOrUpdate(financeUserInfo);
         return new Result();
     }
+    /**
+     * 添加融资用户信息 ，并更新订单数据
+     *
+     * @param financeOrder
+     * @return
+     */
+    @PostMapping
+    @ApiOperation(value = "添加融资用户信息")
+    @ApiImplicitParam(name = "financeOrder", value = "添加融资用户信息", required = true, dataType = "FinanceOrder", paramType = "body")
+    public Result addOrder(@RequestBody FinanceOrder financeOrder) {
+        iFinanceUserInfoService.addFinacneOrder(financeOrder);
+        return new Result();
+    }
+
 
 }

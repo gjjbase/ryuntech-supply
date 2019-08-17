@@ -49,74 +49,74 @@
 </template>
 
 <script>
-    import {parseTime} from '@/utils/index'
+  import {parseTime} from '@/utils/index'
 
-    export default {
-        name: 'Login',
-        data() {
-            return {
-                date: parseTime(new Date().getTime(), ''),
-                loginForm: {
-                    username: 'tycoding',
-                    password: 'tycoding'
-                },
-                loginRules: {
-                    username: [{required: true, trigger: 'blur'}],
-                    password: [{required: true, trigger: 'blur'}]
-                },
-                loading: false,
-                passwordType: 'password',
-                redirect: undefined
-            }
+  export default {
+    name: 'Login',
+    data() {
+      return {
+        date: parseTime(new Date().getTime(), ''),
+        loginForm: {
+          username: 'tycoding',
+          password: 'tycoding'
         },
-        watch: {
-            $route: {
-                handler: function (route) {
-                    this.redirect = route.query && route.query.redirect
-                },
-                immediate: true
-            }
+        loginRules: {
+          username: [{required: true, trigger: 'blur'}],
+          password: [{required: true, trigger: 'blur'}]
         },
-        beforeDestroy() {
-            if (this.timer) {
-                clearInterval(this.timer);
-            }
+        loading: false,
+        passwordType: 'password',
+        redirect: undefined
+      }
+    },
+    watch: {
+      $route: {
+        handler: function (route) {
+          this.redirect = route.query && route.query.redirect
         },
-        mounted() {
-            let _this = this;
-            this.timer = setInterval(() => {
-                _this.date = parseTime(new Date().getTime(), '');
-            }, 1000)
-        },
-        methods: {
-            showPwd() {
-                if (this.passwordType === 'password') {
-                    this.passwordType = ''
-                } else {
-                    this.passwordType = 'password'
-                }
-                this.$nextTick(() => {
-                    this.$refs.password.focus()
-                })
-            },
-            handleLogin() {
-                this.$refs.loginForm.validate(valid => {
-                    if (valid) {
-                        this.loading = true
-                        this.$store.dispatch('user/login', this.loginForm).then(() => {
-                            this.$router.push({path: this.redirect || '/'})
-                            this.loading = false
-                        }).catch(() => {
-                            this.loading = false
-                        })
-                    } else {
-                        console.log('error submit!!')
-                        return false
-                    }
-                })
-            },
+        immediate: true
+      }
+    },
+    beforeDestroy() {
+      if (this.timer) {
+        clearInterval(this.timer);
+      }
+    },
+    mounted() {
+      let _this = this;
+      this.timer = setInterval(() => {
+        _this.date = parseTime(new Date().getTime(), '');
+      }, 1000)
+    },
+    methods: {
+      showPwd() {
+        if (this.passwordType === 'password') {
+          this.passwordType = ''
+        } else {
+          this.passwordType = 'password'
         }
+        this.$nextTick(() => {
+          this.$refs.password.focus()
+        })
+      },
+      handleLogin() {
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+            this.loading = true
+            this.$store.dispatch('user/login', this.loginForm).then(() => {
+              this.$router.push({path: this.redirect || '/'})
+              this.loading = false
+            }).catch(() => {
+              this.loading = false
+            })
+          } else {
+            console.log('error submit!!')
+            return false
+          }
+        })
+      },
     }
+  }
 </script>
 <style lang="scss">
   .el-input__inner {

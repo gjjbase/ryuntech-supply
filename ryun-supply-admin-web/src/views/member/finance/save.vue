@@ -35,10 +35,10 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
-        Cancel
+        退出
       </el-button>
       <el-button type="primary" @click="onSubmit('form')">
-        Confirm
+        提交
       </el-button>
     </div>
   </el-dialog>

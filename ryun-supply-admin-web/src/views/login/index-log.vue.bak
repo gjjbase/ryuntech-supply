@@ -1,0 +1,208 @@
+<template>
+  <div class="app-container">
+      <el-form ref="form" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
+
+        <el-form-item label="姓名" prop="realname" label-width="120px">
+          <el-input maxlength="20" v-model="form.realname" placeholder="姓名"></el-input>
+        </el-form-item>
+        <el-form-item label="性别" prop="sex" label-width="120px">
+          <el-select v-model="form.sex" placeholder="请选择性别">
+            <el-option label="请选择性别" value="0"></el-option>
+            <el-option label="1W-3W" value="1"></el-option>
+            <el-option label="3W-5W" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="生日" prop="memberBirthday" label-width="120px">
+          <el-date-picker v-model="form.memberBirthday" type="datetime" placeholder="选择日期时间"
+                          value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="城市" prop="city" label-width="120px">
+          <el-select v-model="form.city" placeholder="请选择城市">
+            <el-option label="请选择城市" value="0"></el-option>
+            <el-option label="深圳" value="1"></el-option>
+            <el-option label="广州" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="贷款额度"  prop="orderPayAmount" label-width="120px">
+          <el-select v-model="form.orderPayAmount" placeholder="请选择贷款额度" >
+            <el-option label="请输入贷款额度" value="0"></el-option>
+            <el-option label="10W-30W" value="1"></el-option>
+            <el-option label="30W-50W" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+        <div   v-if="form.orderPayAmount != 0"   >
+          <el-link type="primary" disabled style="color:#409EFF;padding-left: 92px;">请继续完成信息，以提高贷款成功率</el-link>
+          <el-form-item label="身份性质" prop="occupation" label-width="120px">
+            <el-radio-group v-model="form.occupation">
+              <el-radio label="法人" value="0"></el-radio>
+              <el-radio label="股东" value="1"></el-radio>
+              <el-radio label="其他" value="2"></el-radio>
+            </el-radio-group>
+          </el-form-item>
+
+          <el-form-item label="注册日期" prop="bussinessRegister" label-width="120px">
+            <el-date-picker v-model="form.bussinessRegister" type="datetime" placeholder="选择日期时间"
+                            value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="年纳税金额" prop="payTaxes" label-width="120px">
+            <el-select v-model="form.payTaxes" placeholder="请选择年纳税额">
+              <el-option label="请输入年纳税额" value="0"></el-option>
+              <el-option label="1W-3W" value="1"></el-option>
+              <el-option label="3W-5W" value="2"></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="年开发票金额" prop="annualInvoice" label-width="120px">
+            <el-select v-model="form.annualInvoice" placeholder="请选择年开发票金额">
+              <el-option label="请输入年开发票金额" value="0"></el-option>
+              <el-option label="10W-30W" value="1"></el-option>
+              <el-option label="30W-50W" value="2"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="房产信息" prop="houseType" label-width="120px"   >
+            <el-radio-group v-model="form.houseType" >
+              <el-radio label="按揭房" value="0"></el-radio>
+              <el-radio label="全款房" value="1"></el-radio>
+            </el-radio-group>
+            <div v-if="form.houseType==1" >
+            <el-form-item label="" prop="houseAddressType"  >
+              <el-radio-group v-model="form.houseAddressType">
+                <el-radio label="本地房产" value="0"></el-radio>
+                <el-radio label="外地房产" value="1"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            </div>
+          </el-form-item>
+
+
+          <el-form-item label="车产信息" prop="carType" label-width="120px" >
+            <el-radio-group v-model="form.carType"  >
+              <el-radio label="按揭车" value="0"></el-radio>
+              <el-radio label="全款车" value="1"></el-radio>
+            </el-radio-group>
+            <div  v-if="form.carType==1" >
+              <el-form-item label="" prop="carAddressType" >
+                <el-radio-group v-model="form.carAddressType">
+                  <el-radio label="本地车" value="0"></el-radio>
+                  <el-radio label="外地车" value="1"></el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </div>
+          </el-form-item>
+        </div>
+      </el-form>
+  <div slot="footer">
+        <el-button type="primary" @click="onSubmit('form')">
+          提交
+        </el-button>
+  </div>
+  </div>
+</template>
+
+<script>
+    import {save} from '@/api/member/finance'
+    import {parseTime} from '@/utils/index'
+
+    export default {
+        //父组件向子组件传值，通过props获取。
+        //一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
+        //`props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+        props: ['sonData'],
+        data() {
+            return {
+                form: {
+                    realname: '',
+                    sex: '',
+                    memberBirthday: '',
+                    city: '',
+                    orderPayAmount: '',
+                    occupation: '',
+                    payTaxes: '',
+                    annualInvoice: '',
+                    houseType: '',
+                    houseAddressType: '',
+                    carType: '',
+                    carAddressType: ''
+                },
+                rules: {
+                    realname: [{required: true, trigger: 'blur', message: '真实姓名'}],
+                    sex: [{required: true, trigger: 'blur', message: '请选择性别'}],
+                    memberBirthday: [{required: true, trigger: 'blur', message: '请输入生日'}],
+                    city: [{required: true, trigger: 'blur', message: '请选择城市'}],
+                    orderPayAmount: [{required: true, trigger: 'blur', message: '请选择贷款额度'}]
+                },
+            }
+        },
+        watch: {
+            'sonData': function (newVal, oldVal) {
+
+            }
+        },
+        methods: {
+            goBack() {
+                console.log('go back');
+            },
+            showHouse(){
+               /* if (this.form.houseType==1){
+                    this.$refs.houseAddressTypeItem.style.display="inline";
+                }else {
+                    this.$refs.houseAddressTypeItem.style.display="none";
+                }*/
+
+            },
+            showCar(){
+                /*this.$refs.carAddressTypeItem.style.display="inline";*/
+            },
+            _notify(message, type) {
+                this.$message({
+                    message: message,
+                    type: type
+                })
+            },
+            clearForm() {
+                this.form.id = null
+                this.form.realname = null
+                this.form.sex = null
+                this.form.memberBirthday = null
+                this.form.city = null
+                this.orderPayAmount = null
+                this.occupation = null
+                this.payTaxes = null
+                this.annualInvoice = null
+                this.houseType = null
+                this.houseAddressType = null
+                this.carType = null
+                this.carAddressType = null
+                this.form.createTime = parseTime(new Date(), '')
+            },
+            handleClose() {
+                this.clearForm();
+            },
+            onSubmit(form) {
+                this.$refs[form].validate((valid) => {
+                    if (valid) {
+                        save(this.form).then(response => {
+                            if (response.code === 200) {
+                                this._notify(response.msg, 'success');
+                                this.clearForm() ;
+                            } else {
+                                this._notify(response.msg, 'error')
+                            }
+                        })
+                    } else {
+                        this.$message('error submit!!')
+                        return false;
+                    }
+                });
+            },
+        }
+    }
+</script>
+
+<style lang="css">
+  .line {
+    text-align: center;
+  }
+</style>
+
+

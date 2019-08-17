@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public    class BaseServiceImpl <M extends IBaseMapper<T>, T> extends ServiceImpl<M, T>  implements IBaseService<T> {
 //    public class PartnerStaffUserServiceImpl extends BaseServiceImpl<PartnerStaffUserMapper, PartnerStaffUser> implements IPartnerStaffUserService {
 
-     @Autowired
+    @Autowired
     M m;
     @Override
     public Result<IPage<T>> pages(Page<T> page) {
