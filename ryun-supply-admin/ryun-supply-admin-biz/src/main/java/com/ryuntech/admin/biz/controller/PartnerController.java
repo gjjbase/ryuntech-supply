@@ -83,7 +83,7 @@ public class PartnerController extends BaseController {
      * @param partner
      * @return
      */
-    @PostMapping
+    @PostMapping("/register")
     @ApiOperation(value = "用户在注册")
     @ApiImplicitParam(name = "partner", value = "用户实体信息", required = true, dataType = "Partner", paramType = "body")
     public Result register(@RequestBody Partner partner) {

@@ -53,14 +53,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")
-
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/info/*","/sms/*","/financeUserInfo/addOrder/*", "/actuator/**", "/token/logout")
+                .antMatchers("/user/info/*", "/sms/*", "/financeUserInfo/addOrder", "/partner/register", "/actuator/**", "/token/logout")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
-
                 .and()
                 .csrf().disable();
     }
@@ -68,6 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 暴露`/oauth/check_token`端点
-        web.ignoring().mvcMatchers("/oauth/check_token", "/user/info/*","/sms/*","/financeUserInfo/addOrder/*");
+        web.ignoring().mvcMatchers("/oauth/check_token", "/user/info/*","/sms/*","/financeUserInfo/addOrder","/partner/register");
     }
 }

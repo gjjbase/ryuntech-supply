@@ -83,7 +83,7 @@ public class FinanceUserInfoController extends BaseController {
      * @param financeOrder
      * @return
      */
-    @PostMapping
+    @PostMapping("/addOrder")
     @ApiOperation(value = "添加融资用户信息")
     @ApiImplicitParam(name = "financeOrder", value = "添加融资用户信息", required = true, dataType = "FinanceOrder", paramType = "body")
     public Result addOrder(@RequestBody FinanceOrder financeOrder) {
@@ -91,5 +91,18 @@ public class FinanceUserInfoController extends BaseController {
         return new Result();
     }
 
+//    /**
+//     * 添加用户信息
+//     *
+//     * @param user
+//     * @return
+//     */
+//    @PostMapping
+//    @ApiOperation(value = "添加用户")
+//    @ApiImplicitParam(name = "user", value = "用户实体信息", required = true, dataType = "SysUser", paramType = "body")
+//    public Result add(@RequestBody SysUser user) {
+//        sysUserService.create(user);
+//        return new Result();
+//    }
 
 }

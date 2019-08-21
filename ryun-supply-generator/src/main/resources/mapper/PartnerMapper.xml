@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ryuntech.admin.biz.mapper.PartnerMapper">
+<mapper namespace="com.ryuntech.generator.mapper.PartnerMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ryuntech.admin.api.entity.Partner">
-        <id column="PARTNERID" property="partnerId" />
+    <resultMap id="BaseResultMap" type="com.ryuntech.generator.entity.Partner">
+        <id column="PARTNERID" property="partnerid" />
         <result column="PARTNER_NAME" property="partnerName" />
         <result column="COMPANY_ADDRESS" property="companyAddress" />
         <result column="COMPANY_NAME" property="companyName" />
@@ -33,16 +33,4 @@
         PARTNERID, PARTNER_NAME, COMPANY_ADDRESS, COMPANY_NAME, CONTACT_PERSON, CONTACT_TYPE, SEX, IDCART_TYPE, IDCART_NUMBER, ADDRESS, EMAIL, CREATE_TIME, STATUS, REGISTER_MOBILE, MERCHANT_PAYMENT_PATTERN, ACCNO, ACCNO_BANK, PROVINCE_NO, CITY_NO, MERCHANT_TYPE, MEMBER_ORIGIN, LEGAL_PERSON
     </sql>
 
-    <select id="Pages" resultMap="BaseResultMap">
-        select
-
-        <include refid="Base_Column_List" />
-        from ryn_partner
-    </select>
-    <select id="pageList" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from ryn_partner
-    </select>
 </mapper>
-

@@ -36,13 +36,15 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
     public void addFinacneOrder(FinanceOrder financeOrder) {
         //插入融资客户信息
         String financeId = generateId()+"";
-        FinanceUserInfo financeUserInfo = new FinanceUserInfo();
 
         //如果融资客户存在，则不插入
-        financeUserInfo = this.financeUserInfoMapper.selectOne(new QueryWrapper<FinanceUserInfo>().eq("mobile", ""));
+        FinanceUserInfo financeUserInfo = this.financeUserInfoMapper.selectOne(new QueryWrapper<FinanceUserInfo>().eq("mobile", ""));
         if (financeUserInfo==null){
+            financeUserInfo = new FinanceUserInfo();
             //用户不存在，不能插入，插入订单数据
             financeUserInfo.setUserId(financeId);
+            financeUserInfo.setRealName(financeOrder.getRealname());
+            financeUserInfo.setCreateTime(new Date());
             financeUserInfo.setSex(financeOrder.getSex());
             financeUserInfo.setMemberBirthday(financeOrder.getMemberBirthday());
             financeUserInfo.setCity(financeOrder.getCity());
@@ -76,6 +78,8 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
         order.setOrderPayAmount(Float.parseFloat(orderPayAmount));
         order.setOrderTime(new Date());
         order.setModifyTime(new Date());
+//        推荐码
+        order.setOrderMemo(financeOrder.getOrderMemo());
         //融资客户编号
         order.setMemberId(financeUserInfo.getUserId());
         //订单状态

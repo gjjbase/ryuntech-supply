@@ -126,6 +126,12 @@ export const constantRoutes = [
         name: '合伙人会员管理',
         component: () => import('@/views/member/partner/index'),
         meta: { title: '合伙人会员管理', icon: 'documentation' }
+      },
+      {
+        path: 'outfiance',
+        name: '融资申请',
+        component: () => import('@/views/outfiance/index'),
+        meta: { title: '融资申请', icon: 'documentation' }
       }
     ]
   },

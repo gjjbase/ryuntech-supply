@@ -1,4 +1,4 @@
-package com.ryuntech.admin.api.entity;
+package com.ryuntech.generator.entity;
 
     import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -30,7 +30,7 @@ import java.time.LocalDateTime;
             * 主键，合伙人ID
             */
             @TableId("PARTNERID")
-    private String partnerId;
+    private String partnerid;
 
             /**
             * 合伙人名称
@@ -157,9 +157,6 @@ import java.time.LocalDateTime;
             */
         @TableField("LEGAL_PERSON")
     private String legalPerson;
-
-        @TableField(exist = false)
-        private String codeValue;
 
 
 }

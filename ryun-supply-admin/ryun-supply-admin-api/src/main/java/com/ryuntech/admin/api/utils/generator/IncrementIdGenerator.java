@@ -18,7 +18,7 @@ package com.ryuntech.admin.api.utils.generator;
  */
 public class IncrementIdGenerator implements IdGenerator {
 
-	private static Long serviceId = null;
+	private static Long serviceId = 0L;
 /*
 	private final RegisterDto registerDto;
 
@@ -67,7 +67,7 @@ public class IncrementIdGenerator implements IdGenerator {
 	 * @return the service id
 	 */
 	public static Long getServiceId() {
-		return serviceId;
+		return 0L;
 	}
 
 	/**
