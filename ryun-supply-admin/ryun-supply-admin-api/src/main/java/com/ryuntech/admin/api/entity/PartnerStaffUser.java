@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -20,7 +19,7 @@ import java.time.LocalDateTime;
         @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     @TableName("ryn_partner_staff_user")
-    public class PartnerStaffUser implements Serializable {
+    public class PartnerStaffUser extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

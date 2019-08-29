@@ -2,20 +2,22 @@ package com.ryuntech.admin.biz.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ryuntech.admin.api.entity.FinanceUserInfo;
 import com.ryuntech.admin.api.vo.FinanceOrder;
 import com.ryuntech.admin.biz.service.IFinanceUserInfoService;
-import com.ryuntech.common.controller.BaseController;
 import com.ryuntech.common.utils.QueryPage;
 import com.ryuntech.common.utils.Result;
+import com.ryuntech.common.utils.ValidateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import static com.ryuntech.common.constant.enums.CommonEnums.PARAM_ERROR;
 
 /**
  * <p>
@@ -32,6 +34,8 @@ import org.springframework.web.bind.annotation.*;
 public class FinanceUserInfoController extends BaseController {
     @Autowired
     private IFinanceUserInfoService iFinanceUserInfoService;
+    @Autowired
+    RedisTemplate redisTemplate;
 
     /**
      * 分页查询列表数据，条件查询
@@ -43,8 +47,7 @@ public class FinanceUserInfoController extends BaseController {
     @ApiOperation(value = "分页、条件查询用户列表信息")
     @ApiImplicitParam(name = "financeUserInfo", value = "查询条件", required = true, dataType = "SysUser", paramType = "body")
     public Result<IPage<FinanceUserInfo>> list(FinanceUserInfo financeUserInfo, QueryPage queryPage) {
-        Page<FinanceUserInfo> page = new Page<>(queryPage.getPageCode(), queryPage.getPageSize());
-        return iFinanceUserInfoService.pageList(page);
+        return iFinanceUserInfoService.pageList(financeUserInfo,queryPage);
     }
 
     /**
@@ -70,11 +73,26 @@ public class FinanceUserInfoController extends BaseController {
      * @param financeUserInfo
      * @return
      */
-    @PutMapping("/edit")
+    @PostMapping("/edit")
     @ApiOperation(value = "更新融资用户")
     @ApiImplicitParam(name = "financeUserInfo", value = "用户实体信息", required = true, dataType = "FinanceUserInfo", paramType = "body")
     public Result edit(@RequestBody FinanceUserInfo financeUserInfo) {
         iFinanceUserInfoService.saveOrUpdate(financeUserInfo);
+        return new Result();
+    }
+
+
+    /**
+     * 删除用户信息
+     *
+     * @param userId
+     * @return
+     */
+    @DeleteMapping("/{userId}")
+    @ApiOperation(value = "删除用户")
+    @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "String")
+    public Result delete(@PathVariable String userId) {
+        iFinanceUserInfoService.removeById(userId);
         return new Result();
     }
     /**
@@ -83,26 +101,27 @@ public class FinanceUserInfoController extends BaseController {
      * @param financeOrder
      * @return
      */
-    @PostMapping("/addOrder")
+    @PostMapping("/outAddOrder")
     @ApiOperation(value = "添加融资用户信息")
     @ApiImplicitParam(name = "financeOrder", value = "添加融资用户信息", required = true, dataType = "FinanceOrder", paramType = "body")
     public Result addOrder(@RequestBody FinanceOrder financeOrder) {
-        iFinanceUserInfoService.addFinacneOrder(financeOrder);
-        return new Result();
+        //验证手机
+        boolean mobileNumber = ValidateUtil.isMobileNumber(financeOrder.getMobile());
+        if (mobileNumber){
+            //核对验证码是否正确
+//            Object attribute = getSession().getAttribute(financeOrder.getMobile() + "ryun_code");
+            Object value =   redisTemplate.opsForValue().get(financeOrder.getMobile() + "ryun_code");
+            if (value!=null&&value.toString().equals(financeOrder.getCode())){
+                getSession().setAttribute(financeOrder.getMobile() + "ryun_code",null);
+                iFinanceUserInfoService.addFinacneOrder(financeOrder);
+            }else {
+                return  new Result( PARAM_ERROR);
+            }
+        }else {
+            return  new Result(PARAM_ERROR);
+        }
+        return new Result("申请成功，请等待审核");
     }
 
-//    /**
-//     * 添加用户信息
-//     *
-//     * @param user
-//     * @return
-//     */
-//    @PostMapping
-//    @ApiOperation(value = "添加用户")
-//    @ApiImplicitParam(name = "user", value = "用户实体信息", required = true, dataType = "SysUser", paramType = "body")
-//    public Result add(@RequestBody SysUser user) {
-//        sysUserService.create(user);
-//        return new Result();
-//    }
 
 }

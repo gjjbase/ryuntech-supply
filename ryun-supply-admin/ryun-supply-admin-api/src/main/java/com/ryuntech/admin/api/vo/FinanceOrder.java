@@ -53,4 +53,7 @@ public class FinanceOrder extends BaseModel {
     private String orderChenel;
     private String orderMemo;
 
+    private String mobile;
+    private String code;
+
 }

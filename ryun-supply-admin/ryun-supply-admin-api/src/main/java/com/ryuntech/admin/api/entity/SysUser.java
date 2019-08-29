@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -20,7 +19,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_user")
-public class SysUser implements Serializable {
+public class SysUser extends BaseModel {
 
     /**
      * 主键

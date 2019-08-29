@@ -5,26 +5,26 @@
         <el-input v-model="form.userId" :disabled="true"></el-input>
       </el-form-item>
       <el-form-item label="真实姓名" prop="realname" label-width="120px">
-        <el-input v-model="form.realname" placeholder="真实姓名"></el-input>
+        <el-input maxlength="60" v-model="form.realName" placeholder="真实姓名"></el-input>
       </el-form-item>
-      <el-form-item v-if="dialogTitle != 'Edit'" label="身份证" prop="idNumber" label-width="120px">
-        <el-input v-model="form.idNumber" placeholder="请输入身份证"></el-input>
+      <el-form-item  label="身份证" prop="idNumber" label-width="120px">
+        <el-input maxlength="50" v-model="form.idNumber" placeholder="请输入身份证"></el-input>
       </el-form-item>
-      <el-form-item label="手机号" prop="mobile" label-width="120px">
-        <el-input v-model="form.mobile" placeholder="请输入手机号"></el-input>
+      <el-form-item label="手机号" prop="mobile"  label-width="120px">
+        <el-input type="tel" maxlength="11" v-model="form.mobile" placeholder="请输入手机号"></el-input>
       </el-form-item>
-      <el-form-item label="公司名称" prop="companName" label-width="120px">
-        <el-input v-model="form.companName" placeholder="请输入公司名称"></el-input>
+      <el-form-item label="地址" prop="address" label-width="120px">
+        <el-input maxlength="60" v-model="form.address" placeholder="请输入地址"></el-input>
       </el-form-item>
-      <el-form-item label="公司名称" prop="companName" label-width="120px">
-        <el-input v-model="form.companName" placeholder="请输入公司名称"></el-input>
+      <el-form-item label="公司名称" prop="companyName" label-width="120px">
+        <el-input maxlength="60" v-model="form.companyName" placeholder="请输入公司名称"></el-input>
       </el-form-item>
 
       <el-form-item label="营业执照编号" prop="bussinessLicense" label-width="120px">
-        <el-input v-model="form.bussinessLicense" placeholder="请输入营业执照编号"></el-input>
+        <el-input maxlength="20" v-model="form.bussinessLicense" placeholder="请输入营业执照编号"></el-input>
       </el-form-item>
       <el-form-item label="职业" prop="occupation" label-width="120px">
-        <el-input v-model="form.occupation" placeholder="请输入职业"></el-input>
+        <el-input maxlength="20" v-model="form.occupation" placeholder="请输入职业"></el-input>
       </el-form-item>
 
       <el-form-item label="创建时间" prop="createTime" label-width="120px">
@@ -34,18 +34,14 @@
 
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="handleClose">
-        退出
-      </el-button>
-      <el-button type="primary" @click="onSubmit('form')">
-        提交
-      </el-button>
+      <el-button @click="handleClose">退出 </el-button>
+      <el-button type="primary" @click="onSubmit('form')">提交</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-  import {save, edit, upload} from '@/api/user'
+  import {save, edit} from '@/api/member/finance'
   import {parseTime} from '@/utils/index'
 
   export default {
@@ -53,38 +49,31 @@
     //一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
     //`props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
     props: ['sonData'],
-
     data() {
       return {
         dialogVisible: false,
-        dialogTitle: 'Add',
-        localUpload: upload,
-        imgURL: '',
+        dialogTitle: '增加',
         form: {
-          id: '',
-          username: '',
-          password: '',
-          phone: '',
-          avatar: '',
-          createTime: ''
+            realName: '',
+            idNumber: '',
+            mobile: '',
+            companName: '',
+            bussinessLicense: ''
         },
         rules: {
-          realname: [{required: true, trigger: 'blur', message: '真实姓名'}],
-          idNumber: [{required: true, trigger: 'blur', message: '身份证'}],
+          realName: [{required: true, trigger: 'blur', message: '请输入真实姓名'}],
+          idNumber: [{required: true, trigger: 'blur', message: '请输入身份证'}],
           mobile: [{required: true, trigger: 'blur', message: '请输入联系电话'}],
-          createTime: [{required: true, trigger: 'blur', message: '请选择创建时间'}],
           companName: [{required: true, trigger: 'blur', message: '请选择创建公司名称'}],
-          bussinessLicense: [{required: true, trigger: 'blur', message: '请选择创建营业执照编号'}],
-          occupation: [{required: true, trigger: 'blur', message: '请选择创建职业'}]
+          bussinessLicense: [{required: true, trigger: 'blur', message: '请选择创建营业执照编号'}]
         },
       }
     },
     watch: {
       'sonData': function (newVal, oldVal) {
         this.form = newVal
-        this.imgURL = this.form.avatar
         this.dialogVisible = true
-        if (newVal.id != null) {
+        if (newVal.userId != null) {
           this.dialogTitle = '修改'
         } else {
           this.dialogTitle = '新增'
@@ -99,13 +88,11 @@
         })
       },
       clearForm() {
-        this.form.id = null
-        this.form.username = null
-        this.form.password = null
-        this.form.phone = null
-        this.form.avatar = null
-        this.imgURL = null
-        this.form.createTime = parseTime(new Date(), '')
+        this.form.realName = null
+        this.form.idNumber = null
+        this.form.mobile = null
+        this.form.companName = null
+        this.form.bussinessLicense = null
       },
       handleClose() {
         this.clearForm();
@@ -114,9 +101,9 @@
       onSubmit(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            if (this.form.id === null) {
+            if (this.form.userId === null) {
               save(this.form).then(response => {
-                if (response.code === 200) {
+                if (response.tcode === 200) {
                   this._notify(response.msg, 'success')
                   this.clearForm()
                   this.$emit('sonStatus', true)
@@ -127,7 +114,7 @@
               })
             } else {
               edit(this.form).then(response => {
-                if (response.code === 200) {
+                if (response.tcode === 200) {
                   this._notify(response.msg, 'success')
                   this.clearForm()
                   this.$emit('sonStatus', true)
@@ -147,10 +134,5 @@
   }
 </script>
 
-<style lang="css">
-  .line {
-    text-align: center;
-  }
-</style>
 
 

@@ -26,23 +26,17 @@
         <result column="MERCHANT_TYPE" property="merchantType" />
         <result column="MEMBER_ORIGIN" property="memberOrigin" />
         <result column="LEGAL_PERSON" property="legalPerson" />
+        <result column="RECOMMEND" property="recommend" />
+        <result column="AVATAR" property="avatar" />
+        <result column="NICKNAME" property="nickname" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        PARTNERID, PARTNER_NAME, COMPANY_ADDRESS, COMPANY_NAME, CONTACT_PERSON, CONTACT_TYPE, SEX, IDCART_TYPE, IDCART_NUMBER, ADDRESS, EMAIL, CREATE_TIME, STATUS, REGISTER_MOBILE, MERCHANT_PAYMENT_PATTERN, ACCNO, ACCNO_BANK, PROVINCE_NO, CITY_NO, MERCHANT_TYPE, MEMBER_ORIGIN, LEGAL_PERSON
+        PARTNERID, PARTNER_NAME, COMPANY_ADDRESS, COMPANY_NAME, CONTACT_PERSON, CONTACT_TYPE, SEX, IDCART_TYPE,
+        IDCART_NUMBER, ADDRESS, EMAIL, CREATE_TIME, STATUS, REGISTER_MOBILE, MERCHANT_PAYMENT_PATTERN,
+        ACCNO, ACCNO_BANK, PROVINCE_NO, CITY_NO, MERCHANT_TYPE, MEMBER_ORIGIN, LEGAL_PERSON,RECOMMEND,AVATAR,NICKNAME
     </sql>
 
-    <select id="Pages" resultMap="BaseResultMap">
-        select
-
-        <include refid="Base_Column_List" />
-        from ryn_partner
-    </select>
-    <select id="pageList" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from ryn_partner
-    </select>
 </mapper>
 

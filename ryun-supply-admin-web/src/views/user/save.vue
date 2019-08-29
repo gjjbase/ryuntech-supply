@@ -110,7 +110,7 @@
           if (valid) {
             if (this.form.id === null) {
               save(this.form).then(response => {
-                if (response.code === 200) {
+                if (response.tcode === 200) {
                   this._notify(response.msg, 'success')
                   this.clearForm()
                   this.$emit('sonStatus', true)
@@ -121,7 +121,7 @@
               })
             } else {
               edit(this.form).then(response => {
-                if (response.code === 200) {
+                if (response.tcode === 200) {
                   this._notify(response.msg, 'success')
                   this.clearForm()
                   this.$emit('sonStatus', true)

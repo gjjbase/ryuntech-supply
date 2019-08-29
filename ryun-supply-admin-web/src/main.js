@@ -27,7 +27,9 @@ import '@/permission' // permission control
 
 // set ElementUI lang to EN
 import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
+Vue.use(ElementUI)
 Vue.use(ElementUI, { locale })
+
 
 axios.defaults.headers.post['Authorization'] = 'Basic Y2xpZW50OnNlY3JldA==';
 

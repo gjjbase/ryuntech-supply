@@ -8,26 +8,29 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
+import com.ryuntech.admin.api.vo.Sms;
 import com.ryuntech.admin.biz.service.MessageSendService;
 import org.springframework.stereotype.Service;
+
+import static com.ryuntech.common.constant.SmsConstants.*;
 
 @Service
 public class MessageSendServiceImpl implements MessageSendService {
 
     @Override
-    public void sendSms() {
-        DefaultProfile profile = DefaultProfile.getProfile("default", "<accessKeyId>", "<accessSecret>");
+    public void sendSms(Sms sms) {
+        DefaultProfile profile = DefaultProfile.getProfile(PROFILE, ACCESSKEYID, ACCESSSECRET);
         IAcsClient client = new DefaultAcsClient(profile);
 
         CommonRequest request = new CommonRequest();
         request.setMethod(MethodType.POST);
-        request.setDomain("dysmsapi.aliyuncs.com");
-        request.setVersion("2017-05-25");
-        request.setAction("SendSms");
-        request.putQueryParameter("RegionId", "default");
-        request.putQueryParameter("PhoneNumbers", "18518215883");
-        request.putQueryParameter("SignName", "睿云");
-        request.putQueryParameter("TemplateCode", "SMS_172120896");
+        request.setDomain(DOMAIN);
+        request.setVersion(VERSION);
+        request.setAction(ACTION);
+        request.putQueryParameter("RegionId", REGIONID);
+        request.putQueryParameter("PhoneNumbers", sms.getPhoneNumbers());
+        request.putQueryParameter("SignName", SIGNNAME);
+        request.putQueryParameter("TemplateCode", sms.getTemplateCode());
         try {
             CommonResponse response = client.getCommonResponse(request);
             System.out.println(response.getData());

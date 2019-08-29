@@ -70,7 +70,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          limit: 3,
+          limit: 10,
           importance: undefined,
           title: undefined,
           type: undefined,
@@ -124,7 +124,7 @@
           type: 'warning'
         }).then(() => {
           del(id).then(response => {
-            if (response.code === 200) {
+            if (response.tcode === 200) {
               this._notify(response.msg, 'success')
             } else {
               this._notify(response.msg, 'error')

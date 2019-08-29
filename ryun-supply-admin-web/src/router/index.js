@@ -36,13 +36,12 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
   {
-    path: '/404',
-    component: () => import('@/views/404'),
+    path: '/outfinance',
+    name: '融资申请',
+    component: () => import('@/views/outfinance/index'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
@@ -74,12 +73,6 @@ export const constantRoutes = [
     meta: { title: '权限管理', icon: 'setting' },
     children: [
       {
-        path: 'doc',
-        name: '接口文档',
-        component: () => import('@/views/doc/swagger'),
-        meta: { title: '接口文档', icon: 'documentation' }
-      },
-      {
         path: 'user',
         name: '操作员管理',
         component: () => import('@/views/user/index'),
@@ -99,6 +92,12 @@ export const constantRoutes = [
         name: '推荐订单管理',
         component: () => import('@/views/business/reorder/index'),
         meta: { title: '推荐订单管理', icon: 'documentation' }
+      },
+      {
+        path: 'finmanager',
+        name: '财务管理',
+        component: () => import('@/views/business/finmanager/index'),
+        meta: { title: '财务管理', icon: 'documentation' }
       },
       {
         path: 'operatelog',
@@ -126,12 +125,6 @@ export const constantRoutes = [
         name: '合伙人会员管理',
         component: () => import('@/views/member/partner/index'),
         meta: { title: '合伙人会员管理', icon: 'documentation' }
-      },
-      {
-        path: 'outfiance',
-        name: '融资申请',
-        component: () => import('@/views/outfiance/index'),
-        meta: { title: '融资申请', icon: 'documentation' }
       }
     ]
   },
@@ -139,7 +132,7 @@ export const constantRoutes = [
     path: '/monitor',
     component: Layout,
     redirect: '/monitor/admin',
-    name: '系统监控',
+    name: '系统管理',
     meta: { title: '系统监控', icon: 'springcloud' },
     children: [
       {
@@ -148,6 +141,13 @@ export const constantRoutes = [
         component: () => import('@/views/monitor/admin'),
         meta: { title: '服务监控', icon: 'service-monitor' }
       },
+      {
+        path: 'doc',
+        name: '接口文档',
+        component: () => import('@/views/doc/swagger'),
+        meta: { title: '接口文档', icon: 'documentation' }
+      }
+     /* ,
       {
         path: 'zipkin',
         name: '链路监控',
@@ -159,7 +159,7 @@ export const constantRoutes = [
         name: '注册中心',
         component: () => import('@/views/monitor/eureka'),
         meta: { title: '注册中心', icon: 'service-center' }
-      },
+      },*/
     ]
   },
 
@@ -168,7 +168,7 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

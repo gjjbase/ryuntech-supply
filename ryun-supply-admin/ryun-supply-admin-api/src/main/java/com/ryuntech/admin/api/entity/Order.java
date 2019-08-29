@@ -3,14 +3,14 @@ package com.ryuntech.admin.api.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -25,7 +25,7 @@ import java.util.Date;
         @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     @TableName("ryn_order")
-    public class Order extends Model<FinanceUserInfo> implements Serializable {
+    public class Order extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,13 +33,23 @@ import java.util.Date;
             * 主键，订单编号
             */
             @TableId("ORDER_ID")
-    private String orderId;
+    private String orderid;
 
             /**
             * 融资客户Id
             */
         @TableField("MEMBER_ID")
+        /*
+        * 忽略json字段的输出
+        * */
+        @JsonIgnore
     private String memberId;
+
+    @TableField("MEMBER_NAME")
+    private String memberName;
+
+    @TableField("COMPANY_NAME")
+    private String companyName;
 
             /**
             * 下单渠道 0-小程序 1-PC 2-手机 4-微信
@@ -137,13 +147,13 @@ import java.util.Date;
             * 订单实际到账金额
             */
         @TableField("ORDER_FACT_PAY_AMOUNT")
-    private Float orderFactPayAmount;
+    private BigDecimal orderFactPayAmount;
 
             /**
             * 订单申请金额
             */
         @TableField("ORDER_PAY_AMOUNT")
-    private Float orderPayAmount;
+    private String orderPayAmount;
 
             /**
             * 到账时间
@@ -158,6 +168,10 @@ import java.util.Date;
             */
         @TableField("ORDER_CREATE_TYPE")
     private String orderCreateType;
+
+
+    @TableField(exist = false)
+        private FinanceUserInfo financeUserInfo;
 
 
 }

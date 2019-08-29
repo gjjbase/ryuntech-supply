@@ -30,12 +30,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
+                        "/**/*.json",
                         "/webjars/**",
                         "/swagger-resources/**",
                         "/v2/api-docs/**")
                 .permitAll()
 
-                .antMatchers("/actuator/**", "/user/info/*","/sms/*","/financeUserInfo/addOrder","/partner/register", "/storage/local/upload")
+                .antMatchers("/actuator/**", "/user/info/*","/sms/*","/storage/local/upload","/*/out*")
                 .permitAll()
 
                 .anyRequest()

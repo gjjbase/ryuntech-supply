@@ -1,7 +1,10 @@
 package com.ryuntech.admin.biz.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ryuntech.admin.api.entity.FinanceUserInfo;
 import com.ryuntech.admin.api.vo.FinanceOrder;
+import com.ryuntech.common.utils.QueryPage;
+import com.ryuntech.common.utils.Result;
 
 /**
  * <p>
@@ -12,9 +15,6 @@ import com.ryuntech.admin.api.vo.FinanceOrder;
  * @since 2019-08-14
  */
 public interface IFinanceUserInfoService extends IBaseService<FinanceUserInfo> {
-    /*Result<IPage<FinanceUserInfo>> pages(Page<FinanceUserInfo> page);
-
-    Result<IPage<FinanceUserInfo>> pageList(Page<FinanceUserInfo> page);*/
-
+    Result<IPage<FinanceUserInfo>> pageList(FinanceUserInfo financeUserInfo, QueryPage queryPage);
     void addFinacneOrder(FinanceOrder financeOrder);
 }

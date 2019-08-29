@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryuntech.admin.biz.mapper.PaymentResultMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ryuntech.admin.api.entity.PaymentResult">
+        <id column="PAYMENT_SYSTEM_ID" property="paymentSystemId" />
+        <result column="ORDER_ID" property="orderId" />
+        <result column="PAYMENT_TYPE" property="paymentType" />
+        <result column="PAYMENT_TIME" property="paymentTime" />
+        <result column="PAYMENT_STATUS" property="paymentStatus" />
+        <result column="PAYMENT_FEE" property="paymentFee" />
+        <result column="PAYED_BANK" property="payedBank" />
+        <result column="PAY_CARD_NO" property="payCardNo" />
+        <result column="PAY_CARD_TYPE" property="payCardType" />
+        <result column="PAYED_TIME" property="payedTime" />
+        <result column="CHANNEL_TYPE" property="channelType" />
+        <result column="PAY_AMT" property="payAmt" />
+        <association column="ORDER_ID" property="order" javaType="com.ryuntech.admin.api.entity.Order"
+                     select="com.ryuntech.admin.biz.mapper.OrderMapper.selectById"/>
+
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        PAYMENT_SYSTEM_ID, ORDER_ID, PAYMENT_TYPE, PAYMENT_TIME, PAYMENT_STATUS, PAYMENT_FEE, PAYED_BANK, PAY_CARD_NO, PAY_CARD_TYPE, PAYED_TIME, CHANNEL_TYPE, PAY_AMT
+    </sql>
+    <select id="selectPageList" resultMap="BaseResultMap" resultType="com.ryuntech.admin.api.entity.PaymentResult">
+        select *
+        from ryn_payment_result
+        <where>
+            <if test="paymentResult.orderId!=null and paymentResult.orderId!=''">
+                order_id like '%'||#{paymentResult.orderId}||'%'
+            </if>
+            <if test="paymentResult.order != null">
+                <if test="paymentResult.order.memberName!=null and paymentResult.order.memberName!=''">
+                    and order_id in (select order_id from ryn_order where ryn_order.member_name like
+                    concat('%',#{paymentResult.order.memberName},'%'))
+                </if>
+                <if test="paymentResult.order.orderMemo!=null and paymentResult.order.orderMemo!=''">
+                    and order_id in (select order_id from ryn_order where ryn_order.order_memo like
+                    concat('%',#{paymentResult.order.orderMemo},'%'))
+                </if>
+            </if>
+        </where>
+    </select>
+</mapper>

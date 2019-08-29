@@ -3,14 +3,12 @@ package com.ryuntech.admin.api.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -26,7 +24,7 @@ import java.util.Date;
     @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     @TableName("ryn_finance_user_info")
-    public class FinanceUserInfo extends Model<FinanceUserInfo> implements Serializable {
+    public class FinanceUserInfo extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

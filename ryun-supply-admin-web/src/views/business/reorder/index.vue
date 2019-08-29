@@ -2,20 +2,29 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input style="width: 200px;" v-model="search.orderId" placeholder="请输入订单号查询"></el-input>
+        <el-input style="width: 200px;" v-model="search.orderid" placeholder="请输入订单号查询"></el-input>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br/>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label="订单编号" width="95">
+
+      <el-table  border v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column prop="id" align="center" label="序号" width="60">
+          <template scope="scope"><span>{{scope.$index+(listQuery.page - 1) * listQuery.limit + 1}} </span></template>
+        </el-table-column>
+        <el-table-column align="center" label="订单编号" width="180">
           <template slot-scope="scope">
-            {{ scope.row.orderId }}
+            {{ scope.row.orderid }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="客户编号" width="150">
+        <el-table-column align="center" label="客户名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.memberId }}
+            {{ scope.row.memberName }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="公司名称" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.companyName }}
           </template>
         </el-table-column>
         <el-table-column label="申请时间" width="200" align="center">
@@ -24,17 +33,17 @@
             <span>{{ scope.row.orderTime }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="合伙人编号" width="150" align="center">
+        <!--<el-table-column label="合伙人编号" width="150" align="center">
           <template slot-scope="scope">
             {{ scope.row.partnerId }}
           </template>
-        </el-table-column>
-        <el-table-column class-name="status-col" label="推荐人编号" width="130" align="center">
+        </el-table-column>-->
+        <el-table-column class-name="status-col" label="城市" width="120" align="center">
           <template slot-scope="scope">
-            {{ scope.row.orderMemo }}
+            {{ scope.row.city }}
           </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="订单申请金额" width="130" align="center">
+        <el-table-column class-name="status-col" label="贷款申请金额" width="130" align="center">
           <template slot-scope="scope">
             {{ scope.row.orderPayAmount }}
           </template>
@@ -44,25 +53,30 @@
             {{ scope.row.orderFactPayAmount }}
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="createTime" label="到账时间" width="200">
+        <el-table-column align="center" prop="createTime" label="推荐人" width="200">
           <template slot-scope="scope">
-            <i class="el-icon-time"/>
-            <span>{{ scope.row.orderPayTime }}</span>
+            {{ scope.row.partnerId }}
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="createTime" label="订单状态" width="100">
+        <el-table-column align="center" prop="createTime" label="贷款状态" width="100">
           <template slot-scope="scope">
-            {{ scope.row.orderStatus }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" prop="createTime" label="佣金状态" width="100">
-          <template slot-scope="scope">
-            {{ scope.row.paymentStatus }}
+            <!-- "订单状态:01=待处理(合伙人推荐成功),
+           02=资质不符合(橙势审核不符),
+           03=资金方审核(提交银行渠道)
+           04=已放款(银行渠道已放款，交易完成)
+           05=已拒款(交易失败) 06=已删除"-->
+            <span v-if="scope.row.orderStatus==='01'">待处理</span>
+            <span v-if="scope.row.orderStatus==='02'">资质不符合(橙势审核不符)</span>
+            <span v-if="scope.row.orderStatus==='03'">资金方审核(提交银行渠道)</span>
+            <span v-if="scope.row.orderStatus==='04'">已放款(银行渠道已放款，交易完成)</span>
+            <span v-if="scope.row.orderStatus==='05'">已拒款(交易失败)</span>
+            <span v-if="scope.row.orderStatus==='06'">已删除</span>
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button type="primary"  size="mini" icon="el-icon-edit">查看详情</el-button>
+            <el-button type="primary" @click="handleEdit(scope.row.orderid)" size="mini" icon="el-icon-edit">编辑</el-button>
+            <el-button type="danger"  size="mini" @click="handleDel(scope.row.orderid)" icon="el-icon-delete">删除</el-button>
 <!--                       @click="handleEdit(scope.row.orderId)" -->
 
 <!--            <el-button type="danger" @click="handleDel(scope.row.orderId)" icon="el-icon-delete" size="mini">删除</el-button>-->
@@ -79,7 +93,7 @@
 </template>
 
 <script>
-  import {getList, findById, del} from '@/api/reorder/reorder'
+  import {getList, findById, del} from '@/api/business/reorder'
   import Pagination from '@/components/Pagination'
   import Save from './save'
   import {parseTime} from '@/utils/index'
@@ -93,7 +107,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          limit: 3,
+          limit: 10,
           importance: undefined,
           title: undefined,
           type: undefined,
@@ -123,11 +137,16 @@
         })
       },
       handleSave() {
-        this.form = {id: null, createTime: parseTime(new Date())}
+        this.form = {orderId: null, createTime: parseTime(new Date())}
         this.dialogVisible = true;
       },
       handleEdit(orderId) {
-        findById(id).then(response => {
+        findById(orderId).then(response => {
+          this.form = response.data;
+        })
+      },
+      handleView(orderId) {
+        findById(orderId).then(response => {
           this.form = response.data;
         })
       },
@@ -140,14 +159,14 @@
         }
       },
 
-      handleDel(id) {
-        this.$confirm('你确定永久删除此账户？, 是否继续?', '提示', {
+      handleDel(orderId) {
+        this.$confirm('你确定永久删除此订单？, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          del(id).then(response => {
-            if (response.code === 200) {
+          del(orderId).then(response => {
+            if (response.tcode === 200) {
               this._notify(response.msg, 'success')
             } else {
               this._notify(response.msg, 'error')

@@ -62,7 +62,7 @@
           if (valid) {
             console.log('to changePass...');
             changePass(this.form).then(response => {
-              if (response.code == 200) {
+              if (response.tcode == 200) {
                 //logout
                 this.logout();
               }

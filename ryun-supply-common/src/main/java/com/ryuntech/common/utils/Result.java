@@ -17,7 +17,7 @@ public class Result<T> implements Serializable {
 
     @Getter
     @Setter
-    private int code = CommonConstants.SUCCESS;
+    private int tcode = CommonConstants.SUCCESS;
 
     @Getter
     @Setter
@@ -44,13 +44,13 @@ public class Result<T> implements Serializable {
 
     public Result(CommonEnums enums) {
         super();
-        this.code = enums.getCode();
+        this.tcode = enums.getCode();
         this.msg = enums.getMsg();
     }
 
     public Result(Throwable e) {
         super();
-        this.code = CommonConstants.ERROR;
+        this.tcode = CommonConstants.ERROR;
         this.msg = e.getMessage();
     }
 }

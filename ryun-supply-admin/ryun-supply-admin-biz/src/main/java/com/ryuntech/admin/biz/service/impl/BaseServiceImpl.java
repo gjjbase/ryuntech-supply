@@ -1,5 +1,6 @@
 package com.ryuntech.admin.biz.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -9,19 +10,22 @@ import com.ryuntech.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public    class BaseServiceImpl <M extends IBaseMapper<T>, T> extends ServiceImpl<M, T>  implements IBaseService<T> {
-//    public class PartnerStaffUserServiceImpl extends BaseServiceImpl<PartnerStaffUserMapper, PartnerStaffUser> implements IPartnerStaffUserService {
 
     @Autowired
     M m;
+    QueryWrapper<T> queryWrapper =new QueryWrapper<>();
+
     @Override
-    public Result<IPage<T>> pages(Page<T> page) {
+    public Result<IPage<T>> pageList(Page<T> page) {
         IPage<T> userIPage =   m.Pages(page);
         return new Result(userIPage);
     }
 
+
     @Override
-    public Result<IPage<T>> pageList(Page<T> page) {
-        IPage<T> userIPage = m.pageList(page);
-        return new Result(userIPage);
+    public Result<IPage<T>> pageList(QueryWrapper<T> queryWrapper, Page<T> page) {
+        IPage<T> iPage = m.selectPage(page, queryWrapper);
+        return new Result(iPage);
     }
+
 }

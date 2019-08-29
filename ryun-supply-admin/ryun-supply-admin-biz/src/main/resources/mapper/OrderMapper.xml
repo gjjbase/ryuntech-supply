@@ -2,8 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ryuntech.admin.biz.mapper.OrderMapper">
     <resultMap id="BaseResultMap" type="com.ryuntech.admin.api.entity.Order">
-        <result column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+        <result column="ORDER_ID" jdbcType="VARCHAR" property="orderid" />
         <result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+        <result column="MEMBER_NAME" jdbcType="VARCHAR" property="memberName" />
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName" />
         <result column="ORDER_CHENEL" jdbcType="VARCHAR" property="orderChenel" />
         <result column="ORDER_TIME" jdbcType="TIMESTAMP" property="orderTime" />
         <result column="IS_ROY" jdbcType="VARCHAR" property="isRoy" />
@@ -18,27 +20,35 @@
         <result column="PAYMENT_FEE" jdbcType="FLOAT" property="paymentFee" />
         <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
         <result column="IS_DELETE" jdbcType="VARCHAR" property="isDelete" />
-        <result column="ORDER_FACT_PAY_AMOUNT" jdbcType="FLOAT" property="orderFactPayAmount" />
-        <result column="ORDER_PAY_AMOUNT" jdbcType="FLOAT" property="orderPayAmount" />
+        <result column="ORDER_FACT_PAY_AMOUNT" jdbcType="DECIMAL" property="orderFactPayAmount" />
+        <result column="ORDER_PAY_AMOUNT" jdbcType="VARCHAR" property="orderPayAmount" />
         <result column="ORDER_PAY_TIME" jdbcType="TIMESTAMP" property="orderPayTime" />
         <result column="ORDER_CREATE_TYPE" jdbcType="VARCHAR" property="orderCreateType" />
+        <association property="financeUserInfo" column="MEMBER_ID" javaType="com.ryuntech.admin.api.entity.FinanceUserInfo"
+                     select="com.ryuntech.admin.biz.mapper.FinanceUserInfoMapper.selectById">
+        </association>
+
     </resultMap>
     <sql id="Base_Column_List">
-    ORDER_ID, MEMBER_ID, ORDER_CHENEL, ORDER_TIME, IS_ROY, PAYMENT_STATUS, ORDER_STATUS,
-    ORDER_TYPE, ORDER_CLOSE_TIME, ORDER_INVALID_TIME, PARTNER_ID, ORDER_MERCHANT_MEMO,
-    ORDER_MEMO, PAYMENT_FEE, MODIFY_TIME, IS_DELETE, ORDER_FACT_PAY_AMOUNT, ORDER_PAY_AMOUNT,
-    ORDER_PAY_TIME, ORDER_CREATE_TYPE
-  </sql>
+                ORDER_ID,MEMBER_ID,MEMBER_NAME,COMPANY_NAME,ORDER_CHENEL, ORDER_TIME, IS_ROY, PAYMENT_STATUS, ORDER_STATUS,
+                ORDER_TYPE, ORDER_CLOSE_TIME, ORDER_INVALID_TIME, PARTNER_ID, ORDER_MERCHANT_MEMO,
+                ORDER_MEMO, PAYMENT_FEE, MODIFY_TIME, IS_DELETE, ORDER_FACT_PAY_AMOUNT, ORDER_PAY_AMOUNT,
+                ORDER_PAY_TIME, ORDER_CREATE_TYPE
+    </sql>
 
-    <select id="Pages" resultMap="BaseResultMap">
-        select
 
-        <include refid="Base_Column_List" />
+
+    <select id="selectPageList" resultMap="BaseResultMap" resultType="com.ryuntech.admin.api.entity.Order">
+        select *
         from ryn_order
+        <where>
+            <if test="order.orderid!=null and order.orderid!=''">
+                order_id like concat('%',#{order.orderid},'%')
+            </if>
+        </where>
     </select>
-    <select id="pageList" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from ryn_order
-    </select>
+
+
+
+
 </mapper>

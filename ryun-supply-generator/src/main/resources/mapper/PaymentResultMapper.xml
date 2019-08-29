@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryuntech.generator.mapper.PaymentResultMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ryuntech.generator.entity.PaymentResult">
+        <id column="PAYMENT_SYSTEM_ID" property="paymentSystemId" />
+        <result column="ORDER_ID" property="orderId" />
+        <result column="PAYMENT_TYPE" property="paymentType" />
+        <result column="PAYMENT_TIME" property="paymentTime" />
+        <result column="PAYMENT_STATUS" property="paymentStatus" />
+        <result column="PAYMENT_FEE" property="paymentFee" />
+        <result column="PAYED_BANK" property="payedBank" />
+        <result column="PAY_CARD_NO" property="payCardNo" />
+        <result column="PAY_CARD_TYPE" property="payCardType" />
+        <result column="PAYED_TIME" property="payedTime" />
+        <result column="CHANNEL_TYPE" property="channelType" />
+        <result column="PAY_AMT" property="payAmt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        PAYMENT_SYSTEM_ID, ORDER_ID, PAYMENT_TYPE, PAYMENT_TIME, PAYMENT_STATUS, PAYMENT_FEE, PAYED_BANK, PAY_CARD_NO, PAY_CARD_TYPE, PAYED_TIME, CHANNEL_TYPE, PAY_AMT
+    </sql>
+
+</mapper>

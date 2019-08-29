@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryuntech.generator.mapper.PartnerUserInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ryuntech.generator.entity.PartnerUserInfo">
+        <id column="USERID" property="userid" />
+        <result column="OPERATORNAME" property="operatorname" />
+        <result column="ACCOUNT" property="account" />
+        <result column="MOBILE" property="mobile" />
+        <result column="EMAIL" property="email" />
+        <result column="ROLE" property="role" />
+        <result column="CREATETIME" property="createtime" />
+        <result column="STATUS" property="status" />
+        <result column="OPERATOR_SEX" property="operatorSex" />
+        <result column="ID_TYPE" property="idType" />
+        <result column="ID_NO" property="idNo" />
+        <result column="OPERATOR_TEL" property="operatorTel" />
+        <result column="IS_FIRST_LOGIN" property="isFirstLogin" />
+        <result column="NICKNAME" property="nickname" />
+        <result column="RECOMMEND" property="recommend" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        USERID, OPERATORNAME, ACCOUNT, MOBILE, EMAIL, ROLE, CREATETIME, STATUS, OPERATOR_SEX, ID_TYPE, ID_NO, OPERATOR_TEL, IS_FIRST_LOGIN, NICKNAME, RECOMMEND
+    </sql>
+
+</mapper>

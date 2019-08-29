@@ -1,47 +1,107 @@
 <template>
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="40%">
     <el-form ref="form" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item v-if="form.id != null" label="用户编号" prop="id" label-width="120px">
-        <el-input v-model="form.id" :disabled="true"></el-input>
+      <el-form-item v-if="form.orderid != null" label="订单编号" prop="id" label-width="120px">
+        <el-input v-model="form.orderid" :disabled="true"></el-input>
       </el-form-item>
-      <el-form-item label="登录账户" prop="username" label-width="120px">
-        <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+      <el-form-item label="客户名称" prop="memberName" label-width="120px">
+        <el-input v-model="form.memberName" placeholder="请输入客户名称"></el-input>
       </el-form-item>
-      <el-form-item v-if="dialogTitle != 'Edit'" label="登录密码" prop="password" label-width="120px">
-        <el-input v-model="form.password" placeholder="请输入密码"></el-input>
+      <el-form-item label="公司名称" prop="companyName" label-width="120px">
+        <el-input v-model="form.companyName" placeholder="请输入公司名称" maxlength="60"></el-input>
       </el-form-item>
-      <el-form-item label="联系电话" prop="phone" label-width="120px">
-        <el-input v-model="form.phone" placeholder="请输入手机号"></el-input>
-      </el-form-item>
-      <el-form-item label="创建时间" prop="createTime" label-width="120px">
-        <el-date-picker v-model="form.createTime" type="datetime" placeholder="选择日期时间" :disabled="true"
+      <el-form-item label="申请时间" prop="orderTime" label-width="120px">
+        <el-date-picker v-model="form.orderTime" type="datetime" placeholder="选择日期时间" :disabled="true"
                         value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
       </el-form-item>
-      <el-form-item label="个性头像" prop="avatar" label-width="120px">
-        <el-upload class="avatar-uploader"
-                   :action="localUpload"
-                   :show-file-list="false"
-                   :on-success="handleAvatarSuccess"
-                   :before-upload="beforeAvatarUpload">
-          <img v-if="imgURL" :src="imgURL" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          <div v-if="!imgURL" class="el-upload__text">点我上传本地头像</div>
-        </el-upload>
+
+      <el-form-item label="城市:" prop="city" label-width="120px">
+        <el-select v-model="form.city"   placeholder="请选择城市">
+          <el-option label="请输入城市" value="0"></el-option>
+          <el-option label="深圳" value="1"></el-option>
+          <el-option label="广州" value="2"></el-option>
+        </el-select>
       </el-form-item>
+
+      <el-form-item label="贷款额度"  prop="orderPayAmount" label-width="120px">
+        <el-select v-model="form.orderPayAmount" placeholder="请选择贷款额度" >
+          <el-option label="请输入贷款额度" value="0"></el-option>
+          <el-option label="10W-30W" value="1"></el-option>
+          <el-option label="30W-50W" value="2"></el-option>
+        </el-select>
+      </el-form-item>
+
+
+      <el-form-item label="实际到账金额" prop="orderFactPayAmount" label-width="120px">
+        <el-input type="number" v-model="form.orderFactPayAmount" placeholder="请输入实际到账金额"></el-input>
+      </el-form-item>
+
+      <el-form-item label="营业执照号" prop="companyName" label-width="120px">
+        <el-input v-model="form.idcartNumber" placeholder="请输入营业执照号"></el-input>
+      </el-form-item>
+      <el-form-item label="执照注册日期" prop="bussinessRegister" label-width="120px">
+        <el-date-picker v-model="form.bussinessRegister" type="datetime" placeholder="选择日期时间"
+                        value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+      </el-form-item>
+      <el-form-item label="年纳税金额" prop="payTaxes" label-width="120px">
+        <el-select v-model="form.payTaxes" placeholder="请选择年纳税额">
+          <el-option label="请输入年纳税额" value="0"></el-option>
+          <el-option label="1W-3W" value="1"></el-option>
+          <el-option label="3W-5W" value="2"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="年开发票金额" prop="annualInvoice" label-width="120px">
+        <el-select v-model="form.annualInvoice" placeholder="请选择年开发票金额">
+          <el-option label="请输入年开发票金额" value="0"></el-option>
+          <el-option label="10W-30W" value="1"></el-option>
+          <el-option label="30W-50W" value="2"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="房产信息" prop="houseType" label-width="120px"   >
+        <el-radio-group v-model="form.houseType" >
+          <el-radio label="按揭房" value="0"></el-radio>
+          <el-radio label="全款房" value="1"></el-radio>
+        </el-radio-group>
+        <el-form-item label="" prop="houseAddressType" v-if="form.houseType === '1'">
+          <el-radio-group v-model="form.houseAddressType">
+            <el-radio label="本地房产" value="0"></el-radio>
+            <el-radio label="外地房产" value="1"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form-item>
+
+      <el-form-item label="车产信息" prop="carType" label-width="120px" >
+        <el-radio-group v-model="form.carType"  >
+          <el-radio label="按揭车" value="0"></el-radio>
+          <el-radio label="全款车" value="1"></el-radio>
+        </el-radio-group>
+        <el-form-item label="" prop="carAddressType"  v-if="this.form.carType==1" >
+          <el-radio-group v-model="form.carAddressType">
+            <el-radio label="本地车" value="0"></el-radio>
+            <el-radio label="外地车" value="1"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form-item>
+      <el-form-item label="推荐码" prop="orderMemo" label-width="120px">
+        <el-input maxlength="10" v-model="form.orderMemo" placeholder="推荐码"></el-input>
+      </el-form-item>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
-        Cancel
+        退出
       </el-button>
       <el-button type="primary" @click="onSubmit('form')">
-        Confirm
+        提交
       </el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-  import {save, edit, upload} from '@/api/user'
+  import {save, edit } from '@/api/business/reorder'
   import {parseTime} from '@/utils/index'
 
   export default {
@@ -53,23 +113,29 @@
     data() {
       return {
         dialogVisible: false,
-        dialogTitle: 'Add',
-        localUpload: upload,
+        dialogTitle: '详情',
         imgURL: '',
         form: {
-          id: '',
-          username: '',
-          password: '',
-          phone: '',
-          avatar: '',
-          createTime: ''
+            orderid: '',
+            memberName: '',
+            companyName: '',
+            orderTime: '',
+            city: '',
+            orderPayAmount: '',
+            bussinessRegister: '',
+            payTaxes: '',
+            annualInvoice: '',
+            houseType: '',
+            carType: '',
+            orderMemo: ''
         },
         rules: {
-          username: [{required: true, trigger: 'blur', message: '请输入登录账户'}],
-          password: [{required: true, trigger: 'blur', message: '请输入登录密码'}],
-          phone: [{required: true, trigger: 'blur', message: '请输入联系电话'}],
-          createTime: [{required: true, trigger: 'blur', message: '请选择创建时间'}],
-          avatar: [{required: true, trigger: 'blur', message: '请上传个性头像'}]
+            orderid: [{required: true, trigger: 'blur', message: '请输入订单编号'}],
+            memberName: [{required: true, trigger: 'blur', message: '请输入客户名称'}],
+            companyName: [{required: true, trigger: 'blur', message: '请输入公司名称'}],
+            createTime: [{required: true, trigger: 'blur', message: '请选择创建时间'}],
+            orderPayAmount: [{required: true, trigger: 'blur', message: '请选择申请金额'}],
+            idcartNumber: [{required: true, trigger: 'blur', message: '请输入执照号'}]
         },
       }
     },
@@ -78,10 +144,10 @@
         this.form = newVal
         this.imgURL = this.form.avatar
         this.dialogVisible = true
-        if (newVal.id != null) {
-          this.dialogTitle = 'Edit'
+        if (newVal.orderid != null) {
+          this.dialogTitle = '修改'
         } else {
-          this.dialogTitle = 'Add'
+          this.dialogTitle = '详情'
         }
       },
     },
@@ -93,13 +159,18 @@
         })
       },
       clearForm() {
-        this.form.id = null
-        this.form.username = null
-        this.form.password = null
-        this.form.phone = null
-        this.form.avatar = null
-        this.imgURL = null
-        this.form.createTime = parseTime(new Date(), '')
+        this.form.orderid = null
+        this.form.memberName = null
+        this.form.companyName = null
+        this.form.orderTime = null
+        this.form.city = null
+        this.form.orderPayAmount = null
+        this.form.bussinessRegister = null
+        this.form.payTaxes = null
+        this.form.annualInvoice = null
+        this.form.houseType = null
+        this.form.carType = null
+        this.form.orderMemo = null
       },
       handleClose() {
         this.clearForm();
@@ -108,9 +179,9 @@
       onSubmit(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            if (this.form.id === null) {
+            if (this.form.orderid === null) {
               save(this.form).then(response => {
-                if (response.code === 200) {
+                if (response.tcode === 200) {
                   this._notify(response.msg, 'success')
                   this.clearForm()
                   this.$emit('sonStatus', true)
@@ -121,7 +192,7 @@
               })
             } else {
               edit(this.form).then(response => {
-                if (response.code === 200) {
+                if (response.tcode === 200) {
                   this._notify(response.msg, 'success')
                   this.clearForm()
                   this.$emit('sonStatus', true)
@@ -136,66 +207,10 @@
             return false;
           }
         });
-      },
-      //文件上传成功的钩子函数
-      handleAvatarSuccess(res, file, fileList) {
-        if (res.code == 200) {
-          this._notify('图片上传成功', 'success');
-          this.form.avatar = res.data.url;
-          this.imgURL = res.data.url;
-        }
-      },
-      //文件上传前的前的钩子函数
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isGIF = file.type === 'image/gif';
-        const isPNG = file.type === 'image/png';
-        const isBMP = file.type === 'image/bmp';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG && !isGIF && !isPNG && !isBMP) {
-          this.$message.error('上传图片必须是JPG/GIF/PNG/BMP 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传图片大小不能超过 2MB!');
-        }
-        return (isJPG || isBMP || isGIF || isPNG) && isLt2M;
-      },
+      }
     }
   }
 </script>
 
-<style lang="css">
-  .line {
-    text-align: center;
-  }
-
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
-</style>
 
 

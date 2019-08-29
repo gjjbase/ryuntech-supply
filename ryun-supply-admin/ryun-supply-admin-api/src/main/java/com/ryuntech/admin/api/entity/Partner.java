@@ -1,14 +1,13 @@
 package com.ryuntech.admin.api.entity;
 
-    import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
 * <p>
@@ -22,7 +21,7 @@ import java.time.LocalDateTime;
         @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     @TableName("ryn_partner")
-    public class Partner implements Serializable {
+    public class Partner extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -96,7 +95,7 @@ import java.time.LocalDateTime;
             * 创建时间
             */
         @TableField("CREATE_TIME")
-    private LocalDateTime createTime;
+    private Date createTime;
 
             /**
             * 状态
@@ -160,6 +159,19 @@ import java.time.LocalDateTime;
 
         @TableField(exist = false)
         private String codeValue;
+
+    @TableField("NICKNAME")
+        private String nickname;
+
+    @TableField("AVATAR")
+        private String avatar;
+    @TableField("RECOMMEND")
+        private String recommend;
+
+    @TableField("REVIEWER_ID")
+        private String reviewerId;
+    @TableField("REVIEWER_NAME")
+    private String reviewerName;
 
 
 }

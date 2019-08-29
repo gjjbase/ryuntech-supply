@@ -2,9 +2,11 @@ package com.ryuntech.admin.biz.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ryuntech.admin.api.config.SctUser;
 import com.ryuntech.admin.api.entity.Partner;
+import com.ryuntech.admin.api.utils.SecurityUtils;
 import com.ryuntech.admin.biz.service.IPartnerService;
+import com.ryuntech.common.constant.PartnerConstants;
 import com.ryuntech.common.utils.QueryPage;
 import com.ryuntech.common.utils.Result;
 import io.swagger.annotations.Api;
@@ -30,6 +32,7 @@ public class PartnerController extends BaseController {
     @Autowired
     private IPartnerService iPartnerService;
 
+
     /**
      * 分页查询列表数据，条件查询
      *
@@ -40,8 +43,8 @@ public class PartnerController extends BaseController {
     @ApiOperation(value = "分页、条件查询用户列表信息")
     @ApiImplicitParam(name = "partner", value = "查询条件", required = true, dataType = "Partner", paramType = "body")
     public Result<IPage<Partner>> list(Partner partner, QueryPage queryPage) {
-        Page<Partner> page = new Page<>(queryPage.getPageCode(), queryPage.getPageSize());
-        return iPartnerService.pageList(page);
+        return iPartnerService.pageList(partner,queryPage);
+
     }
 
     /**
@@ -51,7 +54,7 @@ public class PartnerController extends BaseController {
      * @return
      */
     @GetMapping("/{partnerId}")
-    @ApiOperation(value = "查询详细融资客户信息", notes = "orderId存在")
+    @ApiOperation(value = "查询详细融资客户信息", notes = "partnerId存在")
     @ApiImplicitParam(name = "partnerId", value = "用户编号", required = true, dataType = "String")
     public Result<Partner> findById(@PathVariable String partnerId) {
         if (StringUtils.isBlank(partnerId)) {
@@ -60,22 +63,58 @@ public class PartnerController extends BaseController {
             return new Result<>(iPartnerService.getById(partnerId));
         }
     }
-/*
-    *//**
-     * 添加用户信息
+
+    /**
+     * 更新用户信息
      *
      * @param partner
      * @return
-     *//*
-    @PostMapping
-    @ApiOperation(value = "添加用户")
-    @ApiImplicitParam(name = "partner", value = "用户实体信息", required = true, dataType = "Partner", paramType = "body")
-    public Result add(@RequestBody Partner partner) {
-        partner.setPartnerId(generateId()+"");
-        iPartnerService.save(partner);
+     */
+    @PostMapping("/edit")
+    @ApiOperation(value = "更新合伙人信息")
+    @ApiImplicitParam(name = "partner", value = "更新合伙人信息", required = true, dataType = "Partner", paramType = "body")
+    public Result edit(@RequestBody Partner partner) {
+        iPartnerService.saveOrUpdate(partner);
         return new Result();
-    }*/
-
+    }
+    /**
+     * 根据ID更新融资客户信息
+     *
+     * @param partnerId
+     * @return
+     */
+    @GetMapping("/updateById/{partnerId}")
+    @ApiOperation(value = "更新融资客户信息", notes = "partnerId存在")
+    @ApiImplicitParam(name = "partnerId", value = "用户编号", required = true, dataType = "String")
+    public Result  updateById(@PathVariable String partnerId) {
+        if (StringUtils.isBlank(partnerId)) {
+            return new Result();
+        } else {
+            Partner partner =new Partner();
+            partner.setPartnerId(partnerId);
+            SctUser sctUser = SecurityUtils.getUser();
+            partner.setReviewerName(sctUser.getUsername());
+            partner.setReviewerId(sctUser.getId()+"");
+            partner.setStatus(PartnerConstants.AUTHORIZED);
+            return new Result(iPartnerService.updateById(partner),"更新成功");
+        }
+    }
+    /**
+     * 根据ID查询用户信息
+     *
+     * @param openId
+     * @return
+     */
+    @GetMapping("/findByOpenId/{openId}")
+    @ApiOperation(value = "查询详细融资客户信息", notes = "openId存在")
+    @ApiImplicitParam(name = "openId", value = "用户编号", required = true, dataType = "String")
+    public Result<Partner> findByOpenId(@PathVariable String openId) {
+        if (StringUtils.isBlank(openId)) {
+            return new Result<>();
+        } else {
+            return new Result<>(iPartnerService.findByOpenId(openId));
+        }
+    }
 
     /**
      * 注册
@@ -83,12 +122,11 @@ public class PartnerController extends BaseController {
      * @param partner
      * @return
      */
-    @PostMapping("/register")
+    @PostMapping("/outRegister")
     @ApiOperation(value = "用户在注册")
     @ApiImplicitParam(name = "partner", value = "用户实体信息", required = true, dataType = "Partner", paramType = "body")
     public Result register(@RequestBody Partner partner) {
-        partner.setPartnerId(generateId()+"");
-        iPartnerService.save(partner);
+        iPartnerService.register(partner);
         return new Result();
     }
 }

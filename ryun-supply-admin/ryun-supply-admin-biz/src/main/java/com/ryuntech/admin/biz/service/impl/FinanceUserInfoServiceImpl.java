@@ -1,6 +1,8 @@
 package com.ryuntech.admin.biz.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ryuntech.admin.api.entity.FinanceUserInfo;
 import com.ryuntech.admin.api.entity.Order;
 import com.ryuntech.admin.api.vo.FinanceOrder;
@@ -8,7 +10,9 @@ import com.ryuntech.admin.biz.mapper.FinanceUserInfoMapper;
 import com.ryuntech.admin.biz.mapper.OrderMapper;
 import com.ryuntech.admin.biz.service.IFinanceUserInfoService;
 import com.ryuntech.common.constant.OrderConstants;
-import com.ryuntech.common.constant.PaymentResult;
+import com.ryuntech.common.constant.PayResultConstant;
+import com.ryuntech.common.utils.QueryPage;
+import com.ryuntech.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +37,20 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
     FinanceUserInfoMapper financeUserInfoMapper;
 
     @Override
+    public Result<IPage<FinanceUserInfo>> pageList(FinanceUserInfo financeUserInfo, QueryPage queryPage) {
+        Page<FinanceUserInfo> page = new Page<>(queryPage.getPageCode(), queryPage.getPageSize());
+        if (financeUserInfo.getUserId()!=null)
+            queryWrapper.eq("userId", financeUserInfo.getUserId());
+        return super.pageList(queryWrapper,page);
+    }
+
+    @Override
     public void addFinacneOrder(FinanceOrder financeOrder) {
         //插入融资客户信息
         String financeId = generateId()+"";
 
         //如果融资客户存在，则不插入
-        FinanceUserInfo financeUserInfo = this.financeUserInfoMapper.selectOne(new QueryWrapper<FinanceUserInfo>().eq("mobile", ""));
+        FinanceUserInfo financeUserInfo = this.financeUserInfoMapper.selectOne(new QueryWrapper<FinanceUserInfo>().eq("mobile", financeOrder.getMobile()));
         if (financeUserInfo==null){
             financeUserInfo = new FinanceUserInfo();
             //用户不存在，不能插入，插入订单数据
@@ -74,8 +86,8 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
         Order order = new Order();
         String orderPayAmount = financeOrder.getOrderPayAmount();
         String orderId = generateId()+"";
-        order.setOrderId(orderId);
-        order.setOrderPayAmount(Float.parseFloat(orderPayAmount));
+        order.setOrderid(orderId);
+        order.setOrderPayAmount(orderPayAmount);
         order.setOrderTime(new Date());
         order.setModifyTime(new Date());
 //        推荐码
@@ -85,23 +97,10 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
         //订单状态
         order.setOrderStatus(OrderConstants.PENDING);
         //佣金阶段状态
-        order.setPaymentStatus(PaymentResult.UNLIQUIDATED);
+        order.setPaymentStatus(PayResultConstant.UNLIQUIDATED);
         //申请渠道
         order.setOrderChenel(financeOrder.getOrderChenel());
         orderMapper.insert(order);
 
     }
-  /*  @Autowired
-    FinanceUserInfoMapper financeUserInfoMapper;
-    @Override
-    public Result<IPage<FinanceUserInfo>> pages(Page<FinanceUserInfo> page) {
-        IPage<FinanceUserInfo> userIPage = financeUserInfoMapper.Pages(page);
-        return new Result(userIPage);
-    }
-
-    @Override
-    public Result<IPage<FinanceUserInfo>> pageList(Page<FinanceUserInfo> page) {
-        IPage<FinanceUserInfo> userIPage = financeUserInfoMapper.pageList(page);
-        return new Result(userIPage);
-    }*/
 }

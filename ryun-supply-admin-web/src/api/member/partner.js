@@ -7,9 +7,23 @@ export function getList(query, data) {
     data
   })
 }
-export function findById(userId) {
+export function findById(partnerId) {
   return request({
-    url: '/admin/partner/' + userId,
+    url: '/admin/partner/' + partnerId,
     method: 'get'
+  })
+}
+export function updateById(partnerId) {
+  return request({
+    url: '/admin/partner/updateById/' + partnerId,
+    method: 'get'
+  })
+}
+
+export function edit(data) {
+  return request({
+    url: '/admin/partner/edit',
+    method: 'post',
+    data
   })
 }

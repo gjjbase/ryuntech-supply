@@ -13,10 +13,31 @@ export function findById(userId) {
     method: 'get'
   })
 }
+
+export function del(userId) {
+  return request({
+    url: '/admin/financeUserInfo/' + userId,
+    method: 'delete'
+  })
+}
+
 export function save(data) {
   return request({
-    url: '/admin/financeUserInfo/addOrder',
+    url: '/admin/financeUserInfo/outAddOrder',
     method: 'post',
     data
+  })
+}
+export function edit(data) {
+  return request({
+    url: '/admin/financeUserInfo/edit',
+    method: 'post',
+    data
+  })
+}
+export function sendCode(data) {
+  return request({
+    url: '/admin/sms/'+data,
+    method: 'get'
   })
 }

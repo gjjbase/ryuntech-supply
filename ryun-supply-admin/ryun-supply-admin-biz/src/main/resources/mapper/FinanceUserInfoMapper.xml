@@ -47,16 +47,4 @@
     BUSSINESS_LICENSE, PAY_TAXES, ANNUAL_INVOICE, HOUSE_TYPE, HOUSE_ADDRESS_TYPE, CAR_TYPE,
     CAR_ADDRESS_TYPE
   </sql>
-
-    <select id="Pages" resultMap="BaseResultMap">
-        select
-
-        <include refid="Base_Column_List" />
-        from ryn_finance_user_info
-    </select>
-    <select id="pageList" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from ryn_finance_user_info
-    </select>
 </mapper>

@@ -8,7 +8,10 @@
       </div>
       <br/>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label="编号" width="150">
+        <el-table-column prop="id" label="序号" width="60">
+          <template scope="scope"><span>{{scope.$index+(listQuery.page - 1) * listQuery.limit + 1}} </span></template>
+        </el-table-column>
+        <el-table-column align="center" label="客户编号" width="200">
           <template slot-scope="scope">
             {{ scope.row.userId }}
           </template>
@@ -29,19 +32,19 @@
             {{ scope.row.mobile }}
           </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="地址" width="130" align="center">
+        <el-table-column class-name="status-col" label="地址" width="200" align="center">
           <template slot-scope="scope">
             {{ scope.row.address }}
           </template>
         </el-table-column>
 
-        <el-table-column class-name="status-col" label="身份证" width="130" align="center">
+        <el-table-column class-name="status-col" label="身份证" width="150" align="center">
           <template slot-scope="scope">
             {{ scope.row.idNumber }}
           </template>
         </el-table-column>
 
-        <el-table-column class-name="status-col" label="公司名" width="130" align="center">
+        <el-table-column class-name="status-col" label="公司名" width="150" align="center">
           <template slot-scope="scope">
             {{ scope.row.companyName }}
           </template>
@@ -53,7 +56,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column class-name="status-col" label="营业执照编号" width="130" align="center">
+        <el-table-column class-name="status-col" label="营业执照编号" width="150" align="center">
           <template slot-scope="scope">
             {{ scope.row.bussinessLicense }}
           </template>
@@ -76,7 +79,7 @@
 </template>
 
 <script>
-  import {getList, findById, del} from '@/api/member/finance'
+  import {getList, findById,edit, del} from '@/api/member/finance'
   import Pagination from '@/components/Pagination'
   import Save from './save'
   import {parseTime} from '@/utils/index'
@@ -90,7 +93,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          limit: 3,
+          limit: 10,
           importance: undefined,
           title: undefined,
           type: undefined,
@@ -124,9 +127,9 @@
         this.dialogVisible = true;
       },
       handleEdit(userId) {
-        findById(userId).then(response => {
-          this.form = response.data;
-        })
+          findById(userId).then(response => {
+            this.form = response.data;
+          })
       },
 
       //子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
@@ -144,7 +147,7 @@
           type: 'warning'
         }).then(() => {
           del(id).then(response => {
-            if (response.code === 200) {
+            if (response.tcode === 200) {
               this._notify(response.msg, 'success')
             } else {
               this._notify(response.msg, 'error')

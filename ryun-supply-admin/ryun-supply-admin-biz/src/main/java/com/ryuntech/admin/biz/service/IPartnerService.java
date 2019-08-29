@@ -1,6 +1,9 @@
 package com.ryuntech.admin.biz.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ryuntech.admin.api.entity.Partner;
+import com.ryuntech.common.utils.QueryPage;
+import com.ryuntech.common.utils.Result;
 
 /**
  * <p>
@@ -11,5 +14,14 @@ import com.ryuntech.admin.api.entity.Partner;
  * @since 2019-08-15
  */
 public interface IPartnerService extends IBaseService<Partner> {
+    /**
+     * 根据openId获取合伙人数据
+     * @param openId
+     * @return
+     */
+    Partner findByOpenId( String openId);
 
+    Result<IPage<Partner>> pageList(Partner partner, QueryPage queryPage);
+
+    Boolean register(Partner partner);
 }
