@@ -7,7 +7,7 @@
         </div>
         <div style="text-align: center">
           <h1>睿云科技</h1>
-          <h3>睿云科技-瑞云合伙人后台管理系统</h3>
+          <h3>睿推客</h3>
           <!--<h3>By <a href="https://github.com/TyCoding/cloud-template">TyCoding</a></h3>-->
         </div>
       </el-card>

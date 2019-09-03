@@ -172,6 +172,26 @@ import java.util.Date;
         private String reviewerId;
     @TableField("REVIEWER_NAME")
     private String reviewerName;
+    @TableField("OPEN_ID")
+    private String openId;
+
+
+    //总订单数(推荐单量)
+    @TableField(exist = false)
+    private Integer totalOrderNum;
+
+    //总待结算单(待结算单)
+    @TableField(exist = false)
+    private Integer totalNum;
+
+    //总待结算金额(待结算金额)
+    @TableField(exist = false)
+    private String totalLending;
+
+    //总累计创收金额
+    @TableField(exist = false)
+    private String totalFeed;
+
 
 
 }

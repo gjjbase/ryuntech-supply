@@ -66,18 +66,19 @@
            04=已放款(银行渠道已放款，交易完成)
            05=已拒款(交易失败) 06=已删除"-->
             <span v-if="scope.row.orderStatus==='01'">待处理</span>
-            <span v-if="scope.row.orderStatus==='02'">资质不符合(橙势审核不符)</span>
-            <span v-if="scope.row.orderStatus==='03'">资金方审核(提交银行渠道)</span>
-            <span v-if="scope.row.orderStatus==='04'">已放款(银行渠道已放款，交易完成)</span>
-            <span v-if="scope.row.orderStatus==='05'">已拒款(交易失败)</span>
+            <span v-if="scope.row.orderStatus==='02'">已拒款</span>
+            <span v-if="scope.row.orderStatus==='03'">待处理</span>
+            <span v-if="scope.row.orderStatus==='04'">已放款</span>
+            <span v-if="scope.row.orderStatus==='05'">已拒款</span>
             <span v-if="scope.row.orderStatus==='06'">已删除</span>
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-button type="primary" @click="handleEdit(scope.row.orderid)" size="mini" icon="el-icon-edit">编辑</el-button>
-            <el-button type="danger"  size="mini" @click="handleDel(scope.row.orderid)" icon="el-icon-delete">删除</el-button>
-<!--                       @click="handleEdit(scope.row.orderId)" -->
+            <el-button type="primary" @click="handleLoan(scope.row.orderid)"  v-if="scope.row.orderStatus==='01'" size="mini" icon="el-icon-view">放款</el-button>
+            <el-button type="danger" @click="handleRefuse(scope.row.orderid)"   v-if="scope.row.orderStatus==='01'" size="mini" icon="el-icon-view">拒款</el-button>
+            <el-button type="danger"  size="mini" v-if="scope.row.orderStatus==='05'"  @click="handleDel(scope.row.orderid)" icon="el-icon-delete">删除</el-button>
 
 <!--            <el-button type="danger" @click="handleDel(scope.row.orderId)" icon="el-icon-delete" size="mini">删除</el-button>-->
           </template>
@@ -93,7 +94,7 @@
 </template>
 
 <script>
-  import {getList, findById, del} from '@/api/business/reorder'
+  import {getList, findById, del,loan,refuse} from '@/api/business/reorder'
   import Pagination from '@/components/Pagination'
   import Save from './save'
   import {parseTime} from '@/utils/index'
@@ -145,6 +146,46 @@
           this.form = response.data;
         })
       },
+        handleRefuse(orderId) {
+            this.$confirm('你确定拒绝此订单？, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                refuse(orderId).then(response => {
+                    console.info("response"+response)
+                    if (response.tcode === 200) {
+                        this._notify(response.msg, '操作成功')
+                    } else {
+                        this._notify(response.msg, '操作失败')
+                    }
+                    this.fetchData();
+                })
+            }).catch(function (err) {
+                console.info(err);
+                this._notify('已取消', 'info');
+            });
+       },
+       handleLoan(orderId) {
+           this.$confirm('你确定对订单放款？, 是否继续?', '提示', {
+               confirmButtonText: '确定',
+               cancelButtonText: '取消',
+               type: 'warning'
+           }).then(() => {
+               loan(orderId).then(response => {
+                   console.info("response"+response)
+                   if (response.tcode === 200) {
+                       this._notify(response.msg, '操作成功')
+                   } else {
+                       this._notify(response.msg, '操作失败')
+                   }
+                   this.fetchData();
+               })
+           }).catch(function (err) {
+               console.info(err);
+               this._notify('已取消', 'info')
+           });
+      },
       handleView(orderId) {
         findById(orderId).then(response => {
           this.form = response.data;
@@ -166,15 +207,17 @@
           type: 'warning'
         }).then(() => {
           del(orderId).then(response => {
-            if (response.tcode === 200) {
-              this._notify(response.msg, 'success')
-            } else {
-              this._notify(response.msg, 'error')
-            }
+              console.info("response"+response)
+              if (response.tcode === 200) {
+                  this._notify(response.msg, '操作成功')
+              } else {
+                  this._notify(response.msg, '操作失败')
+              }
             this.fetchData();
           })
-        }).catch(() => {
-          this._notify('已取消删除', 'info')
+        }).catch(function (err) {
+            console.info(err);
+            this._notify('已取消', 'info')
         });
       }
     }

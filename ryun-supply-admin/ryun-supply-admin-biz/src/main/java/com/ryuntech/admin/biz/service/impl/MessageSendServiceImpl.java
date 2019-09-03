@@ -8,7 +8,9 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
+import com.google.gson.Gson;
 import com.ryuntech.admin.api.vo.Sms;
+import com.ryuntech.admin.api.vo.SmsResponse;
 import com.ryuntech.admin.biz.service.MessageSendService;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ import static com.ryuntech.common.constant.SmsConstants.*;
 public class MessageSendServiceImpl implements MessageSendService {
 
     @Override
-    public void sendSms(Sms sms) {
+    public SmsResponse sendSms(Sms sms) {
         DefaultProfile profile = DefaultProfile.getProfile(PROFILE, ACCESSKEYID, ACCESSSECRET);
         IAcsClient client = new DefaultAcsClient(profile);
 
@@ -30,15 +32,21 @@ public class MessageSendServiceImpl implements MessageSendService {
         request.putQueryParameter("RegionId", REGIONID);
         request.putQueryParameter("PhoneNumbers", sms.getPhoneNumbers());
         request.putQueryParameter("SignName", SIGNNAME);
-        request.putQueryParameter("TemplateCode", sms.getTemplateCode());
+        request.putQueryParameter("TemplateCode", TEMPLATECODE);
+        request.putQueryParameter("TemplateParam", sms.getContent());
+
         try {
             CommonResponse response = client.getCommonResponse(request);
-            System.out.println(response.getData());
+            Gson gson = new Gson();
+            //解析从微信服务器获得的openid和session_key;
+            SmsResponse smsResponse = gson.fromJson(response.getData(),SmsResponse.class);
+            return smsResponse;
         } catch (ServerException e) {
             e.printStackTrace();
         } catch (ClientException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override

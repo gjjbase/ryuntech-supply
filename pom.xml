@@ -21,8 +21,6 @@
         <module>ryun-supply-monitor</module>
         <module>ryun-supply-zipkin</module>
         <module>ryun-supply-generator</module>
-        <module>ryun-supply-base</module>
-        <module>ryuntech-su-sdk</module>
     </modules>
 
     <properties>
@@ -89,6 +87,12 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
+<!--fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.4</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -130,14 +134,14 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
+ <!--   <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 
 </project>

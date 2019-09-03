@@ -19,3 +19,25 @@ export function del(orderId) {
     method: 'delete'
   })
 }
+
+export function edit(data) {
+  return request({
+    url: '/admin/order/edit',
+    method: 'put',
+    data
+  })
+}
+
+export function loan(orderId) {
+  return request({
+    url: '/admin/order/loan?orderid='+orderId,
+    method: 'get'
+  })
+}
+
+export function refuse(orderId) {
+  return request({
+    url: '/admin/order/refuse?orderid='+orderId,
+    method: 'get'
+  })
+}

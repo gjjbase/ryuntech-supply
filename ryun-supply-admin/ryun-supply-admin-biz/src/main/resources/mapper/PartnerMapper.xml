@@ -29,14 +29,19 @@
         <result column="RECOMMEND" property="recommend" />
         <result column="AVATAR" property="avatar" />
         <result column="NICKNAME" property="nickname" />
+        <result column="reviewerId" property="REVIEWER_ID" />
+        <result column="reviewerName" property="REVIEWER_NAME" />
+        <result column="openId" property="OPEN_ID" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         PARTNERID, PARTNER_NAME, COMPANY_ADDRESS, COMPANY_NAME, CONTACT_PERSON, CONTACT_TYPE, SEX, IDCART_TYPE,
         IDCART_NUMBER, ADDRESS, EMAIL, CREATE_TIME, STATUS, REGISTER_MOBILE, MERCHANT_PAYMENT_PATTERN,
-        ACCNO, ACCNO_BANK, PROVINCE_NO, CITY_NO, MERCHANT_TYPE, MEMBER_ORIGIN, LEGAL_PERSON,RECOMMEND,AVATAR,NICKNAME
+        ACCNO, ACCNO_BANK, PROVINCE_NO, CITY_NO, MERCHANT_TYPE, MEMBER_ORIGIN, LEGAL_PERSON,RECOMMEND,AVATAR,NICKNAME,reviewerId,reviewerName,openId
     </sql>
+
+
 
 </mapper>
 

@@ -2,6 +2,7 @@ package com.ryuntech.admin.biz.controller;
 
 
 import com.ryuntech.admin.api.vo.Sms;
+import com.ryuntech.admin.api.vo.SmsResponse;
 import com.ryuntech.admin.biz.service.MessageSendService;
 import com.ryuntech.common.utils.RandomUtil;
 import com.ryuntech.common.utils.Result;
@@ -52,9 +53,9 @@ public class SmsController extends BaseController {
             redisTemplate.opsForValue().set(phone+"ryun_code",numberCode,60*10, TimeUnit.SECONDS);
             Sms sms = new Sms();
             sms.setPhoneNumbers(phone);
-            sms.setTemplateCode(numberCode);
-            messageSendService.sendSms(sms);
-            return new Result();
+            sms.setContent("{\"code\":\"" + numberCode + "\"}");
+            SmsResponse smsResponse = messageSendService.sendSms(sms);
+            return new Result(smsResponse);
         }
     }
 }

@@ -1,0 +1,30 @@
+{
+  "tcode": 200,
+  "msg": "success",
+  "data": {
+    "property": {},
+    "orderid": "707260829006823424",
+    "memberName": "777",
+    "companyName": "结算",
+    "orderChenel": null,
+    "orderTime": "2019-09-03 20:01:01",
+    "isRoy": "0",
+    "paymentStatus": "00",
+    "orderStatus": "04",
+    "orderType": "00",
+    "orderCloseTime": null,
+    "orderInvalidTime": null,
+    "partnerId": "707144705455947776",
+    "orderMerchantMemo": null,
+    "orderMemo": null,
+    "paymentFee": null,
+    "modifyTime": "2019-09-03 20:44:34",
+    "isDelete": null,
+    "orderFactPayAmount": 100.00,
+    "orderPayAmount": "10W-30W",
+    "orderPayTime": "2019-09-03 20:44:34",
+    "orderCreateType": "00",
+    "referralCode": "374942",
+    "financeUserInfo": null
+  }
+}

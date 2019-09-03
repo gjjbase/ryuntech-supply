@@ -37,11 +37,51 @@
                     and order_id in (select order_id from ryn_order where ryn_order.member_name like
                     concat('%',#{paymentResult.order.memberName},'%'))
                 </if>
-                <if test="paymentResult.order.orderMemo!=null and paymentResult.order.orderMemo!=''">
-                    and order_id in (select order_id from ryn_order where ryn_order.order_memo like
-                    concat('%',#{paymentResult.order.orderMemo},'%'))
+                <if test="paymentResult.order.referralCode!=null and paymentResult.order.referralCode!=''">
+                    and order_id in (select order_id from ryn_order where ryn_order.referral_code like
+                    concat('%',#{paymentResult.order.referralCode},'%'))
                 </if>
             </if>
         </where>
     </select>
+
+
+    <!--统计结算阶段数据金额-->
+    <select id="censusOrderByPartnerId" resultType="java.math.BigDecimal">
+        select
+	        sum(payment_fee) totalFeed
+        from
+	        ryn_payment_result
+        <where>
+            <if test="paymentResult.statusList!=null and paymentResult.statusList.size()>0">
+                payment_status in
+                <foreach collection="paymentResult.statusList" item="status" index="index" open="(" close=")" separator=",">
+                    #{status}
+                </foreach>
+            </if>
+            <if test="paymentResult.order.partnerId!=null and paymentResult.order.partnerId!=''">
+                 and order_id in ( select order_id from ryn_order where partner_id = #{paymentResult.order.partnerId} )
+            </if>
+        </where>
+    </select>
+
+    <select id="censusOrderCountByPartnerId" resultType="java.lang.Integer">
+        select
+	        count(*) totalNum
+        from
+	        ryn_payment_result
+        <where>
+            <if test="paymentResult.statusList!=null and paymentResult.statusList.size()>0">
+                payment_status in
+                <foreach collection="paymentResult.statusList" item="status" index="index" open="(" close=")" separator=",">
+                    #{status}
+                </foreach>
+            </if>
+            <if test="paymentResult.order.partnerId!=null and paymentResult.order.partnerId!=''">
+                and order_id in ( select order_id from ryn_order where partner_id = #{paymentResult.order.partnerId} )
+            </if>
+        </where>
+
+    </select>
+
 </mapper>

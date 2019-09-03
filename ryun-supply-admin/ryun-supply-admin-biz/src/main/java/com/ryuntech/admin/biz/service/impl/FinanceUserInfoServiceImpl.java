@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ryuntech.admin.api.entity.FinanceUserInfo;
 import com.ryuntech.admin.api.entity.Order;
+import com.ryuntech.admin.api.entity.Partner;
 import com.ryuntech.admin.api.vo.FinanceOrder;
 import com.ryuntech.admin.biz.mapper.FinanceUserInfoMapper;
 import com.ryuntech.admin.biz.mapper.OrderMapper;
+import com.ryuntech.admin.biz.mapper.PartnerMapper;
 import com.ryuntech.admin.biz.service.IFinanceUserInfoService;
 import com.ryuntech.common.constant.OrderConstants;
 import com.ryuntech.common.constant.PayResultConstant;
@@ -35,6 +37,8 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
     OrderMapper orderMapper;
     @Autowired
     FinanceUserInfoMapper financeUserInfoMapper;
+    @Autowired
+    PartnerMapper partnerMapper;
 
     @Override
     public Result<IPage<FinanceUserInfo>> pageList(FinanceUserInfo financeUserInfo, QueryPage queryPage) {
@@ -78,6 +82,8 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
             financeUserInfo.setBussinessRegister(financeOrder.getBussinessRegister());
             //身份性质,法人/股东/其他,职业
             financeUserInfo.setAnnualInvoice(financeOrder.getAnnualInvoice());
+//            公司
+            financeUserInfo.setCompanyName(financeOrder.getCompanyName());
             financeUserInfoMapper.insert(financeUserInfo);
         }
 
@@ -89,11 +95,18 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
         order.setOrderid(orderId);
         order.setOrderPayAmount(orderPayAmount);
         order.setOrderTime(new Date());
+        order.setCompanyName(financeOrder.getCompanyName());
         order.setModifyTime(new Date());
 //        推荐码
-        order.setOrderMemo(financeOrder.getOrderMemo());
+        order.setReferralCode(financeOrder.getReferralCode());
         //融资客户编号
         order.setMemberId(financeUserInfo.getUserId());
+        //合伙人编号
+        //根据推荐码查询合伙人编号
+//        Partner partner = partnerMapper.selectOne(new QueryWrapper<Partner>().eq("open_id", openId));
+
+        Partner recommend = partnerMapper.selectOne(new QueryWrapper<Partner>().eq("recommend", financeOrder.getReferralCode()));
+        if (recommend!=null) order.setPartnerId(recommend.getPartnerId());
         //订单状态
         order.setOrderStatus(OrderConstants.PENDING);
         //佣金阶段状态

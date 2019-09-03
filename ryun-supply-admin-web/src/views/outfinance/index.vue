@@ -1,5 +1,5 @@
 <template>
-  <el-container >
+  <el-container style="background-color: #FFFFFF">
     <el-header style="height: 45px">
       <el-row>
         <el-col :span="24" >
@@ -25,7 +25,7 @@
         <el-form-item style="border-width: 0px !important;" label="验证码:" prop="code" label-width="120px">
           <el-row>
             <el-col :span="12"><el-input maxlength="20"  v-model="form.code" placeholder="验证码"></el-input> </el-col>
-            <el-col :span="12"><el-button type="primary" @click="sendCode()" plain >{{this.butValue}}</el-button></el-col>
+            <el-col :span="12"><el-button style="margin-left: 3px;" type="primary"  :disabled = "dis" @click="sendCode()" plain >{{this.butValue}}</el-button></el-col>
           </el-row>
         </el-form-item>
         <div class="link-top2"></div>
@@ -56,8 +56,8 @@
         <el-form-item  label="贷款额度:"  prop="orderPayAmount" label-width="120px">
           <el-select v-model="form.orderPayAmount" placeholder="请选择贷款额度" >
             <el-option label="请输入贷款额度" value="0"></el-option>
-            <el-option label="10W-30W" value="1"></el-option>
-            <el-option label="30W-50W" value="2"></el-option>
+            <el-option label="10W-30W" value="10W-30W"></el-option>
+            <el-option label="30W-50W" value="30W-50W"></el-option>
           </el-select>
         </el-form-item>
         <div class="link-top2"></div>
@@ -83,6 +83,7 @@
         props: ['sonData'],
         data() {
             return {
+                dis: false,
                 mapJson:'../static/json/map.json',
                 adddate:adddate,
                 province:'',
@@ -97,22 +98,16 @@
                 timer:null,
                 sendAuthCode:true,
                 form: {
-                  /*  companyName: '',
-                    mobile: '',
-                    city: '',
-                    orderPayAmount: ''*/
+                    //推荐码
+                    referralCode:""
                 },
                 rules: {
-                  /*  companyName: [{required: true, trigger: 'blur', message: '请输入公司名'}],
-                    mobile: [{required: true, trigger: 'blur', message: '请输入手机号'}],
-                    city: [{required: true, trigger: 'blur', message: '请选择城市'}],
-                    orderPayAmount: [{required: true, trigger: 'blur', message: '请选择贷款额度'}],
-                    code: [{required: true, trigger: 'blur', message: '请选择验证码'}]*/
                 }
             }
         },
         watch: {
             'sonData': function (newVal, oldVal) {
+
             }
         },
         methods: {
@@ -127,16 +122,18 @@
                 this.form.mobile = null;
                 this.form.code = null;
                 this.form.city = null;
+                this.form.sheng = null;
                 this.orderPayAmount = null;
                 this.sendAuthCode = true;
+                this.dis=false;
                 this.butValue="发送验证码";
+                this.count=60;
                 clearInterval(this.timer);
             },
             handleClose() {
                 this.clearForm();
             },
             sendCode(){
-
                 if (this.form.mobile ==undefined||this.form.mobile.length<11){
                     this._notify("请填写正确的手机号", 'error')
                     return;
@@ -145,10 +142,13 @@
                     //开启定时器
                     this.timer =  setInterval(()=>{
                         this.count--;
+                        this.dis=true;
                         this.butValue=this.count+"秒重新获取";
                         if(this.count<=0){
                             this.sendAuthCode = true;
                             this.butValue="发送验证码";
+                            this.count=60;
+                            this.dis=false;
                             clearInterval(this.timer);
                         }
                     }, 1000);
@@ -180,15 +180,21 @@
                 save(this.form).then(response => {
                     console.info(response)
                     if (response.tcode === 200) {
-                        this._notify(response.msg, 'success');
+                        this._notify(response.data, 'success');
                         this.clearForm();
                     } else {
+                        if (response.tcode===1010){
+                            this.form.code = null;
+                        }
+                        if (response.tcode===1011){
+                            this.form.mobile = null;
+                        }
                         this._notify(response.msg, 'error');
                     }
-                })
-                    /*.catch(() => {
+                }).catch(() => {
                     this._notify('申请异常', 'error')
-                });*/
+                });
+
 
             },
             getCityData(){
@@ -215,19 +221,6 @@
                         }
                     }
                 }
-               /* // 分类区级
-                for (var item1 in that.city) {
-                    for (var item2 in that.block) {
-                        if (that.block[item2].id.slice(0, 4) === that.city[item1].id.slice(0, 4)) {
-                            that.city[item1].children.push(that.block[item2])
-                        }
-                    }
-                }*/
-                    // }
-                    // else{
-                    //     console.log(response.status)
-                    // }
-                // }).catch(function(error){console.log(typeof+ error)})
             },
             choseProvince(e){
                 for (var index2 in this.province) {
@@ -236,22 +229,11 @@
                         this.form.city = this.province[index2].children[0].value
                     }
                 }
-            },
-            choseBlock(e){
-                this.E=e;
             }
         },
         created(){
+            this.form.referralCode = this.$route.query.referralCode;
             this.getCityData();
-           /* const newInstance = this.$ajax.create({
-                baseURL: '',
-                timeout: 5000,
-                headers: {'Content-type': 'multipart/form-data'}
-            });
-            /!*../../请根据自己的实际路径来获取*!/
-            newInstance.get('./../../static/json/map.json').then(res => {
-                console.log("获取本地的json文件" + JSON.stringify(res));
-            })*/
         }
     }
 </script>

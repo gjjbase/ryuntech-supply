@@ -2,6 +2,7 @@
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
 
+
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -27,6 +28,7 @@ module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
   devServer: {
+    disableHostCheck: true,
     port: port,
     open: true,
     overlay: {

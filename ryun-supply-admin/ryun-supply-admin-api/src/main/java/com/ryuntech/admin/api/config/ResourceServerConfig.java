@@ -36,7 +36,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/v2/api-docs/**")
                 .permitAll()
 
-                .antMatchers("/actuator/**", "/user/info/*","/sms/*","/storage/local/upload","/*/out*")
+                .antMatchers("/actuator/**", "/user/info/*","/sms/*","/storage/local/upload","/*/out**")
                 .permitAll()
 
                 .anyRequest()

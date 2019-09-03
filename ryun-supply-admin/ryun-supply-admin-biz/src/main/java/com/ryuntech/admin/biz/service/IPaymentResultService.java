@@ -19,4 +19,5 @@ public interface IPaymentResultService extends IBaseService<PaymentResult> {
 
     Result<IPage<PaymentResult>> selectPageList(PaymentResult paymentResult, QueryPage queryPage);
 
+    PaymentResult settlementEnter(String paymentSystemId);
 }

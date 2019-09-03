@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ryuntech.admin.api.entity.PaymentResult;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  *  Mapper 接口
@@ -15,4 +17,11 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface PaymentResultMapper extends IBaseMapper<PaymentResult> {
     IPage<PaymentResult> selectPageList(@Param("pg") Page<PaymentResult> page, @Param("paymentResult") PaymentResult paymentResult);
+
+
+    /*统计金额*/
+    BigDecimal censusOrderByPartnerId(@Param("paymentResult") PaymentResult paymentResult);
+
+    /*统计数量*/
+    Integer censusOrderCountByPartnerId(@Param("paymentResult") PaymentResult paymentResult);
 }

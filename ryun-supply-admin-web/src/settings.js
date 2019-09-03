@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '睿云科技-瑞云合伙人后台管理系统',
+  title: '睿推客',
 
   /**
    * @type {boolean} true | false

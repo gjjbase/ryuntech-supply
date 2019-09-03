@@ -4,7 +4,6 @@ package com.ryuntech.admin.biz.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ryuntech.admin.api.entity.PaymentResult;
 import com.ryuntech.admin.biz.service.IPaymentResultService;
-import com.ryuntech.common.constant.PayResultConstant;
 import com.ryuntech.common.utils.QueryPage;
 import com.ryuntech.common.utils.Result;
 import io.swagger.annotations.Api;
@@ -15,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import static com.ryuntech.common.constant.enums.CommonEnums.SETTLEMENT_ERROR;
 
 /**
  * <p>
@@ -65,10 +66,12 @@ public class PaymentResultController {
         if (StringUtils.isBlank(paymentSystemId)) {
             return new Result();
         } else {
-            PaymentResult paymentResult =new PaymentResult();
-            paymentResult.setPaymentSystemId(paymentSystemId);
-            paymentResult.setPaymentStatus(PayResultConstant.SETTLE);
-            return new Result(iPaymentResultService.updateById(paymentResult),"结算成功");
+            PaymentResult paymentResult = iPaymentResultService.settlementEnter(paymentSystemId);
+            if (null==paymentResult){
+                return  new Result(SETTLEMENT_ERROR);
+            }else {
+                return  new Result(paymentResult,"结算成功");
+            }
         }
     }
 }

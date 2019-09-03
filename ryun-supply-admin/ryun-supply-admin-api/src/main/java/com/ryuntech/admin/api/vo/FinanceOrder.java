@@ -51,9 +51,10 @@ public class FinanceOrder extends BaseModel {
     * 渠道
     * */
     private String orderChenel;
-    private String orderMemo;
+    private String referralCode;
 
     private String mobile;
     private String code;
+    private String companyName;
 
 }

@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/info/*", "/sms/*", "/*/out*","/actuator/*", "/token/logout")
+                .antMatchers("/user/info/*", "/sms/*", "/*/out**","/actuator/*", "/token/logout")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -66,6 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 暴露`/oauth/check_token`端点
-        web.ignoring().mvcMatchers("/oauth/check_token", "/user/info/*","/sms/*","/*/out*");
+        web.ignoring().mvcMatchers("/oauth/check_token", "/user/info/*","/sms/*","/*/out**");
     }
 }

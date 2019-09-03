@@ -15,6 +15,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import static com.ryuntech.common.constant.enums.CommonEnums.OPERATE_ERROR;
+import static com.ryuntech.common.constant.enums.CommonEnums.SETTLEMENT_ERROR;
+
 /**
  * <p>
  *  前端控制器
@@ -61,8 +64,9 @@ public class OrderController {
             @ApiImplicitParam(name = "order", value = "查询条件", dataType = "Order", paramType = "body"),
             @ApiImplicitParam(name="queryPage",value="分页信息",dataType="QueryPage", paramType = "body")
     })
-    public Result<IPage<Order>> outList(Order order, QueryPage queryPage) {
-        return iOrderService.pageList(order,queryPage);
+    public Result<IPage<Order>> outList(@RequestBody Order order, QueryPage queryPage) {
+        log.info("order.getOrderid()"+order);
+        return iOrderService.selectPageList(order,queryPage);
     }
 
 
@@ -96,6 +100,26 @@ public class OrderController {
         }
     }
 
+    /**
+     * 根据ID查询用户信息
+     *
+     * @param orderid
+     * @return
+     */
+    @GetMapping("/outSettlement")
+    @ApiOperation(value = "查询详细融资客户信息", notes = "orderId存在")
+    @ApiImplicitParam(name = "orderId", value = "用户编号", required = true, dataType = "String")
+    public Result<Order> settlement( String orderid) {
+        if (StringUtils.isBlank(orderid)) {
+            return new Result<>();
+        } else {
+            if (iOrderService.settlement(orderid)!=null)
+                return new Result<>(iOrderService.settlement(orderid),"发起结算成功");
+            else
+                return new Result<>(SETTLEMENT_ERROR);
+        }
+    }
+
 
     /**
      * 根据ID查询用户信息
@@ -114,5 +138,60 @@ public class OrderController {
         }
     }
 
+    /**
+     * 更新订单信息
+     *
+     * @param order
+     * @return
+     */
+    @PutMapping("/edit")
+    @ApiOperation(value = "更新订单")
+    @ApiImplicitParam(name = "order", value = "用户订单信息", required = true, dataType = "Order", paramType = "body")
+    public Result edit(@RequestBody Order order) {
+        iOrderService.saveOrUpdate(order);
+        return new Result();
+    }
 
+
+    /**
+     * 对订单数据打款
+     *
+     * @param orderid
+     * @return
+     */
+    @GetMapping("/loan")
+    @ApiOperation(value = "更新订单")
+    @ApiImplicitParam(name = "orderid", value = "对用户放款", required = true, dataType = "String", paramType = "body")
+    public Result loan( String orderid) {
+        if (StringUtils.isBlank(orderid)) {
+            return new Result<>();
+        } else {
+            Order loan = iOrderService.loan(orderid);
+            if (loan==null)
+                return new Result<>(OPERATE_ERROR);
+            else
+                return new Result<>(loan);
+        }
+    }
+
+    /**
+     * 对订单数据打款
+     *
+     * @param orderid
+     * @return
+     */
+    @GetMapping("/refuse")
+    @ApiOperation(value = "更新订单")
+    @ApiImplicitParam(name = "orderid", value = "对用户放款", required = true, dataType = "String", paramType = "body")
+    public Result refuse( String orderid) {
+        if (StringUtils.isBlank(orderid)) {
+            return new Result<>();
+        } else {
+            Order refuse = iOrderService.refuse(orderid);
+            if (refuse==null)
+                return new Result<>(OPERATE_ERROR);
+            else
+                return new Result<>(refuse);
+        }
+    }
 }

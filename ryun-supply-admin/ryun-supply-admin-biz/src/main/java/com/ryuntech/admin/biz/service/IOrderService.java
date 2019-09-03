@@ -16,4 +16,8 @@ import com.ryuntech.common.utils.Result;
 public interface IOrderService extends IBaseService<Order> {
     Result<IPage<Order>> pageList(Order order, QueryPage queryPage);
     Result<IPage<Order>> selectPageList(  Order order,QueryPage queryPage);
+
+    Order settlement(String orderid);
+    Order loan(String orderid);
+    Order refuse(String orderid);
 }

@@ -18,8 +18,8 @@
       <el-form-item label="城市:" prop="city" label-width="120px">
         <el-select v-model="form.city"   placeholder="请选择城市">
           <el-option label="请输入城市" value="0"></el-option>
-          <el-option label="深圳" value="1"></el-option>
-          <el-option label="广州" value="2"></el-option>
+          <el-option label="深圳" value="深圳"></el-option>
+          <el-option label="广州" value="广州"></el-option>
         </el-select>
       </el-form-item>
 
@@ -41,7 +41,7 @@
       </el-form-item>
       <el-form-item label="执照注册日期" prop="bussinessRegister" label-width="120px">
         <el-date-picker v-model="form.bussinessRegister" type="datetime" placeholder="选择日期时间"
-                        value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+                        value-format="yyyy-MM-dd" format="yyyy-MM-dd"></el-date-picker>
       </el-form-item>
       <el-form-item label="年纳税金额" prop="payTaxes" label-width="120px">
         <el-select v-model="form.payTaxes" placeholder="请选择年纳税额">
@@ -64,7 +64,7 @@
           <el-radio label="按揭房" value="0"></el-radio>
           <el-radio label="全款房" value="1"></el-radio>
         </el-radio-group>
-        <el-form-item label="" prop="houseAddressType" v-if="form.houseType === '1'">
+        <el-form-item label="" prop="houseAddressType" v-if="form.houseType == '1'">
           <el-radio-group v-model="form.houseAddressType">
             <el-radio label="本地房产" value="0"></el-radio>
             <el-radio label="外地房产" value="1"></el-radio>
@@ -85,7 +85,7 @@
         </el-form-item>
       </el-form-item>
       <el-form-item label="推荐码" prop="orderMemo" label-width="120px">
-        <el-input maxlength="10" v-model="form.orderMemo" placeholder="推荐码"></el-input>
+        <el-input maxlength="10" v-model="form.referralCode" placeholder="推荐码"></el-input>
       </el-form-item>
 
     </el-form>

@@ -48,7 +48,7 @@
 
         <el-table-column label="审核人" width="120" align="center">
           <template slot-scope="scope">
-            <span>{{ scope.row.status }}</span>
+            <span>{{ scope.row.reviewerName }}</span>
           </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="证件号码" width="200" align="center">
@@ -146,6 +146,7 @@
                         this._notify(response.msg, 'error')
                     }
                 })
+                this.fetchData();
             }).catch(() => {
                 this._notify('已取消审核', 'info')
             });

@@ -150,8 +150,9 @@
              } else {
                  this._notify(response.msg, 'error')
              }
+             this.fetchData();
         }).catch(() => {
-             this._notify('已取消结算', 'info')
+             this._notify('已取消', 'info')
          });
       },
       handleView(orderId) {
@@ -194,14 +195,15 @@
         }).then(() => {
         updateById(paymentSystemId).then(response => {
             if (response.tcode === 200) {
-                  this._notify(response.msg, 'success')
+                  this._notify(response.msg, 'success');
+
               } else {
                   this._notify(response.msg, 'error')
               }
             this.fetchData();
           })
         }).catch(() => {
-          this._notify('已取消删除', 'info')
+          this._notify('已取消', 'info')
         });
       }
     }

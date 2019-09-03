@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import static com.ryuntech.common.constant.enums.CommonEnums.PARAM_ERROR;
+import static com.ryuntech.common.constant.enums.CommonEnums.PARAM_PARSE_ERROR;
 
 /**
  * <p>
@@ -96,7 +96,7 @@ public class FinanceUserInfoController extends BaseController {
         return new Result();
     }
     /**
-     * 添加融资用户信息 ，并更新订单数据
+     * 添加融资用户信息 ，并更新订单数据FindByOpenId
      *
      * @param financeOrder
      * @return
@@ -115,10 +115,10 @@ public class FinanceUserInfoController extends BaseController {
                 getSession().setAttribute(financeOrder.getMobile() + "ryun_code",null);
                 iFinanceUserInfoService.addFinacneOrder(financeOrder);
             }else {
-                return  new Result( PARAM_ERROR);
+                return  new Result(PARAM_PARSE_ERROR);
             }
         }else {
-            return  new Result(PARAM_ERROR);
+            return  new Result(PARAM_PARSE_ERROR);
         }
         return new Result("申请成功，请等待审核");
     }

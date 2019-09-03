@@ -17,5 +17,5 @@ public class Sms extends BaseModel {
    private String regionId;
    private String phoneNumbers;
    private String signName;
-   private String templateCode;
+   private String content;
 }

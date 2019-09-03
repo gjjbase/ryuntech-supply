@@ -98,13 +98,14 @@ export const constantRoutes = [
         name: '财务管理',
         component: () => import('@/views/business/finmanager/index'),
         meta: { title: '财务管理', icon: 'documentation' }
-      },
+      }
+      /*,
       {
         path: 'operatelog',
         name: '操作日志管理',
         component: () => import('@/views/business/operatelog/index'),
         meta: { title: '操作日志管理', icon: 'peoples' }
-      },
+      },*/
     ]
   },
   {

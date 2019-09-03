@@ -8,7 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 /**
 * <p>
@@ -48,7 +49,7 @@ import java.time.LocalDateTime;
             * 结算时间
             */
         @TableField("PAYMENT_TIME")
-    private LocalDateTime paymentTime;
+    private Date paymentTime;
 
             /**
             * 结算状态(00-未结算，01已结算，02结算中)
@@ -84,7 +85,7 @@ import java.time.LocalDateTime;
             * 结算完成时间
             */
         @TableField("PAYED_TIME")
-    private LocalDateTime payedTime;
+    private Date payedTime;
 
             /**
             * 渠道 01-PC 02-小程序
@@ -100,5 +101,8 @@ import java.time.LocalDateTime;
 
         @TableField(exist = false)
     private Order order;
+
+    @TableField(exist = false)
+        private List<String> statusList;
 
 }

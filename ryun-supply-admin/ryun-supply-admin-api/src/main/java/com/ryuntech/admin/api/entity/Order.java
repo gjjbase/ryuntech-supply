@@ -127,7 +127,7 @@ import java.util.Date;
             * 佣金提成金额
             */
         @TableField("PAYMENT_FEE")
-    private Float paymentFee;
+    private BigDecimal paymentFee;
 
             /**
             * 修改时间
@@ -168,6 +168,9 @@ import java.util.Date;
             */
         @TableField("ORDER_CREATE_TYPE")
     private String orderCreateType;
+
+        @TableField("REFERRAL_CODE")
+    private String referralCode;
 
 
     @TableField(exist = false)

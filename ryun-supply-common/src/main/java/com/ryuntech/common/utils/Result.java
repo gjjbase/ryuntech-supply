@@ -48,6 +48,13 @@ public class Result<T> implements Serializable {
         this.msg = enums.getMsg();
     }
 
+    public Result(T data, CommonEnums enums) {
+        super();
+        this.data = data;
+        this.tcode = enums.getCode();
+        this.msg = enums.getMsg();
+    }
+
     public Result(Throwable e) {
         super();
         this.tcode = CommonConstants.ERROR;

@@ -21,15 +21,4 @@
     <sql id="Base_Column_List">
         LOG_ID, SESSION_ID, LAST_LOGIN_TIME, CLIENT_IP, LOGIN_DEVICE_BROWSER, LOGIN_OS, USERID, LOGIN_NAME, LOGIN_CHANNELS, LOGIN_WAY, CLIENT_MAC
     </sql>
-    <select id="Pages" resultMap="BaseResultMap">
-        select
-
-        <include refid="Base_Column_List" />
-        from ryn_partner_login_log_info
-    </select>
-    <select id="pageList" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from ryn_partner_login_log_info
-    </select>
 </mapper>

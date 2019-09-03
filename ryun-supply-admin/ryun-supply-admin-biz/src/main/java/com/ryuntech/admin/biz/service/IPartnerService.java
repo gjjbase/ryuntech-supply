@@ -20,8 +20,9 @@ public interface IPartnerService extends IBaseService<Partner> {
      * @return
      */
     Partner findByOpenId( String openId);
+    Partner findByPartner( Partner partner);
 
     Result<IPage<Partner>> pageList(Partner partner, QueryPage queryPage);
 
-    Boolean register(Partner partner);
+    Partner register(Partner partner);
 }

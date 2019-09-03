@@ -17,13 +17,14 @@
         <result column="PARTNER_ID" jdbcType="VARCHAR" property="partnerId" />
         <result column="ORDER_MERCHANT_MEMO" jdbcType="VARCHAR" property="orderMerchantMemo" />
         <result column="ORDER_MEMO" jdbcType="VARCHAR" property="orderMemo" />
-        <result column="PAYMENT_FEE" jdbcType="FLOAT" property="paymentFee" />
+        <result column="PAYMENT_FEE" jdbcType="DECIMAL" property="paymentFee" />
         <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
         <result column="IS_DELETE" jdbcType="VARCHAR" property="isDelete" />
         <result column="ORDER_FACT_PAY_AMOUNT" jdbcType="DECIMAL" property="orderFactPayAmount" />
         <result column="ORDER_PAY_AMOUNT" jdbcType="VARCHAR" property="orderPayAmount" />
         <result column="ORDER_PAY_TIME" jdbcType="TIMESTAMP" property="orderPayTime" />
         <result column="ORDER_CREATE_TYPE" jdbcType="VARCHAR" property="orderCreateType" />
+        <result column="REFERRAL_CODE" jdbcType="VARCHAR" property="referralCode" />
         <association property="financeUserInfo" column="MEMBER_ID" javaType="com.ryuntech.admin.api.entity.FinanceUserInfo"
                      select="com.ryuntech.admin.biz.mapper.FinanceUserInfoMapper.selectById">
         </association>
@@ -45,10 +46,12 @@
             <if test="order.orderid!=null and order.orderid!=''">
                 order_id like concat('%',#{order.orderid},'%')
             </if>
+            <if test="order.memberName!=null and order.memberName!=''">
+                member_name like concat('%',#{order.memberName},'%')
+            </if>
+            <if test="order.referralCode!=null and order.referralCode!=''">
+                referral_code = #{order.referralCode}
+            </if>
         </where>
     </select>
-
-
-
-
 </mapper>
