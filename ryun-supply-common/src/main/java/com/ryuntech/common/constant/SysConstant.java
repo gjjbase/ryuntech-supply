@@ -1,7 +1,7 @@
 package com.ryuntech.common.constant;
 
 public class SysConstant {
-    public static final String DEBUG_URL = "http://jrtest.ryuntech.com";
+    public static final String DEBUG_URL = "http://wx.ryuntech.com";
     public static final String DEBUG_EUREKA_PORT = "8761";
     public static final String DEBUG_CONFIG_PORT = "8888";
     public static final String DEBUG_MONITOR_PORT = "3000";

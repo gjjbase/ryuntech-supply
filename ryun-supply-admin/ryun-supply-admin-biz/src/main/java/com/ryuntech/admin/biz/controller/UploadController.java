@@ -6,7 +6,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,8 +46,7 @@ public class UploadController {
         String host = ip + ":" + port;
         try {
             //获取文件在服务器的储存位置
-            File path = new File(ResourceUtils.getURL("classpath:").getPath());
-            File filePath = new File(path.getAbsolutePath(), "static/upload/");
+            File filePath = new File("/data/wwwroot/default/upload/");
             log.info("文件的保存路径：" + filePath.getAbsolutePath());
             if (!filePath.exists() && !filePath.isDirectory()) {
                 log.info("目录不存在，创建目录:" + filePath);

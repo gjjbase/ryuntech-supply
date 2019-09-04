@@ -29,7 +29,9 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     disableHostCheck: true,
+    sockHost: 'wx.ryuntech.com',
     port: port,
+    host: '0.0.0.0',
     open: true,
     overlay: {
       warnings: false,
@@ -39,7 +41,7 @@ module.exports = {
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://127.0.0.1:9999/api/auth/`,
+        target: `https://wx.ryuntech.com:9999/api/auth/`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''

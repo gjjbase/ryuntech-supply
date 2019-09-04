@@ -1,5 +1,10 @@
 server:
   port: 9999
+    #  ssl证书相关配置
+  ssl:
+      key-store: classpath:https/2764629_wx_ryuntech_com.pfx
+      key-store-password: 5vU1pYCw
+      key-store-type: PKCS12
 
 spring:
   application:

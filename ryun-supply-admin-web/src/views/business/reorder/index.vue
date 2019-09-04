@@ -167,7 +167,33 @@
             });
        },
        handleLoan(orderId) {
-           this.$confirm('你确定对订单放款？, 是否继续?', '提示', {
+
+
+           this.$prompt('请输入放款金额(单位W)', '提示', {
+               confirmButtonText: '确定',
+               cancelButtonText: '取消',
+               inputPattern: /^\d+(\.\d{0,2})?$/,
+               inputErrorMessage: '金额不正确'
+           }).then(({ value }) => {
+               loan(orderId,amt).then(response => {
+                   console.info("response"+response)
+                   if (response.tcode === 200) {
+                         this.$message({
+                          type: 'success',
+                          message: '操作成功,放款金额是: ' + value
+                      });
+                   } else {
+                       this._notify(response.msg, '操作失败')
+                   }
+                   this.fetchData();
+               })
+           }).catch(() => {
+               this.$message({
+                   type: 'info',
+                   message: '取消输入'
+               });
+           });
+           /*this.$confirm('你确定对订单放款？, 是否继续?', '提示', {
                confirmButtonText: '确定',
                cancelButtonText: '取消',
                type: 'warning'
@@ -184,7 +210,7 @@
            }).catch(function (err) {
                console.info(err);
                this._notify('已取消', 'info')
-           });
+           });*/
       },
       handleView(orderId) {
         findById(orderId).then(response => {

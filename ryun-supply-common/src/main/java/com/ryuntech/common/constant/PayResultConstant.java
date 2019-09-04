@@ -18,5 +18,10 @@ public class PayResultConstant {
     * */
     public static final String SETTLEABLE="03";
 
+    /*
+    * 费率
+    * */
+    public static final String RATE="0.005";
+
 //    结算状态(03-可结算，01已结算，02结算中)
 }

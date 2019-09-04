@@ -28,9 +28,9 @@ export function edit(data) {
   })
 }
 
-export function loan(orderId) {
+export function loan(orderId,amt) {
   return request({
-    url: '/admin/order/loan?orderid='+orderId,
+    url: '/admin/order/loan?orderid='+orderId+"&orderFactPayAmount="+amt,
     method: 'get'
   })
 }

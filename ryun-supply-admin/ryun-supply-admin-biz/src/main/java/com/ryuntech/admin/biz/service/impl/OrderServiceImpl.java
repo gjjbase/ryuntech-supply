@@ -94,21 +94,21 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
     }
 
     @Override
-    public Order loan(String orderid) {
+    public Order loan(Order order) {
         //判断订单数据是否已经打款
-        Order order = m.selectById(orderid);
-        if (order.getOrderStatus().equals(OrderConstants.LENDING)){
-            log.info("订单号:"+orderid+"已放款");
+        Order orderload = m.selectById(order.getOrderid());
+        if (orderload.getOrderStatus().equals(OrderConstants.LENDING)){
+            log.info("订单号:"+orderload.getOrderid()+"已放款");
             return null;
         }
-        //开始执行放款操作
-        order.setOrderFactPayAmount(new BigDecimal("100.00"));
-        order.setOrderStatus(OrderConstants.LENDING);
-        order.setModifyTime(new Date());
-        order.setOrderPayTime(new Date());
-        int i = m.updateById(order);
+        //开始执行放款操作 ，统一放款金额100
+        orderload.setOrderFactPayAmount(order.getOrderFactPayAmount());
+        orderload.setOrderStatus(OrderConstants.LENDING);
+        orderload.setModifyTime(new Date());
+        orderload.setOrderPayTime(new Date());
+        int i = m.updateById(orderload);
         if (i>0){
-            return order;
+            return orderload;
         }
         return null;
     }

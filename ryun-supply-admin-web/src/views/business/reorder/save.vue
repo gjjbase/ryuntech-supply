@@ -26,8 +26,9 @@
       <el-form-item label="贷款额度"  prop="orderPayAmount" label-width="120px">
         <el-select v-model="form.orderPayAmount" placeholder="请选择贷款额度" >
           <el-option label="请输入贷款额度" value="0"></el-option>
-          <el-option label="10W-30W" value="1"></el-option>
-          <el-option label="30W-50W" value="2"></el-option>
+          <el-option label="10W-30W" value="10W-30W"></el-option>
+          <el-option label="30W-50W" value="30W-50W"></el-option>
+          <el-option label="100W以上" value="100W以上"></el-option>
         </el-select>
       </el-form-item>
 

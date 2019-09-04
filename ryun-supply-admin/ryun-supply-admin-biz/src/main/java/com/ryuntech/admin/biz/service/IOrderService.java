@@ -18,6 +18,6 @@ public interface IOrderService extends IBaseService<Order> {
     Result<IPage<Order>> selectPageList(  Order order,QueryPage queryPage);
 
     Order settlement(String orderid);
-    Order loan(String orderid);
+    Order loan(Order order);
     Order refuse(String orderid);
 }

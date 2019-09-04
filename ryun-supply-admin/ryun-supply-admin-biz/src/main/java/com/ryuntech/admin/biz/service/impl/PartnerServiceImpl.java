@@ -22,7 +22,6 @@ import com.ryuntech.common.utils.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -147,8 +146,7 @@ public class PartnerServiceImpl extends BaseServiceImpl<PartnerMapper, Partner> 
                 BitMatrix qRcodeImg = QRCodeUtil.generateQRCodeStream(url);
                 FileOutputStream fileOutputStream = null;
                 try {
-                     File path = new File(ResourceUtils.getURL("classpath:").getPath());
-                    File filePath = new File(path.getAbsolutePath(), "static/upload/");
+                    File filePath = new File("/data/wwwroot/default/upload/");
                     log.info("文件的保存路径：" + filePath.getAbsolutePath());
                     if (!filePath.exists() && !filePath.isDirectory()) {
                         log.info("目录不存在，创建目录:" + filePath);

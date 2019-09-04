@@ -15,8 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import static com.ryuntech.common.constant.enums.CommonEnums.OPERATE_ERROR;
-import static com.ryuntech.common.constant.enums.CommonEnums.SETTLEMENT_ERROR;
+import static com.ryuntech.common.constant.enums.CommonEnums.*;
 
 /**
  * <p>
@@ -156,17 +155,20 @@ public class OrderController {
     /**
      * 对订单数据打款
      *
-     * @param orderid
+     * @param order
      * @return
      */
     @GetMapping("/loan")
     @ApiOperation(value = "更新订单")
-    @ApiImplicitParam(name = "orderid", value = "对用户放款", required = true, dataType = "String", paramType = "body")
-    public Result loan( String orderid) {
-        if (StringUtils.isBlank(orderid)) {
-            return new Result<>();
+    @ApiImplicitParam(name = "order", value = "对用户放款", required = true, dataType = "Order", paramType = "body")
+    public Result loan( Order order) {
+        if (order==null){
+            return new Result<>(PARAM_ERROR);
+        }
+        if (StringUtils.isBlank(order.getOrderid())) {
+            return new Result<>(PARAM_ERROR);
         } else {
-            Order loan = iOrderService.loan(orderid);
+            Order loan = iOrderService.loan(order);
             if (loan==null)
                 return new Result<>(OPERATE_ERROR);
             else
