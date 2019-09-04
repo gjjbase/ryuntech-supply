@@ -1,0 +1,24 @@
+server:
+  port: 3000
+
+spring:
+  application:
+    name: ryuntech-su-cloud-monitor
+  main:
+    allow-bean-definition-overriding: true
+
+  profiles:
+    active: dev
+  cloud:
+    config:
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://ryuntech-su-cloud-eureka:8761/eureka/
+
+

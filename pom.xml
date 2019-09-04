@@ -8,19 +8,22 @@
         <version>2.1.5.RELEASE</version>
     </parent>
     <groupId>com.ryuntech</groupId>
-    <artifactId>ryun-supply</artifactId>
+    <artifactId>ryuntech-su-cloud</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>ryun-supply-admin</module>
-        <module>ryun-supply-auth</module>
-        <module>ryun-supply-common</module>
-        <module>ryun-supply-config</module>
-        <module>ryun-supply-eureka</module>
-        <module>ryun-supply-gateway</module>
-        <module>ryun-supply-monitor</module>
-        <module>ryun-supply-zipkin</module>
-        <module>ryun-supply-generator</module>
+        <module>ryuntech-su-cloud-admin</module>
+        <module>ryuntech-su-cloud-auth</module>
+        <module>ryuntech-su-cloud-common</module>
+        <module>ryuntech-su-cloud-config</module>
+        <module>ryuntech-su-cloud-eureka</module>
+        <module>ryuntech-su-cloud-gateway</module>
+        <module>ryuntech-su-cloud-monitor</module>
+        <module>ryuntech-su-cloud-zipkin</module>
+        <module>ryuntech-su-cloud-generator</module>
+        <module>ryuntech-su-cloud-base</module>
+        <module>ryuntech-su-framework-code</module>
+        <module>ryuntech-su-cloud-order-api</module>
     </modules>
 
     <properties>
@@ -29,6 +32,10 @@
         <zipkin.version>2.10.1</zipkin.version>
         <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
         <spring-boot-mybatis.version>2.0.1</spring-boot-mybatis.version>
+        <hikaricp.version>3.3.1</hikaricp.version>
+        <swagger.version>2.9.2</swagger.version>
+        <swagger-annotations.version>1.5.21</swagger-annotations.version>
+        <swagger-models.version>1.5.21</swagger-models.version>
     </properties>
 
     <dependencies>
@@ -93,6 +100,80 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.4</version>
         </dependency>
+
+
+        <!-- Mybatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${spring-boot-mybatis.version}</version>
+        </dependency>
+        <!-- Mybatis Plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.28</version>
+        </dependency>
+
+        <!-- Swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <!-- 使用Swagger2最新版本2.9.2避免NumberFormatException错误要引入下列两个依赖 -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger-annotations.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>${swagger-models.version}</version>
+        </dependency>
+
+        <!-- HikariCP连接池 -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${hikaricp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <exclusions>
+                <!-- 排除 tomcat-jdbc 以使用 HikariCP -->
+                <exclusion>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>
