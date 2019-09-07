@@ -39,8 +39,8 @@
         <el-table-column label="审核状态" width="120" align="center">
           <template slot-scope="scope">
            <!-- 状态 00待认证 01 已认证 02已拒绝-->
-            <span v-if="scope.row.status==='00'">待认证</span>
-            <span v-if="scope.row.status==='01'">已认证</span>
+            <span v-if="scope.row.status==='00'">待审核</span>
+            <span v-if="scope.row.status==='01'">已审核</span>
             <span v-if="scope.row.status==='02'">已拒绝</span>
           </template>
         </el-table-column>
@@ -169,7 +169,7 @@
         }).then(() => {
           del(id).then(response => {
             if (response.tcode === 200) {
-              this._notify(response.msg, 'success')
+              this._notify("删除成功", 'success')
             } else {
               this._notify(response.msg, 'error')
             }

@@ -14,16 +14,14 @@
     <modules>
         <module>ryuntech-su-cloud-admin</module>
         <module>ryuntech-su-cloud-auth</module>
-        <module>ryuntech-su-cloud-common</module>
+        <module>ryuntech-su-framework-code</module>
         <module>ryuntech-su-cloud-config</module>
         <module>ryuntech-su-cloud-eureka</module>
         <module>ryuntech-su-cloud-gateway</module>
         <module>ryuntech-su-cloud-monitor</module>
         <module>ryuntech-su-cloud-zipkin</module>
         <module>ryuntech-su-cloud-generator</module>
-        <module>ryuntech-su-cloud-base</module>
-        <module>ryuntech-su-framework-code</module>
-        <module>ryuntech-su-cloud-order-api</module>
+
     </modules>
 
     <properties>

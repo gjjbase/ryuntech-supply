@@ -37,11 +37,11 @@
             <span>{{ scope.row.order.partnerId }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="年龄" width="100" prop="realName" align="center">
+        <!--<el-table-column label="年龄" width="100" prop="realName" align="center">
           <template slot-scope="scope">
-            <!--{{ scope.row.order.memberName }}-->
+            &lt;!&ndash;{{ scope.row.order.memberName }}&ndash;&gt;
           </template>
-        </el-table-column>
+        </el-table-column>-->
         <el-table-column class-name="status-col" prop="orderPayAmount" label="贷款需求" width="130" align="center">
           <template slot-scope="scope" v-if="scope.row.order!=null">
             {{ scope.row.order.orderPayAmount }}
@@ -49,12 +49,12 @@
         </el-table-column>
         <el-table-column align="center" prop="orderFactPayAmount" label="放款金额" width="130">
           <template slot-scope="scope" v-if="scope.row.order!=null">
-            {{ scope.row.order.orderFactPayAmount }}
+            {{ scope.row.order.orderFactPayAmount }}W
           </template>
         </el-table-column>
         <el-table-column align="center" prop="paymentFee" label="佣金" width="150">
           <template slot-scope="scope" v-if="scope.row.order!=null">
-            <span>{{ scope.row.order.paymentFee }}</span>
+            <span>{{ scope.row.paymentFee }}RMB</span>
           </template>
         </el-table-column>
         <el-table-column label="申请结算时间" prop="paymentTime" width="200" align="center">
@@ -95,10 +95,9 @@
 </template>
 
 <script>
-  import {getList, findById, updateById} from '@/api/business/finmanager'
+  import {getList, findById, updateById,settlement} from '@/api/business/finmanager'
   import Pagination from '@/components/Pagination'
   import Save from './save'
-  import {parseTime} from '@/utils/index'
 
   export default {
     components: {Pagination, Save},
@@ -188,23 +187,32 @@
         });
       } ,
       handleUp(paymentSystemId) {
-        this.$confirm('你确定结算账户？, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-        }).then(() => {
-        updateById(paymentSystemId).then(response => {
-            if (response.tcode === 200) {
-                  this._notify(response.msg, 'success');
 
-              } else {
-                  this._notify(response.msg, 'error')
-              }
-            this.fetchData();
-          })
-        }).catch(() => {
-          this._notify('已取消', 'info')
-        });
+          this.$prompt('请输入结算佣金金额(单位元)', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              inputPattern: /^\d+(\.\d{0,2})?$/,
+              inputErrorMessage: '金额不正确'
+          }).then(({ value }) => {
+              settlement(paymentSystemId,value).then(response => {
+                  console.info("response"+response)
+                  if (response.tcode === 200) {
+                      this.$message({
+                          type: 'success',
+                          message: '操作成功,结算金额是: ' + value+"元"
+                      });
+                  } else {
+                      this._notify(response.msg, '操作失败')
+                  }
+                  this.fetchData();
+              })
+          }).catch(() => {
+              this.$message({
+                  type: 'info',
+                  message: '取消输入'
+              });
+          });
+
       }
     }
   }

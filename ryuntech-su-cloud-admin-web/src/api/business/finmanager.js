@@ -20,3 +20,13 @@ export function updateById(paymentSystemId) {
     method: 'get'
   })
 }
+
+/*
+* 结算
+* */
+export function settlement(paymentSystemId,value) {
+  return request({
+    url: '/admin/paymentResult/settlement?paymentSystemId=' + paymentSystemId+"&value="+value,
+    method: 'get'
+  })
+}

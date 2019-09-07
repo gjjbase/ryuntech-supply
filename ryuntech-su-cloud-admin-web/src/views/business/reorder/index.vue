@@ -50,7 +50,7 @@
         </el-table-column>
         <el-table-column align="center" prop="createTime" label="实际到账金额" width="130">
           <template slot-scope="scope">
-            {{ scope.row.orderFactPayAmount }}
+            {{ scope.row.orderFactPayAmount }}W
           </template>
         </el-table-column>
         <el-table-column align="center" prop="createTime" label="推荐人" width="200">
@@ -167,20 +167,18 @@
             });
        },
        handleLoan(orderId) {
-
-
-           this.$prompt('请输入放款金额(单位W)', '提示', {
+           this.$prompt('请输入放款金额(单位万元)', '提示', {
                confirmButtonText: '确定',
                cancelButtonText: '取消',
                inputPattern: /^\d+(\.\d{0,2})?$/,
                inputErrorMessage: '金额不正确'
            }).then(({ value }) => {
-               loan(orderId,amt).then(response => {
+               loan(orderId,value).then(response => {
                    console.info("response"+response)
                    if (response.tcode === 200) {
                          this.$message({
                           type: 'success',
-                          message: '操作成功,放款金额是: ' + value
+                          message: '操作成功,放款金额是: ' + value+"万元"
                       });
                    } else {
                        this._notify(response.msg, '操作失败')
@@ -193,24 +191,6 @@
                    message: '取消输入'
                });
            });
-           /*this.$confirm('你确定对订单放款？, 是否继续?', '提示', {
-               confirmButtonText: '确定',
-               cancelButtonText: '取消',
-               type: 'warning'
-           }).then(() => {
-               loan(orderId).then(response => {
-                   console.info("response"+response)
-                   if (response.tcode === 200) {
-                       this._notify(response.msg, '操作成功')
-                   } else {
-                       this._notify(response.msg, '操作失败')
-                   }
-                   this.fetchData();
-               })
-           }).catch(function (err) {
-               console.info(err);
-               this._notify('已取消', 'info')
-           });*/
       },
       handleView(orderId) {
         findById(orderId).then(response => {

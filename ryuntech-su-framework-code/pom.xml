@@ -7,44 +7,36 @@
         <groupId>com.ryuntech</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>ryuntech-su-framework-code</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+
     <properties>
-        <swagger.version>2.9.2</swagger.version>
-        <swagger-annotations.version>1.5.21</swagger-annotations.version>
-        <swagger-models.version>1.5.21</swagger-models.version>
+        <tk-mapper.version>4.1.5</tk-mapper.version>
+        <pagehelper.version>1.2.10</pagehelper.version>
     </properties>
 
     <dependencies>
-    <!-- 模块依赖 -->
-            <!-- Swagger2 -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger-annotations.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-models</artifactId>
-                <version>${swagger-models.version}</version>
-            </dependency>
-            <!-- 测试 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <scope>test</scope>
-            </dependency>
+        <!-- Mybatis通用Mapper -->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+            <version>${tk-mapper.version}</version>
+        </dependency>
+
+        <!-- Mybatis分页插件PageHelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.0.3</version>
+        </dependency>
     </dependencies>
+
 </project>

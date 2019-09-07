@@ -1,0 +1,18 @@
+zuul:
+  routes:
+    ryuntech-su-cloud-auth:
+      path: /api/auth/**
+      serviceId: ryuntech-su-cloud-auth
+    ryuntech-su-cloud-admin:
+      path: /api/admin/**
+      serviceId: ryuntech-su-cloud-admin-biz
+#    ryuntech-su-cloud-monitor:
+#      path: /api/monitor/**
+#      serviceId: ryuntech-su-cloud-monitor
+#    ryuntech-su-cloud-zipkin:
+#      path: /api/zipkin/**
+#      serviceId: ryuntech-su-cloud-zipkin
+#    ryuntech-su-cloud-eureka:
+#      path: /api/eureka/**
+#      serviceId: ryuntech-su-cloud-eureka
+

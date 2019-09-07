@@ -27,3 +27,10 @@ export function edit(data) {
     data
   })
 }
+
+export function del(partnerId) {
+  return request({
+    url: '/admin/partner/' + partnerId,
+    method: 'delete'
+  })
+}

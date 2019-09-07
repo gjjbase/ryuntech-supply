@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -47,6 +48,43 @@ public class PaymentResultServiceImpl extends BaseServiceImpl<PaymentResultMappe
     }
 
     @Override
+    public PaymentResult settlementEnter(String paymentSystemId,String value) {
+        PaymentResult paymentResult = m.selectById(paymentSystemId);
+        if (paymentResult==null){
+            log.info("结算单为空，无法结算"+paymentResult.getPaymentSystemId());
+            return null;
+        }
+        if (paymentResult.getPaymentStatus().equals(PayResultConstant.SETTLE)){
+            log.info("订单已放款，无法结算"+paymentResult.getPaymentSystemId());
+            return null;
+        }
+        if (paymentResult.getOrderId()==null)
+        {
+            log.info("不存在订单号，无法结算"+paymentResult.getPaymentSystemId());
+            return null;
+        }
+        Order order = orderMapper.selectById(paymentResult.getOrderId());
+        if(order==null){
+            log.info("不存在订单，无法结算"+paymentResult.getPaymentSystemId());
+            return null;
+        }
+        if (!order.getOrderStatus().equals(OrderConstants.LENDING)){
+            log.info("订单为放款，无法结算"+paymentResult.getPaymentSystemId());
+            return null;
+        }
+        //开始结算
+        paymentResult.setPaymentStatus(PayResultConstant.SETTLE);
+        paymentResult.setPayedTime(new Date());
+        //结算金额（元）
+        paymentResult.setPaymentFee(new BigDecimal(value));
+        int i = m.updateById(paymentResult);
+        //更新订单的结算状态
+        order.setPaymentStatus(PayResultConstant.SETTLE);
+        order.setPaymentFee(new BigDecimal(value));
+        int i1 = orderMapper.updateById(order);
+        if (i>0&&i1>0) return paymentResult;
+        return null;
+    }
     public PaymentResult settlementEnter(String paymentSystemId) {
         PaymentResult paymentResult = m.selectById(paymentSystemId);
         if (paymentResult==null){

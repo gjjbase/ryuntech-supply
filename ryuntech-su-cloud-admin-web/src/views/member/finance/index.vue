@@ -4,7 +4,7 @@
       <div>
         <el-input style="width: 200px;" v-model="search.realName" placeholder="请输入名称查询"></el-input>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+<!--        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>-->
       </div>
       <br/>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
@@ -53,6 +53,11 @@
         <el-table-column class-name="status-col" label="职业" width="130" align="center">
           <template slot-scope="scope">
             {{ scope.row.occupation }}
+          </template>
+        </el-table-column>
+        <el-table-column class-name="status-col" label="生日" width="130" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.memberBirthday }}
           </template>
         </el-table-column>
 

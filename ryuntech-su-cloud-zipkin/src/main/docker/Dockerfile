@@ -10,11 +10,11 @@ VOLUME ${workdir}
 
 WORKDIR ${workdir}
 
-ADD ryun-supply-zipkin-1.0-SNAPSHOT.jar ryun-supply-zipkin.jar
+ADD ryuntech-su-cloud-zipkin-1.0-SNAPSHOT.jar ryuntech-su-cloud-zipkin.jar
 
 EXPOSE 3001
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","ryun-supply-zipkin.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","ryuntech-su-cloud-zipkin.jar"]
 
 
 

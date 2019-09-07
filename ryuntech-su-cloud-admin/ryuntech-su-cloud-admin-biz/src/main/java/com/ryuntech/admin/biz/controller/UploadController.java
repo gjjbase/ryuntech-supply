@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.ryuntech.common.constant.SysConstant.DEBUG_URL;
+
 /**
  * @author antu
  * @date 2019-05-27
@@ -31,7 +33,7 @@ public class UploadController {
     @Value("${server.port}")
     private String port;
 
-    private final String ip = "http://127.0.0.1";
+    private final String ip = DEBUG_URL;
 
     /**
      * 文件上传
@@ -43,7 +45,8 @@ public class UploadController {
     @PostMapping("/upload")
     @ApiOperation(value = "上传接口")
     public Result upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws FileNotFoundException {
-        String host = ip + ":" + port;
+        String host = ip ;
+//        String host = ip + ":" + port;
         try {
             //获取文件在服务器的储存位置
             File filePath = new File("/data/wwwroot/default/upload/");

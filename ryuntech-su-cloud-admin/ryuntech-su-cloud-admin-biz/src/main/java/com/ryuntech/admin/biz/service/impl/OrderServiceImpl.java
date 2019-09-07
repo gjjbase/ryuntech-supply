@@ -70,10 +70,8 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
         }
         Order order = new Order();
         order.setOrderid(orderid);
-        //更新状态为结算中
-        order.setPaymentFee(new BigDecimal(1.00));
-//        实际放款金额 设置为
-        order.setOrderFactPayAmount(new BigDecimal(100.00));
+        //更新状态为结算中，修改结算金额，修改手续费为0元
+        order.setPaymentFee(new BigDecimal(0));
         order.setPaymentStatus(PayResultConstant.SETTLEING);
         int i = m.updateById(order);
         if (i>0){
@@ -81,10 +79,10 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
             PaymentResult paymentResult = new PaymentResult();
             paymentResult.setOrderId(orderid);
             paymentResult.setPaymentTime(new Date());
-//            放款金额
-            paymentResult.setPayAmt(new BigDecimal(100.00));
-//            统一设置为1块 手续费设置
-            paymentResult.setPaymentFee(new BigDecimal(1.00));
+//            放款金额 setOrderFactPayAmount
+            paymentResult.setPayAmt(order.getOrderFactPayAmount());
+//            统一设置为0元 手续费设置，修改手续费为0
+            paymentResult.setPaymentFee(new BigDecimal(0));
             paymentResult.setPaymentStatus(PayResultConstant.SETTLEING);
             String paymentId = generateId()+"";
             paymentResult.setPaymentSystemId(paymentId);
@@ -101,7 +99,7 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
             log.info("订单号:"+orderload.getOrderid()+"已放款");
             return null;
         }
-        //开始执行放款操作 ，统一放款金额100
+        //开始执行放款操作
         orderload.setOrderFactPayAmount(order.getOrderFactPayAmount());
         orderload.setOrderStatus(OrderConstants.LENDING);
         orderload.setModifyTime(new Date());

@@ -56,6 +56,8 @@ import java.util.Date;
             * 注册时间
             */
         @TableField("MEMBER_BIRTHDAY")
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date memberBirthday;
 
             /**

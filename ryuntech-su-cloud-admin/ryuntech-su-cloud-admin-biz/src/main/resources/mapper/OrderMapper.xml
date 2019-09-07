@@ -25,6 +25,7 @@
         <result column="ORDER_PAY_TIME" jdbcType="TIMESTAMP" property="orderPayTime" />
         <result column="ORDER_CREATE_TYPE" jdbcType="VARCHAR" property="orderCreateType" />
         <result column="REFERRAL_CODE" jdbcType="VARCHAR" property="referralCode" />
+        <result column="CITY" jdbcType="VARCHAR" property="city" />
         <association property="financeUserInfo" column="MEMBER_ID" javaType="com.ryuntech.admin.api.entity.FinanceUserInfo"
                      select="com.ryuntech.admin.biz.mapper.FinanceUserInfoMapper.selectById">
         </association>
@@ -47,10 +48,10 @@
                 order_id like concat('%',#{order.orderid},'%')
             </if>
             <if test="order.memberName!=null and order.memberName!=''">
-                member_name like concat('%',#{order.memberName},'%')
+               and member_name like concat('%',#{order.memberName},'%')
             </if>
             <if test="order.referralCode!=null and order.referralCode!=''">
-                referral_code = #{order.referralCode}
+                and referral_code = #{order.referralCode} or referral_code='888888'
             </if>
         </where>
     </select>

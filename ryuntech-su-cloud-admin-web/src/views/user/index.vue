@@ -18,11 +18,11 @@
             {{ scope.row.username }}
           </template>
         </el-table-column>
-        <el-table-column label="密码" width="250" align="center">
+        <!--<el-table-column label="密码" width="250" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.password }}</span>
           </template>
-        </el-table-column>
+        </el-table-column>-->
         <el-table-column label="手机号" width="150" align="center">
           <template slot-scope="scope">
             {{ scope.row.phone }}

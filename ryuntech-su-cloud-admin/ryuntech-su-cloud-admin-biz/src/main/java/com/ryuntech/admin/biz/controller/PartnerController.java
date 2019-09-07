@@ -22,6 +22,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.security.spec.InvalidParameterSpecException;
+
+import static com.ryuntech.common.constant.enums.CommonEnums.PARAM_ERROR;
+import static com.ryuntech.common.constant.enums.CommonEnums.PARAM_PARSE_ERROR;
 
 /**
  * <p>
@@ -54,6 +58,10 @@ import java.security.spec.InvalidParameterSpecException;
 public class PartnerController extends BaseController {
     @Autowired
     private IPartnerService iPartnerService;
+
+    @Autowired
+    RedisTemplate redisTemplate;
+
 
 
     /**
@@ -162,12 +170,43 @@ public class PartnerController extends BaseController {
     @ApiOperation(value = "用户更新")
     @ApiImplicitParam(name = "partner", value = "用户用户更新", required = true, dataType = "Partner", paramType = "body")
     public Result updateUser(@RequestBody Partner partner) {
+        //校验用户信息
+        if (StringUtils.isBlank(partner.getRegisterMobile())) {
+            return new Result(PARAM_ERROR);
+        }
         boolean b = iPartnerService.saveOrUpdate(partner);
-        if (b){
-            partner=iPartnerService.findByPartner(partner);
+        if (b) {
+            partner = iPartnerService.findByPartner(partner);
             return new Result(partner);
-        }else {
+        } else {
             return new Result();
+        }
+    }
+    /**
+     * 用户更新
+     *
+     * @param partner
+     * @return
+     */
+    @PostMapping("/outRegisterUpdateUser")
+    @ApiOperation(value = "注册用户更新")
+    @ApiImplicitParam(name = "partner", value = "注册用户用户更新", required = true, dataType = "Partner", paramType = "body")
+    public Result registerUpdateUser(@RequestBody Partner partner) {
+        //校验用户信息
+        Object value =   redisTemplate.opsForValue().get(partner.getRegisterMobile() + "ryun_code");
+        if (value!=null&&value.toString().equals(partner.getCodeValue())){
+            if (StringUtils.isBlank(partner.getRegisterMobile())){
+                return  new Result(PARAM_ERROR);
+            }
+            boolean b = iPartnerService.saveOrUpdate(partner);
+            if (b){
+                partner=iPartnerService.findByPartner(partner);
+                return new Result(partner);
+            }else {
+                return new Result();
+            }
+        }else {
+            return  new Result(PARAM_PARSE_ERROR);
         }
 
     }
@@ -266,5 +305,20 @@ public class PartnerController extends BaseController {
             log.error(e.getMessage(), e);
         }
         return null;
+    }
+
+
+    /**
+     * 删除合伙人信息
+     *
+     * @param partnerId
+     * @return
+     */
+    @DeleteMapping("/{partnerId}")
+    @ApiOperation(value = "删除用户")
+    @ApiImplicitParam(name = "partnerId", value = "用户编号", required = true, dataType = "String")
+    public Result delete(@PathVariable String partnerId) {
+        iPartnerService.removeById(partnerId);
+        return new Result();
     }
 }

@@ -26,6 +26,10 @@
       <el-form-item label="职业" prop="occupation" label-width="120px">
         <el-input maxlength="20" v-model="form.occupation" placeholder="请输入职业"></el-input>
       </el-form-item>
+      <el-form-item label="生日" prop="memberBirthday" label-width="120px">
+        <el-date-picker v-model="form.memberBirthday" type="datetime" placeholder="选择日期时间"
+                        value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+      </el-form-item>
 
       <el-form-item label="创建时间" prop="createTime" label-width="120px">
         <el-date-picker v-model="form.createTime" type="datetime" placeholder="选择日期时间" :disabled="true"

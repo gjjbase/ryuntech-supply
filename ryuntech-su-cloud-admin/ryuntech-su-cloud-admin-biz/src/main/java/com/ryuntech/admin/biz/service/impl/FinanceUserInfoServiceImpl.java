@@ -15,12 +15,14 @@ import com.ryuntech.common.constant.OrderConstants;
 import com.ryuntech.common.constant.PayResultConstant;
 import com.ryuntech.common.utils.QueryPage;
 import com.ryuntech.common.utils.Result;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 import static com.ryuntech.admin.api.utils.generator.UniqueIdGenerator.generateId;
+import static com.ryuntech.common.constant.enums.CommonEnums.ORDER_ERROR;
 
 /**
  * <p>
@@ -49,7 +51,7 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
     }
 
     @Override
-    public void addFinacneOrder(FinanceOrder financeOrder) {
+    public Result addFinacneOrder(FinanceOrder financeOrder) {
         //插入融资客户信息
         String financeId = generateId()+"";
 
@@ -60,6 +62,7 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
             //用户不存在，不能插入，插入订单数据
             financeUserInfo.setUserId(financeId);
             financeUserInfo.setRealName(financeOrder.getRealname());
+            financeUserInfo.setMobile(financeOrder.getMobile());
             financeUserInfo.setCreateTime(new Date());
             financeUserInfo.setSex(financeOrder.getSex());
             financeUserInfo.setMemberBirthday(financeOrder.getMemberBirthday());
@@ -86,6 +89,11 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
             financeUserInfo.setCompanyName(financeOrder.getCompanyName());
             financeUserInfoMapper.insert(financeUserInfo);
         }
+        //查询是否有未完结的订单数据
+        Order order1 = orderMapper.selectOne(new QueryWrapper<Order>().eq("member_id", financeUserInfo.getUserId()).eq("order_status", OrderConstants.PENDING));
+        if (order1!=null){
+            return new Result(ORDER_ERROR);
+        }
 
         //开始插入订单信息  插入订单信息
         //贷款金额
@@ -93,6 +101,7 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
         String orderPayAmount = financeOrder.getOrderPayAmount();
         String orderId = generateId()+"";
         order.setOrderid(orderId);
+        order.setCity(financeOrder.getCity());
         order.setOrderPayAmount(orderPayAmount);
         order.setOrderTime(new Date());
         order.setCompanyName(financeOrder.getCompanyName());
@@ -114,6 +123,29 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
         //申请渠道
         order.setOrderChenel(financeOrder.getOrderChenel());
         orderMapper.insert(order);
+        return new Result("申请成功，请等待审核");
+    }
 
+    @Override
+    public Result updateFinacneOrder(FinanceUserInfo financeUserInfo) {
+        financeUserInfoMapper.updateById(financeUserInfo);
+        //同步更新订单数据的客户名
+        String userId = financeUserInfo.getUserId();
+        //查询订单
+        Order order = orderMapper.selectOne(new QueryWrapper<Order>().eq("member_id", userId));
+        if (StringUtils.isNotBlank(financeUserInfo.getRealName())){
+            order.setMemberName(financeUserInfo.getRealName());
+            orderMapper.updateById(order);
+        }
+        return new Result();
+    }
+
+    @Override
+    public FinanceUserInfo selectOne(FinanceOrder financeOrder) {
+        QueryWrapper<FinanceUserInfo> financeUserInfoQueryWrapper = new QueryWrapper<>();
+        if (StringUtils.isBlank(financeOrder.getMobile())){
+            financeUserInfoQueryWrapper.eq("mobile", financeOrder.getMobile());
+        }
+        return this.financeUserInfoMapper.selectOne(financeUserInfoQueryWrapper);
     }
 }

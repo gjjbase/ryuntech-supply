@@ -74,4 +74,27 @@ public class PaymentResultController {
             }
         }
     }
+
+    /**
+     * 根据支付编号结算数据
+     *
+     * @param paymentSystemId
+     * @return
+     */
+    @GetMapping("/settlement")
+    @ApiOperation(value = "根据支付编号结算数据", notes = "paymentSystemId存在")
+    @ApiImplicitParam(name = "paymentSystemId", value = "结算结果编号", required = true, dataType = "String")
+    public Result  settlement( String paymentSystemId,String value) {
+        log.info("updateById"+paymentSystemId+"value:"+value);
+        if (StringUtils.isBlank(paymentSystemId)||StringUtils.isBlank(value)) {
+            return new Result();
+        } else {
+            PaymentResult paymentResult = iPaymentResultService.settlementEnter(paymentSystemId,value);
+            if (null==paymentResult){
+                return  new Result(SETTLEMENT_ERROR);
+            }else {
+                return  new Result(paymentResult,"结算成功");
+            }
+        }
+    }
 }

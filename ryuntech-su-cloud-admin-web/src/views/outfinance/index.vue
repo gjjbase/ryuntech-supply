@@ -1,72 +1,76 @@
-<template>
-  <el-container style="background-color: #FFFFFF">
-    <el-header style="height: 45px">
+<template style="background-color: #5197EC;">
+
+  <el-container style="background-color: #5197EC;">
+
+    <el-header style="height: 50px;background-color: white;position: relative;">
       <el-row>
         <el-col :span="24" >
           <div class="grid-content bg-purple-dark" style="padding:10px;font-size: 1.2rem;display: flex;align-items: center;justify-content: center;">
-            <strong>完善信息</strong>
+            <strong>提交需求</strong>
           </div>
         </el-col>
       </el-row>
     </el-header>
-    <div class="link-top2"></div>
-    <div class="link-top"></div>
-    <el-main>
-      <el-form ref="form" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
 
-        <el-form-item label="公司名:" prop="companyName" label-width="120px">
-          <el-input style="border-width: 0px !important;" maxlength="20" v-model="form.companyName" placeholder="姓名"></el-input>
-        </el-form-item>
-        <div class="link-top2"></div>
-        <el-form-item label="手机号:" prop="mobile" label-width="120px">
-          <el-input style="border-width: 0px !important;" maxlength="20" v-model="form.mobile" placeholder="手机号"/>
-        </el-form-item>
-        <div class="link-top2"></div>
-        <el-form-item style="border-width: 0px !important;" label="验证码:" prop="code" label-width="120px">
-          <el-row>
-            <el-col :span="12"><el-input maxlength="20"  v-model="form.code" placeholder="验证码"></el-input> </el-col>
-            <el-col :span="12"><el-button style="margin-left: 3px;" type="primary"  :disabled = "dis" @click="sendCode()" plain >{{this.butValue}}</el-button></el-col>
+    <img style="float:left;width: 100%;padding-top: 50px;position: absolute" src="../../assets/backgroupfin.png"/>
+    <div style="float:left;position: relative;background: url(../../assets/liucheng.png)">
+
+      <img style="float:left;width: 40%;padding: 15px" src="../../assets/logo_2.png">
+    </div>
+    <el-main>
+      <el-form style="position: relative;background-color: #2562E9;margin-top:60px;padding: 30px;border-radius:5px" ref="form" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
+        <strong style="color:white;padding:15px;display: flex;align-items: center;justify-content: center;font-size: 30px">融资申请</strong>
+
+        <el-input
+            placeholder="请输入您的公司名"
+            v-model="form.companyName">
+            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+          </el-input>
+        <el-input
+          style="margin-top: 20px"
+          placeholder="请输入您的手机号"
+          v-model="form.mobile">
+          <i slot="prefix" class="el-input__icon el-icon-phone"></i>
+        </el-input>
+          <el-row style="margin-top: 20px">
+            <el-col :span="12">
+              <el-input maxlength="20"  v-model="form.code" placeholder="验证码">
+                <i slot="prefix" class="el-input__icon el-icon-search"></i>
+              </el-input>
+            </el-col>
+            <el-col :span="12"><el-button style="margin-left: 3px;color: #FFA60C" type="primary"  :disabled = "dis" @click="sendCode()" plain >{{this.butValue}}</el-button></el-col>
           </el-row>
-        </el-form-item>
-        <div class="link-top2"></div>
-        <el-form-item label="城市:" prop="city" label-width="120px">
-          <el-select
-            v-model="sheng"
-            @change="choseProvince"
-            placeholder="省级地区">
-            <el-option
-              v-for="item in province"
-              :key="item.id"
-              :label="item.value"
-              :value="item.id">
-            </el-option>
-          </el-select>
-          <el-select
-            v-model="form.city"
-            placeholder="市级地区">
-            <el-option
-              v-for="item in shi1"
-              :key="item.id"
-              :label="item.value"
-              :value="item.id">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <div class="link-top2"></div>
-        <el-form-item  label="贷款额度:"  prop="orderPayAmount" label-width="120px">
-          <el-select v-model="form.orderPayAmount" placeholder="请选择贷款额度" >
-            <el-option label="请输入贷款额度" value="0"></el-option>
-            <el-option label="10W-30W" value="10W-30W"></el-option>
-            <el-option label="30W-50W" value="30W-50W"></el-option>
-            <el-option label="100W以上" value="100W以上"></el-option>
-          </el-select>
-        </el-form-item>
-        <div class="link-top2"></div>
+        <el-input
+          style="margin-top: 20px"
+          placeholder="请输入您的所在城市"
+          v-model="form.city">
+          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+        <el-select style="margin-top: 20px" v-model="form.orderPayAmount" placeholder="请选择融资额度" >
+          <i slot="prefix" class="el-input__icon el-icon-goods"></i>
+          <el-option label="请输入融资额度" value="0"></el-option>
+          <el-option label="10W-30W" value="10W-30W"></el-option>
+          <el-option label="30W-50W" value="30W-50W"></el-option>
+          <el-option label="100W以上" value="100W以上"></el-option>
+        </el-select>
+
+        <el-footer style="padding:15px;display: flex;align-items: center;justify-content: center;margin-top: 20px">
+          <el-button type="primary"  style="background-color: #F8C415;color:white;width: 350px;height: 45px;font-size: 1.0rem;" @click="onSubmit('form')">确认申请</el-button>
+        </el-footer>
       </el-form>
+      <!--<div  style="background-color: #2562E9;margin-top:20px;padding: 20px;border-radius:5px" >
+        <strong style="color:white;padding:15px;display: flex;align-items: center;justify-content: center;font-size: 15px">融资流程</strong>
+        <img  style="width: 100%" src="../../assets/liucheng.jpg">
+        &lt;!&ndash;<el-row :gutter="20">
+          <el-col :span="20">
+              <img  style="width: 100%" src="../../assets/liucheng.png">
+          </el-col>
+        </el-row>&ndash;&gt;
+      </div>-->
+      <img  style="width: 100%;margin-top: 20px;" src="../../assets/liucheng.png">
+      <img style="width: 100%;margin-top: 20px;" src="../../assets/fengxiang.png">
     </el-main>
-    <el-footer style="padding:15px;display: flex;align-items: center;justify-content: center;">
-      <el-button type="primary"  style="width: 350px;height: 45px;font-size: 1.0rem;" @click="onSubmit('form')"> 提交</el-button>
-    </el-footer>
+
   </el-container>
 </template>
 
@@ -124,7 +128,7 @@
                 this.form.code = null;
                 this.form.city = null;
                 this.form.sheng = null;
-                this.orderPayAmount = null;
+                this.orderPayAmount = "0";
                 this.sendAuthCode = true;
                 this.dis=false;
                 this.butValue="发送验证码";
@@ -167,15 +171,15 @@
                     return false;
                 }
                 if(this.form.code==undefined){
-                    this._notify("请填写手机号", 'error')
+                    this._notify("请填写验证码", 'error')
                     return false;
                 }
                 if(this.form.city==undefined){
-                    this._notify("请填写手机号", 'error')
+                    this._notify("请填写城市", 'error')
                     return false;
                 }
                 if(this.form.orderPayAmount==undefined){
-                    this._notify("请填写手机号", 'error')
+                    this._notify("请填写融资额度", 'error')
                     return false;
                 }
                 save(this.form).then(response => {
@@ -253,9 +257,9 @@
     height: 1px;
     border-top: solid #f8faf9  1px;
   }
-  input{
+  /*input{
     border-width: 0px !important;
-  }
+  }*/
   .el-form-item__label {
     text-align: left;
     font-size: 15px;

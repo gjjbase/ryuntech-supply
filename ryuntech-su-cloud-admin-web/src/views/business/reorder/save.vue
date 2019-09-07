@@ -5,7 +5,7 @@
         <el-input v-model="form.orderid" :disabled="true"></el-input>
       </el-form-item>
       <el-form-item label="客户名称" prop="memberName" label-width="120px">
-        <el-input v-model="form.memberName" placeholder="请输入客户名称"></el-input>
+        <el-input v-model="form.memberName" :disabled="true" placeholder="请输入客户名称"></el-input>
       </el-form-item>
       <el-form-item label="公司名称" prop="companyName" label-width="120px">
         <el-input v-model="form.companyName" placeholder="请输入公司名称" maxlength="60"></el-input>
@@ -17,9 +17,10 @@
 
       <el-form-item label="城市:" prop="city" label-width="120px">
         <el-select v-model="form.city"   placeholder="请选择城市">
-          <el-option label="请输入城市" value="0"></el-option>
-          <el-option label="深圳" value="深圳"></el-option>
-          <el-option label="广州" value="广州"></el-option>
+          <el-option label="请输入城市" value=""></el-option>
+          <el-option label="北京市" value="北京市"></el-option>
+          <el-option label="深圳市" value="深圳市"></el-option>
+          <el-option label="广州市" value="广州市"></el-option>
         </el-select>
       </el-form-item>
 
@@ -132,7 +133,6 @@
         },
         rules: {
             orderid: [{required: true, trigger: 'blur', message: '请输入订单编号'}],
-            memberName: [{required: true, trigger: 'blur', message: '请输入客户名称'}],
             companyName: [{required: true, trigger: 'blur', message: '请输入公司名称'}],
             createTime: [{required: true, trigger: 'blur', message: '请选择创建时间'}],
             orderPayAmount: [{required: true, trigger: 'blur', message: '请选择申请金额'}],
@@ -183,7 +183,7 @@
             if (this.form.orderid === null) {
               save(this.form).then(response => {
                 if (response.tcode === 200) {
-                  this._notify(response.msg, 'success')
+                  this._notify(response.msg, '操作成功')
                   this.clearForm()
                   this.$emit('sonStatus', true)
                   this.dialogVisible = false
@@ -194,7 +194,7 @@
             } else {
               edit(this.form).then(response => {
                 if (response.tcode === 200) {
-                  this._notify(response.msg, 'success')
+                  this._notify('操作成功')
                   this.clearForm()
                   this.$emit('sonStatus', true)
                   this.dialogVisible = false

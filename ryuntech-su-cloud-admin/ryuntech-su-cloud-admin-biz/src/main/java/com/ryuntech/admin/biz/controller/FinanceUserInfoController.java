@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ryuntech.admin.api.entity.FinanceUserInfo;
 import com.ryuntech.admin.api.vo.FinanceOrder;
 import com.ryuntech.admin.biz.service.IFinanceUserInfoService;
+import com.ryuntech.admin.biz.service.IOrderService;
 import com.ryuntech.common.utils.QueryPage;
 import com.ryuntech.common.utils.Result;
 import com.ryuntech.common.utils.ValidateUtil;
@@ -34,6 +35,9 @@ import static com.ryuntech.common.constant.enums.CommonEnums.PARAM_PARSE_ERROR;
 public class FinanceUserInfoController extends BaseController {
     @Autowired
     private IFinanceUserInfoService iFinanceUserInfoService;
+
+    @Autowired
+    private IOrderService iOrderService;
     @Autowired
     RedisTemplate redisTemplate;
 
@@ -77,8 +81,7 @@ public class FinanceUserInfoController extends BaseController {
     @ApiOperation(value = "更新融资用户")
     @ApiImplicitParam(name = "financeUserInfo", value = "用户实体信息", required = true, dataType = "FinanceUserInfo", paramType = "body")
     public Result edit(@RequestBody FinanceUserInfo financeUserInfo) {
-        iFinanceUserInfoService.saveOrUpdate(financeUserInfo);
-        return new Result();
+        return iFinanceUserInfoService.updateFinacneOrder(financeUserInfo);
     }
 
 
@@ -108,19 +111,24 @@ public class FinanceUserInfoController extends BaseController {
         //验证手机
         boolean mobileNumber = ValidateUtil.isMobileNumber(financeOrder.getMobile());
         if (mobileNumber){
+            //检查该用户的订单是否有未完结状态，有则不能申请
+          /*  FinanceUserInfo financeUserInfo = iFinanceUserInfoService.selectOne(financeOrder);
+            if (financeUserInfo!=null){
+                //查询是否有订单未审核的状态
+                iOrderService.
+            }*/
             //核对验证码是否正确
 //            Object attribute = getSession().getAttribute(financeOrder.getMobile() + "ryun_code");
             Object value =   redisTemplate.opsForValue().get(financeOrder.getMobile() + "ryun_code");
             if (value!=null&&value.toString().equals(financeOrder.getCode())){
                 getSession().setAttribute(financeOrder.getMobile() + "ryun_code",null);
-                iFinanceUserInfoService.addFinacneOrder(financeOrder);
+                return iFinanceUserInfoService.addFinacneOrder(financeOrder);
             }else {
                 return  new Result(PARAM_PARSE_ERROR);
             }
         }else {
             return  new Result(PARAM_PARSE_ERROR);
         }
-        return new Result("申请成功，请等待审核");
     }
 
 

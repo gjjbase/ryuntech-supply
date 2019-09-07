@@ -171,6 +171,8 @@ import java.util.Date;
 
         @TableField("REFERRAL_CODE")
     private String referralCode;
+    @TableField("city")
+    private String city;
 
 
     @TableField(exist = false)
