@@ -1,0 +1,167 @@
+import Taro, { Component } from '@tarojs/taro'
+import { View,Form,Input,Button} from '@tarojs/components'
+import { AtInput, AtForm,AtButton,AtAvatar,AtCountdown ,AtCheckbox } from 'taro-ui'
+import './register.scss'
+import logo from "../../assets/images/person/logo.png";
+
+export default class Register extends Component {
+
+  constructor () {
+    super(...arguments)
+    this.state = {
+      phone: '11111',
+      codeValue: '',
+      realValue: '',
+      companyValue: '',
+      checkedList: ['list1'],
+      isClose: false,
+      count: 5,
+      btnDisable: false,
+      btnValue: '发送验证码'
+    }
+    this.checkboxOption = [{
+      value: 'list1'
+    }]
+  }
+  config = {
+    navigationBarTitleText: '注册',
+    enablePullDownRefresh:false,
+  }
+  formSubmit = e => {
+    console.log(e)
+  }
+
+  formReset = e => {
+    console.log(e)
+  }
+  componentWillMount () { }
+
+  componentDidMount () { }
+
+  componentWillUnmount () { }
+
+  componentDidShow () { }
+
+  componentDidHide () { }
+
+  getCode(){
+    Taro.request({
+      url:
+        "http://127.0.0.1:9999/api/admin/user/info/111",
+      method: "GET",
+      header: {
+        Accept: "application/json, */*",
+        "Content-Type": "application/json"
+      }
+    }).then(res => {
+      if (res.statusCode == 200) {
+        console.log(res);
+        // let data = res.data.data.data.data;
+        // Taro.setStorageSync("cities", data);
+      }
+    });
+  }
+  //注册
+  onSubmit (event) {
+    // console.log("-----"+this.state.phone);
+    console.log('form发生了submit事件，携带数据为：', event.detail.value)
+    /*Taro.request({
+      url:
+        "http://127.0.0.1:9999/api/admin/partner/register",
+      method: "POST",
+      data:{
+        registerMobile: this.state.phone,
+        codeValue: this.state.codeValue,
+        partnerName: this.state.realValue,
+        companyName: this.state.companyValue
+      },
+      header: {
+        Accept: "application/json, *!/!*",
+        "Content-Type": "application/json"
+      }
+    }).then(res => {
+      if (res.statusCode == 200) {
+        console.log(res);
+        // let data = res.data.data.data.data;
+        // Taro.setStorageSync("cities", data);
+      }
+    });*/
+  }
+  onReset (event) {
+    console.log(event)
+    console.log("-----"+this.state.phone)
+  }
+  bindKeyInput (e) {
+    console.log("2222"+e);
+    this.setState({
+      codeValue:e.detail.value
+    })
+    console.log(this.state.codeValue);
+    // 在小程序中，如果想改变 value 的值，需要 `return value` 从而改变输入框的当前值
+    return value;
+  }
+  // 倒计时过程事件
+  timeTick(remainingSecond) {
+    //发送验证码
+
+    setTimeout(() => {
+      this.getRemainingSecond();
+    }, 1000);
+  }
+
+  getRemainingSecond() {
+    let remainingSecond = this.state.count;
+    remainingSecond--;
+    this.setState({count: remainingSecond});
+    this.setState({btnValue: remainingSecond+"秒重新获取"});
+    this.setState({btnDisable: true,});
+    if (remainingSecond > 0 && !this.props.isClose) {
+      this.timeTick(remainingSecond);
+    }else {
+      clearTimeout(this.timer);
+      this.setState({
+        btnValue: "发送验证码"
+      });
+      this.setState({
+        btnDisable: false,
+      });
+    }
+  }
+  render () {
+    return (
+      <View className='register'>
+        <View className='at-row at-row__justify--around' style='height:150px' >
+          <View className='at-col at-col-5' style="display: flex;justify-content: center;align-content: center;align-items: center;" >
+            <AtAvatar  circle image={logo} size="large"/>
+          </View>
+        </View>
+        <View style="padding:25px;">
+          <AtForm className="meituan" bindsubmit="onSubmit" bindreset="onReset">
+            <AtInput
+              border={false}
+              type="phone" placeholder-style="font-size: 0.8rem;" placeholder="请输入手机号码"/>
+            <View className='at-row at-row__align--center'>
+              <View  className='at-col at-col-6'>
+                <Input  type="phone" maxLength='4' bindinput="bindKeyInput"
+                       placeholder-style="font-size: 0.8rem;" placeholder="请输入验证码"/>
+              </View>
+              <View className='at-col at-col-5' style="margin: 10px;">
+                <AtButton  type='secondary'  disabled={this.state.btnDisable} size='normal' value={this.state.count} onClick={this.timeTick.bind(this)}>
+                  {this.state.btnValue}
+                </AtButton>
+              </View>
+
+            </View>
+            <Input   type="text" placeholder-style="font-size: 0.8rem;" placeholder="请输入真实姓名"/>
+
+            <Input style="margin-top: 10px;"  type="text" placeholder-style="font-size: 0.8rem;" placeholder="请输入公司名"/>
+            <Button  style="margin: 20px;background-color: #2D8CF0;"   type="primary" size="default" onClick={this.login.bind(this,'../user/user')}>注册</Button>
+          </AtForm>
+        </View>
+        <View className="copyright">
+          <View className="company">© 睿云科技 客服电话：400-670-5335</View>
+        </View>
+      </View>
+    )
+  }
+}

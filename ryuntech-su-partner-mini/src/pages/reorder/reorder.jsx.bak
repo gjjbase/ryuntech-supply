@@ -1,0 +1,185 @@
+import Taro, { Component } from "@tarojs/taro";
+import { View,ScrollView } from "@tarojs/components";
+import { AtSearchBar } from 'taro-ui'
+import "./reorder.scss";
+import app_status_1 from "../../assets/images/order/app_status_1.png";
+import app_status_2 from "../../assets/images/order/app_status_2.png";
+export default class Reorder extends Component {
+  config = {
+    navigationBarTitleText: "推荐订单",
+    window: {
+      enablePullDownRefresh: true,
+      backgroundTextStyle:"dark"//dark：显示刷新动画
+    }
+  };
+
+  constructor(props) {
+    super(...arguments);
+    this.state = {
+      onList:[],
+      orderIds:null,
+      expectData:[],
+      startIndex:0,
+      lastIndex:0,
+      //当前页
+      pageCode:1,
+      //总页数
+      totalPageCode:0,
+      //每页显示的条数
+      pageSize:10,
+      offset:0,
+      value:'',
+      searchBarValue:''
+    }
+  }
+  //获取初始化的数据
+  getOrderOnList(){
+    Taro.showLoading({title:"加载中"});
+    Taro.request({
+      url: "http://127.0.0.1:9999/api/admin/order/outList",
+      method:"GET",
+      data: {
+        pageCode: this.state.pageCode,
+        pageSize: this.state.pageSize
+      },
+      header:{"Cookie":`_lxsdk_cuid=164b6cae2cac8-02b7b032f571b5-39614706-1fa400-164b6cae2cbc8; v=3; iuuid=1A6E888B4A4B29B16FBA1299108DBE9CA19FF6972813B39CA13A8D9705187374; revrev=76338a29; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; webp=true; __mta=3463951.1532075108184.1533098338076.1533118040602.20; _lxsdk=1A6E888B4A4B29B16FBA1299108DBE9CA19FF6972813B39CA13A8D9705187374; from=canary; selectci=true; __mta=3463951.1532075108184.1533118040602.1533118773295.21; _lxsdk_s=164f4f4c9e9-45e-d1b-46%7C%7C50; `}
+    }).then(res=>{
+      if(res.statusCode == 200){
+        Taro.hideLoading();
+        console.info(res);
+        console.info("+++++++++"+res.data.data.records);
+        let pageCode =  this.state.pageCode;
+        pageCode++;
+        this.setState({
+          onList:res.data.data.records,
+          pageCode:pageCode,
+          totalPageCode:res.data.data.pages
+        });
+      }else{
+        this.setState({onList:null})
+      }
+    })
+  }
+  appendToList(){
+    console.info("appendToOrderList");
+    Taro.showLoading({title: '加载中'});
+    let url= "http://127.0.0.1:9999/api/admin/order/outList";
+    let pageCode = this.state.pageCode;
+    let totalPageCode = this.state.totalPageCode;
+    if(pageCode >= totalPageCode){
+      Taro.showToast({title: '没有更多数据了', icon: 'success',duration: 2000});
+      return false;
+    }
+    for(let i = 0;i<10;i++){
+      if(pageCode <= totalPageCode){pageCode ++;}
+    }
+    Taro.request({
+      url:url,
+      data: {
+        pageCode: pageCode,
+        pageSize: this.state.pageSize
+      },
+      method:'GET'
+    }).then(res=>{
+      let self = this;
+      if(res.statusCode == 200){
+        Taro.hideLoading();
+        this.setState({
+          onList:self.state.onList.concat(res.data.records),
+          pageCode :pageCode,
+          totalPageCode:res.data.records.pages
+        });
+      }
+    })
+  }
+  appendUpperList(){
+    console.log("-----appendUpperList");
+    this.setState({pageCode :0});
+    this.getOrderOnList();
+  }
+  componentDidMount(){
+    this.getOrderOnList();
+  }
+  componentWillMount () { }
+
+  componentWillUnmount () { }
+
+  componentDidShow () { }
+
+  componentDidHide () { }
+
+  onActionClick () {
+    console.log(this.state.searchBarValue);
+  }
+  handleSearchBarChange (stateName, value) {
+    this.setState({
+      [stateName]: value
+    })
+  }
+
+  render() {
+    return (
+      <View className="reorder" >
+        <View>
+          <AtSearchBar
+            actionName='搜一下'
+            value={this.state.searchBarValue}
+            onChange={this.handleSearchBarChange.bind(this, 'searchBarValue')}
+            onActionClick={this.onActionClick.bind(this)}
+          />
+          <ScrollView lowerThreshold='10' scrollTop='0' upperThreshold='10' style='height:300px'
+                      scroll-y lowerThreshold='30' style='height:100vh' onScrolltolower={this.appendToList.bind(this)}
+                      onScrollToUpper={this.appendUpperList.bind(this)}
+                      scrollWithAnimation>
+          <View className="tabItemContent" >
+            {this.state.onList.map((item,index)=>{
+              return (
+                  <View>
+                    <View className='at-col at-col-10 at-col--auto' >
+                      <View  style="height: 10px;  background-color: #f5f5f5;" />
+                    </View>
+                  <View className='at-row at-row--wrap' style="padding: 15px;" key={index}>
+                    <View className='at-col at-col-5 at-col--auto'>
+                      <Text style='font-size: 1.0rem;color: #111111;font-weight: 700;' >{item.orderId}</Text>
+                    </View>
+                    <View className='at-col at-col-5 at-row__align--center' >
+                      <Text style='font-size: 0.6rem;color: #999999;padding-left: 50px;'>申请时间：2019-08-16</Text>
+                    </View>
+                    <View className='at-col at-col-10 at-col--auto' >
+                      <View className='at-col at-col-10 at-col--auto' >
+                        <View  style="height: 1px;  background-color: #f5f5f5;margin-top: 5px;" />
+                      </View>
+                    </View>
+                    {/*<AtDivider content='没有更多了' fontColor='#ed3f14' lineColor='#ed3f14' />*/}
+                    <View className='at-col at-col-4 at-col--auto' style="margin-right: 30px;">
+                      <View><Text style='font-size: 0.8rem;color: #666666;'>申请额度</Text></View>
+                      <View><Text style='font-size: 0.9rem;color: #2D8CF0;padding: 5px;'>10W</Text></View>
+                    </View>
+                    <View  className='at-col at-col-2 at-col--auto' >
+                      <View><Text style='font-size: 0.8rem;color: #999999;'>贷款进度</Text></View>
+                      <View>
+                        <Image style="width: 12px;height: 12px;" className="icon" src={app_status_1}></Image>
+                        <Text style='font-size: 0.8rem;color: #666666;padding: 5px;'>待处理</Text></View>
+                    </View>
+                    <View className='at-col at-col-2 at-col--auto'>
+                      <View><Text style='font-size: 0.8rem;color: #999999;'>提成金额</Text></View>
+                      <View>
+                        <Image style="width: 12px;height: 12px;" className="icon" src={app_status_2}></Image>
+                        <Text style='font-size: 0.8rem;color: #666666;padding: 5px;'>待更新</Text>
+                      </View>
+                    </View>
+                    <View className='at-col at-col-2 at-col--auto'>
+                      <View><Text style='font-size: 0.8rem;color: #999999;'>实际放款</Text></View>
+                      <View><Text style='font-size: 0.8rem;color: #666666;padding: 5px;'>10W</Text></View>
+                    </View>
+                  </View>
+                  </View>
+              )
+            })}
+          </View>
+        </ScrollView>
+        </View>
+      </View>
+    );
+  }
+}
