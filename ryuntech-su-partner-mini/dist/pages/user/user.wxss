@@ -1,0 +1,188 @@
+
+.userCenter {
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  background-color: #f3f3f3; }
+  .userCenter .userInfo {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 100%;
+    height: auto;
+    background-color: #2D8CF0;
+    padding: 25rpx 0; }
+    .userCenter .userInfo .avatar {
+      width: 100%;
+      height: 50Px;
+      line-height: 50Px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-align-content: center;
+          -ms-flex-line-pack: center;
+              align-content: center; }
+      .userCenter .userInfo .avatar Image, .userCenter .userInfo .avatar img {
+        width: 50Px;
+        height: 50Px;
+        border-radius: 50%;
+        border: 5rpx solid #fff; }
+    .userCenter .userInfo .name {
+      width: 100%;
+      height: 70rpx;
+      line-height: 70rpx;
+      text-align: center;
+      color: #fff;
+      padding-top: 15rpx;
+      font-size: 0.7rem; }
+  .userCenter .order {
+    width: 100%;
+    min-height: 30vh;
+    background-color: #fff; }
+    .userCenter .order .myOrder {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-align-content: center;
+          -ms-flex-line-pack: center;
+              align-content: center;
+      width: 100%;
+      height: 50Px;
+      line-height: 50Px;
+      position: relative;
+      padding: 0 30rpx; }
+      .userCenter .order .myOrder .line {
+        position: absolute;
+        z-index: -1;
+        width: 30%;
+        height: 2rpx;
+        background-color: #ccc;
+        margin: 0 auto;
+        top: 25Px; }
+      .userCenter .order .myOrder .tip {
+        width: 100%;
+        height: 30Px;
+        line-height: 30Px;
+        color: #333;
+        padding: 20rpx 0;
+        font-size: 0.7rem;
+        text-align: center; }
+    .userCenter .order .list {
+      width: 100%;
+      height: 120rpx;
+      padding: 0 30rpx;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-align-content: center;
+          -ms-flex-line-pack: center;
+              align-content: center; }
+      .userCenter .order .list .movie, .userCenter .order .list .shop {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+        height: 90Px; }
+        .userCenter .order .list .movie Image, .userCenter .order .list .movie img, .userCenter .order .list .shop Image, .userCenter .order .list .shop img {
+          width: 50Px;
+          height: 60Px; }
+        .userCenter .order .list .movie .item, .userCenter .order .list .shop .item {
+          width: 100%;
+          text-align: center;
+          font-size: 0.65rem;
+          line-height: 30Px;
+          height: 30Px;
+          color: #333;
+          margin-top: 20rpx; }
+    .userCenter .order .discount {
+      width: 95%;
+      height: auto;
+      padding-left: 5%;
+      margin-top: 20Px;
+      border-top: 2rpx solid #f0f0f0; }
+      .userCenter .order .discount .vipCard, .userCenter .order .discount .cardpon {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+        width: 100%;
+        height: 45Px;
+        line-height: 45Px;
+        border-bottom: 2rpx solid #f0f0f0; }
+        .userCenter .order .discount .vipCard .desc, .userCenter .order .discount .cardpon .desc {
+          width: 95%;
+          color: #333;
+          font-size: 0.65rem;
+          height: 45Px;
+          line-height: 45Px; }
+        .userCenter .order .discount .vipCard .arrow, .userCenter .order .discount .cardpon .arrow {
+          width: 5%;
+          height: 45Px;
+          line-height: 45Px;
+          color: #ccc;
+          font-size: 0.65rem; }

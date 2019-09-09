@@ -1,0 +1,6 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="doc-header">
+        <view class="doc-header__title">{{title}}</view>
+        <view class="doc-header__desc">{{desc}}</view>
+    </view>
+</block>

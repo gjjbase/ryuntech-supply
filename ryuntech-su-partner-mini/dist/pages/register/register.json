@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "at-avatar": "../../npm/taro-ui/dist/weapp/components/avatar/index",
+    "at-form": "../../npm/taro-ui/dist/weapp/components/form/index",
+    "at-input": "../../npm/taro-ui/dist/weapp/components/input/index",
+    "at-button": "../../npm/taro-ui/dist/weapp/components/button/index",
+    "at-checkbox": "../../npm/taro-ui/dist/weapp/components/checkbox/index"
+  },
+  "navigationBarTitleText": "注册",
+  "enablePullDownRefresh": false
+}

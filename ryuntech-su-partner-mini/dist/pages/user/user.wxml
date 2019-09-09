@@ -1,0 +1,57 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="userCenter">
+        <view class="userInfo">
+            <view class="at-row">
+                <view class="t-col at-col-1 at-col--auto" style="padding-left:30px">
+                    <at-avatar compid="{{$compid__18}}"></at-avatar>
+                </view>
+                <view class="t-col at-col-1 at-col--auto" style="display: flex;align-items: center;justify-content: center;"><text style="font-size: 1.2rem;color: #FFFFFF;font-weight: 700;padding-left:10px">{{nickName}}</text>
+                </view>
+                <view class="t-col at-col-1 at-col--auto" style="display: flex;align-items: center;justify-content: center;margin-left:30px;">
+                    <image style="width: 15px;height: 15px;margin:5px;" src="{{partner_01}}"></image><text class="desc" style="font-size: 0.9rem;color: #FFFFFF;font-weight: 700;">{{status}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="order">
+            <view class="at-row at-row__justify--center">
+                <view class="at-col">
+                    <view style="display: flex;align-items: center;justify-content: center;padding-top:30px"><text style="font-size: 1.0rem;color: #111111;font-weight: 700;">{{partner.totalFeed}}</text>
+                    </view>
+                    <view style="display: flex;align-items: center;justify-content: center;"><text style="font-size: 0.8rem;color: #666666;">累计创收</text>
+                    </view>
+                </view>
+                <view style="width: 1px;margin-top:30px ; background-color: #f5f5f5;"></view>
+                <view class="at-col">
+                    <view style="display: flex;align-items: center;justify-content: center;padding-top:30px"><text style="font-size: 1.0rem;color: #111111;font-weight: 700;">{{partner.totalLending}}</text>
+                    </view>
+                    <view style="display: flex;align-items: center;justify-content: center;"><text style="font-size: 0.8rem;color: #666666;">待结算金额</text>
+                    </view>
+                </view>
+                <view style="width: 1px;margin-top:30px ; background-color: #f5f5f5;"></view>
+                <view class="at-col">
+                    <view style="display: flex;align-items: center;justify-content: center;padding-top:30px"><text style="font-size: 1.0rem;color: #2D8CF0;font-weight: 700;">{{partner.totalOrderNum}}</text>
+                    </view>
+                    <view style="display: flex;align-items: center;justify-content: center;"><text style="font-size: 0.8rem;color: #666666;">推荐单量</text>
+                    </view>
+                </view>
+                <view style="width: 1px;margin-top:30px ; background-color: #f5f5f5;"></view>
+                <view class="at-col">
+                    <view style="display: flex;align-items: center;justify-content: center;padding-top:30px"><text style="font-size: 1.0rem;color: #2D8CF0;font-weight: 700;">{{partner.totalNum}}</text>
+                    </view>
+                    <view style="display: flex;align-items: center;justify-content: center;"><text style="font-size: 0.8rem;color: #666666;">待结算单</text>
+                    </view>
+                </view>
+            </view>
+            <view class="discount">
+                <view class="cardpon" bindtap="navigateToDetail" data-e-tap-so="this" data-e-tap-a-a="../person/person">
+                    <image style="width: 15px;height: 15px;margin:5px;" src="{{myData}}"></image><text class="desc" style="font-size: 0.8rem;color: #111111;font-weight: 700;">我的资料</text>
+                    <view class="arrow">></view>
+                </view>
+                <view class="cardpon" bindtap="navigateToDetail" data-e-tap-so="this" data-e-tap-a-a="../qrcode/qrcode">
+                    <image style="width: 15px;height: 15px;margin:5px;" src="{{myQrcode}}"></image><text class="desc" style="font-size: 0.8rem;color: #111111;font-weight: 700;">我的推荐码</text>
+                    <view class="arrow">></view>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>

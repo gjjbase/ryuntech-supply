@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "docs-header": "../../components/doc-header/index",
+    "at-form": "../../npm/taro-ui/dist/weapp/components/form/index",
+    "at-input": "../../npm/taro-ui/dist/weapp/components/input/index",
+    "at-button": "../../npm/taro-ui/dist/weapp/components/button/index"
+  },
+  "navigationBarTitleText": "我的资料"
+}

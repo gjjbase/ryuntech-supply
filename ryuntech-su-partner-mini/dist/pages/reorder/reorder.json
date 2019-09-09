@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "at-search-bar": "../../npm/taro-ui/dist/weapp/components/search-bar/index",
+    "at-button": "../../npm/taro-ui/dist/weapp/components/button/index"
+  },
+  "navigationBarTitleText": "推荐订单",
+  "window": {
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "light"
+  }
+}

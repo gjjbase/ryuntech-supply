@@ -1,0 +1,193 @@
+
+@charset "UTF-8";
+/**
+ * Red - 京东红主题
+ */
+/**
+ * Mixins
+ */
+/* library */
+/**
+ * 元素居中定位
+ */
+/**
+ * @example scss
+ *
+ * .element {
+ *   @include clearfix;
+ * }
+ *
+ * // CSS Output
+ * .element::after {
+ *   clear: both;
+ *   content: '';
+ *   display: block;
+ * }
+ */
+/**
+ * 通用的遮罩
+ */
+/**
+ * Mixes a color with black. It's different from darken()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amount of black to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: shade(#ffbb52, 60%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #664a20;
+ *   }
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* Flex Item */
+/**
+ * 默认主题下 $color-border-light
+ */
+/**
+ * 点击态
+ */
+/**
+ * 禁止态
+ */
+/**
+ * 设置placeholder 颜色
+ */
+/**
+ * 默认主题下 $color-border-light
+ */
+/* The Color of JD Brand */
+/* 辅助色 */
+/* 文本颜色 */
+/* 边框颜色 */
+/* 组件样式 */
+.doc-header {
+  position: relative;
+  padding: 100rpx 60rpx 30rpx; }
+  .doc-header::after {
+    display: block;
+    position: absolute;
+    top: 60rpx;
+    right: 60rpx;
+    width: 60rpx;
+    height: 10rpx;
+    border-radius: 5rpx;
+    background: #EC585A;
+    -webkit-box-shadow: 2rpx 2rpx 4rpx 0 rgba(236, 88, 90, 0.5);
+            box-shadow: 2rpx 2rpx 4rpx 0 rgba(236, 88, 90, 0.5); }
+  .doc-header__title {
+    color: #040404;
+    font-size: 42rpx;
+    font-weight: bold;
+    line-height: 1.5; }
+  .doc-header__desc {
+    margin-top: 12rpx;
+    color: #A09EAE;
+    font-size: 30rpx;
+    line-height: 1.5; }
+
+
+@charset "UTF-8";
+/**
+ * Red - 京东红主题
+ */
+/**
+ * Mixins
+ */
+/* library */
+/**
+ * 元素居中定位
+ */
+/**
+ * @example scss
+ *
+ * .element {
+ *   @include clearfix;
+ * }
+ *
+ * // CSS Output
+ * .element::after {
+ *   clear: both;
+ *   content: '';
+ *   display: block;
+ * }
+ */
+/**
+ * 通用的遮罩
+ */
+/**
+ * Mixes a color with black. It's different from darken()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amount of black to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: shade(#ffbb52, 60%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #664a20;
+ *   }
+ */
+/**
+ * Mixes a color with white. It's different from lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [The amout of white to be mixed in]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+/* Flex Item */
+/**
+ * 默认主题下 $color-border-light
+ */
+/**
+ * 点击态
+ */
+/**
+ * 禁止态
+ */
+/**
+ * 设置placeholder 颜色
+ */
+/**
+ * 默认主题下 $color-border-light
+ */
+/* The Color of JD Brand */
+/* 辅助色 */
+/* 文本颜色 */
+/* 边框颜色 */
+/* 组件样式 */

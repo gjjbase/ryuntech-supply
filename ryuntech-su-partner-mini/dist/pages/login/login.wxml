@@ -1,0 +1,23 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="login">
+        <view class="at-row at-row__justify--around" style="height:150px">
+            <view class="at-col at-col-5" style="display: flex;justify-content: center;align-content: center;align-items: center;">
+                <at-avatar compid="{{$compid__12}}"></at-avatar>
+            </view>
+        </view>
+        <view style="padding:15px;">
+            <at-form compid="{{$compid__13}}">
+                <at-input compid="{{$compid__14}}"></at-input>
+                <at-input compid="{{$compid__15}}">
+                    <at-button compid="{{$compid__16}}">{{btnValue}}</at-button>
+                </at-input>
+                <view style="margin:0px 15px 0px 25px;">
+                    <at-button compid="{{$compid__17}}">登录</at-button>
+                </view>
+            </at-form>
+        </view>
+        <view class="copyright">
+            <view class="company">© 睿云科技 客服电话：400-670-5335</view>
+        </view>
+    </view>
+</block>

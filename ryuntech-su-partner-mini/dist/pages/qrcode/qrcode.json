@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "docs-header": "../../components/doc-header/index"
+  },
+  "navigationBarTitleText": "我的推荐码"
+}
