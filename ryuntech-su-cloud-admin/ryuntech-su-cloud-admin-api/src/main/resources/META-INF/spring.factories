@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.ryuntech.admin.api.feign.fallback.RemoteUserServiceFallbackImpl

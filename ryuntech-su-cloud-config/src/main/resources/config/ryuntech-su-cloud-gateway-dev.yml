@@ -3,9 +3,15 @@ zuul:
     ryuntech-su-cloud-auth:
       path: /api/auth/**
       serviceId: ryuntech-su-cloud-auth
-    ryuntech-su-cloud-admin:
-      path: /api/admin/**
-      serviceId: ryuntech-su-cloud-admin-biz
+    ryuntech-su-cloud-authorization:
+      path: /api/auth/**
+      serviceId: ryuntech-su-cloud-authorization
+#    ryuntech-su-cloud-admin:
+#      path: /api/admin/**
+#      serviceId: ryuntech-su-cloud-admin-biz
+    ryuntech-su-cloud-service-saas:
+        path: /api/saas/**
+        serviceId: ryuntech-su-cloud-service-saas
 #    ryuntech-su-cloud-monitor:
 #      path: /api/monitor/**
 #      serviceId: ryuntech-su-cloud-monitor

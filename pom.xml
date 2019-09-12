@@ -12,8 +12,6 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>ryuntech-su-cloud-admin</module>
-        <module>ryuntech-su-cloud-auth</module>
         <module>ryuntech-su-framework-code</module>
         <module>ryuntech-su-cloud-config</module>
         <module>ryuntech-su-cloud-eureka</module>
@@ -21,7 +19,14 @@
         <module>ryuntech-su-cloud-monitor</module>
         <module>ryuntech-su-cloud-zipkin</module>
         <module>ryuntech-su-cloud-generator</module>
-
+        <module>ryuntech-su-cloud-service-saas</module>
+        <module>ryuntech-su-cloud-service-saas-api</module>
+        <module>ryuntech-su-cloud-service-activiti</module>
+        <module>ryuntech-su-cloud-service-activiti-api</module>
+        <module>ryuntech-su-cloud-schedulerx</module>
+        <module>ryuntech-su-cloud-service-doc</module>
+        <module>ryuntech-su-cloud-service-doc-api</module>
+        <module>ryuntech-su-cloud-authorization</module>
     </modules>
 
     <properties>

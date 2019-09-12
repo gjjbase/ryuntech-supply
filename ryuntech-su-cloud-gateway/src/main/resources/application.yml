@@ -9,7 +9,6 @@ server:
 spring:
   application:
     name: ryuntech-su-cloud-gateway
-
   profiles:
     active: dev
   cloud:
