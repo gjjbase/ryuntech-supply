@@ -4,6 +4,7 @@ import com.ryuntech.common.utils.QueryPage;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Supplier;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
  * @author antu
  * @date 2019-05-23
  */
+@Slf4j
 public class BaseController {
 
     private Map<String, Object> getData(PageInfo<?> pageInfo) {
