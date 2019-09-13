@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryuntech.saas.api.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.ryuntech.saas.api.model.Order">
+        <result column="ORDER_ID" jdbcType="VARCHAR" property="orderid" />
+        <result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+        <result column="MEMBER_NAME" jdbcType="VARCHAR" property="memberName" />
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName" />
+        <result column="ORDER_CHENEL" jdbcType="VARCHAR" property="orderChenel" />
+        <result column="ORDER_TIME" jdbcType="TIMESTAMP" property="orderTime" />
+        <result column="IS_ROY" jdbcType="VARCHAR" property="isRoy" />
+        <result column="PAYMENT_STATUS" jdbcType="VARCHAR" property="paymentStatus" />
+        <result column="ORDER_STATUS" jdbcType="VARCHAR" property="orderStatus" />
+        <result column="ORDER_TYPE" jdbcType="VARCHAR" property="orderType" />
+        <result column="ORDER_CLOSE_TIME" jdbcType="TIMESTAMP" property="orderCloseTime" />
+        <result column="ORDER_INVALID_TIME" jdbcType="TIMESTAMP" property="orderInvalidTime" />
+        <result column="PARTNER_ID" jdbcType="VARCHAR" property="partnerId" />
+        <result column="ORDER_MERCHANT_MEMO" jdbcType="VARCHAR" property="orderMerchantMemo" />
+        <result column="ORDER_MEMO" jdbcType="VARCHAR" property="orderMemo" />
+        <result column="PAYMENT_FEE" jdbcType="DECIMAL" property="paymentFee" />
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+        <result column="IS_DELETE" jdbcType="VARCHAR" property="isDelete" />
+        <result column="ORDER_FACT_PAY_AMOUNT" jdbcType="DECIMAL" property="orderFactPayAmount" />
+        <result column="ORDER_PAY_AMOUNT" jdbcType="VARCHAR" property="orderPayAmount" />
+        <result column="ORDER_PAY_TIME" jdbcType="TIMESTAMP" property="orderPayTime" />
+        <result column="ORDER_CREATE_TYPE" jdbcType="VARCHAR" property="orderCreateType" />
+        <result column="REFERRAL_CODE" jdbcType="VARCHAR" property="referralCode" />
+        <result column="CITY" jdbcType="VARCHAR" property="city" />
+        <association property="financeUserInfo" column="MEMBER_ID" javaType="com.ryuntech.saas.api.model.FinanceUserInfo"
+                     select="com.ryuntech.saas.api.mapper.FinanceUserInfoMapper.selectById">
+        </association>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+                ORDER_ID,MEMBER_ID,MEMBER_NAME,COMPANY_NAME,ORDER_CHENEL, ORDER_TIME, IS_ROY, PAYMENT_STATUS, ORDER_STATUS,
+                ORDER_TYPE, ORDER_CLOSE_TIME, ORDER_INVALID_TIME, PARTNER_ID, ORDER_MERCHANT_MEMO,
+                ORDER_MEMO, PAYMENT_FEE, MODIFY_TIME, IS_DELETE, ORDER_FACT_PAY_AMOUNT, ORDER_PAY_AMOUNT,
+                ORDER_PAY_TIME, ORDER_CREATE_TYPE
+    </sql>
+
+
+
+    <select id="selectPageList" resultMap="BaseResultMap" resultType="com.ryuntech.saas.api.model.Order">
+        select *
+        from ryn_order
+        <where>
+            <if test="order.orderid!=null and order.orderid!=''">
+                order_id like concat('%',#{order.orderid},'%')
+            </if>
+            <if test="order.memberName!=null and order.memberName!=''">
+               and member_name like concat('%',#{order.memberName},'%')
+            </if>
+            <if test="order.referralCode!=null and order.referralCode!=''">
+                and referral_code = #{order.referralCode} or referral_code='888888'
+            </if>
+        </where>
+    </select>
+</mapper>

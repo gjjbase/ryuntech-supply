@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ryuntech.saas.api.mapper.FinanceUserInfoMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ryuntech.saas.api.model.FinanceUserInfo">
+        <result column="USERID" jdbcType="VARCHAR" property="userId" />
+        <result column="USER_LOGO" jdbcType="VARCHAR" property="userLogo" />
+        <result column="USER_TYPE" jdbcType="VARCHAR" property="userType" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="MEMBER_BIRTHDAY" jdbcType="DATE" property="memberBirthday" />
+        <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
+        <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+        <result column="SEX" jdbcType="VARCHAR" property="sex" />
+        <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+        <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+        <result column="ID_TYPE_CODE" jdbcType="VARCHAR" property="idTypeCode" />
+        <result column="ID_NUMBER" jdbcType="VARCHAR" property="idNumber" />
+        <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+        <result column="CITY" jdbcType="VARCHAR" property="city" />
+        <result column="IS_VISITED_MEMBER" jdbcType="VARCHAR" property="isVisitedMember" />
+        <result column="REGISTER_CHANNELS" jdbcType="VARCHAR" property="registerChannels" />
+        <result column="REGISTER_WAY" jdbcType="VARCHAR" property="registerWay" />
+        <result column="REGISTER_AREA_NUMBER" jdbcType="VARCHAR" property="registerAreaNumber" />
+        <result column="DETAIL_ADDRESS" jdbcType="VARCHAR" property="detailAddress" />
+        <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+        <result column="REFEREE" jdbcType="VARCHAR" property="referee" />
+        <result column="OCCUPATION" jdbcType="VARCHAR" property="occupation" />
+        <result column="IS_PARTENER_WORKER" jdbcType="VARCHAR" property="isPartenerWorker" />
+        <result column="COMPANY_ADDRESS" jdbcType="VARCHAR" property="companyAddress" />
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName" />
+        <result column="BUSSINESS_REGISTER" jdbcType="DATE" property="bussinessRegister" />
+        <result column="BUSSINESS_LICENSE" jdbcType="VARCHAR" property="bussinessLicense" />
+        <result column="PAY_TAXES" jdbcType="VARCHAR" property="payTaxes" />
+        <result column="ANNUAL_INVOICE" jdbcType="VARCHAR" property="annualInvoice" />
+        <result column="HOUSE_TYPE" jdbcType="VARCHAR" property="houseType" />
+        <result column="HOUSE_ADDRESS_TYPE" jdbcType="VARCHAR" property="houseAddressType" />
+        <result column="CAR_TYPE" jdbcType="VARCHAR" property="carType" />
+        <result column="CAR_ADDRESS_TYPE" jdbcType="VARCHAR" property="carAddressType" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    USERID, USER_LOGO, USER_TYPE, CREATE_TIME, MEMBER_BIRTHDAY, REAL_NAME, EMAIL, SEX,
+    MOBILE, ADDRESS, ID_TYPE_CODE, ID_NUMBER, PROVINCE, CITY, IS_VISITED_MEMBER, REGISTER_CHANNELS,
+    REGISTER_WAY, REGISTER_AREA_NUMBER, DETAIL_ADDRESS, NICKNAME, MODIFY_TIME, REFEREE,
+    OCCUPATION, IS_PARTENER_WORKER, COMPANY_ADDRESS, COMPANY_NAME, BUSSINESS_REGISTER,
+    BUSSINESS_LICENSE, PAY_TAXES, ANNUAL_INVOICE, HOUSE_TYPE, HOUSE_ADDRESS_TYPE, CAR_TYPE,
+    CAR_ADDRESS_TYPE
+  </sql>
+</mapper>

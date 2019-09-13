@@ -55,13 +55,13 @@ public class GenerateMybatisPlus {
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("root");
+        dsc.setPassword("ryuntech");
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
         //pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.ryuntech.generator");
+        pc.setParent("com.ryuntech.saas.api");
         mpg.setPackageInfo(pc);
 
         // 自定义配置

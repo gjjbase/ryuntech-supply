@@ -1,0 +1,57 @@
+package com.ryuntech.saas.api.helper;
+
+import com.ryuntech.saas.api.model.SctUser;
+import lombok.experimental.UtilityClass;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+/**
+ * @author antu
+ * @date 2019-05-24
+ */
+@UtilityClass
+public class SecurityUtils {
+
+    /**
+     * 获取Authentication
+     */
+    public Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    /**
+     * 获取用户
+     */
+    public SctUser getUser() {
+        Authentication authentication = getAuthentication();
+        if (authentication == null) {
+            return null;
+        }
+        return getUser(authentication);
+    }
+
+    /**
+     * 获取用户名
+     *
+     * @return
+     */
+    public String getUsername() {
+        Authentication authentication = getAuthentication();
+        Object principal = authentication.getPrincipal();
+        if (!(principal instanceof SctUser)) {
+            return (String) principal;
+        }
+        return null;
+    }
+
+    /**
+     * 获取用户
+     */
+    public SctUser getUser(Authentication authentication) {
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof SctUser) {
+            return (SctUser) principal;
+        }
+        return null;
+    }
+}

@@ -1,4 +1,4 @@
-package com.ryuntech.common.constant;
+package com.ryuntech.saas.api.helper.constant;
 
 
 /*

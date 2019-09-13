@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ryuntech.saas.api.mapper.SysUserMapper">
+
+    <resultMap id="userMap" type="com.ryuntech.saas.api.model.SysUser">
+        <id property="id" column="id"/>
+        <result property="username"  column="username" />
+        <result property="password"  column="password" />
+        <result property="phone"  column="phone" />
+        <result property="avatar"  column="avatar" />
+        <result property="created"  column="created" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+   <!-- &lt;!&ndash; 一对多：user、role &ndash;&gt;
+    <resultMap id="userIncludeRolesMap" extends="userMap" type="com.ryuntech.saas.api.model.SysUser">
+        <collection property="roleList" columnPrefix="role_" resultMap="com.ryuntech.saas.api.mapper.SysRoleMapper.BaseResultMap">
+        </collection>
+    </resultMap>
+
+    <select id="selectUserIncludeRoles" resultMap="userIncludeRolesMap">
+        select
+        u.*,
+        r.rid as id,
+        r.rname as username,
+        r.rval as role_rval,
+        r.created as role_created,
+        r.updated  as role_updated
+        from sys_user u
+        left join sys_user_role ur on u.id = ur.user_id
+        left join sys_role r on ur.role_id = r.rid
+        <where>
+            <if test="nick != null and nick != ''">
+                u.`nick` like concat('%',#{nick},'%')
+            </if>
+        </where>
+        order by u.uid
+    </select>-->
+</mapper>

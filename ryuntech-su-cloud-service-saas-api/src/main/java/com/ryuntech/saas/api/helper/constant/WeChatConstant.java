@@ -1,4 +1,4 @@
-package com.ryuntech.common.constant;
+package com.ryuntech.saas.api.helper.constant;
 
 public class WeChatConstant {
     public static final String APPID = "wx03a41524c687ce51";

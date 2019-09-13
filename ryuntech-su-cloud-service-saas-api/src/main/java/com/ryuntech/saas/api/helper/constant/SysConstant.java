@@ -1,4 +1,4 @@
-package com.ryuntech.common.constant;
+package com.ryuntech.saas.api.helper.constant;
 
 public class SysConstant {
     public static final String DEBUG_URL = "http://wx.ryuntech.com";
