@@ -49,7 +49,7 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           await store.dispatch('user/getInfo').then(res => {
-            const perms = res.authorities // note: roles must be a array! such as: [{name:'菜单1',val:'menu:1'}]
+            const perms = res.perms // note: roles must be a array! such as: [{name:'菜单1',val:'menu:1'}]
             store.dispatch('GenerateRoutes', { perms }).then(() => { // 根据roles权限生成可访问的路由表
               router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
               next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
@@ -62,6 +62,13 @@ router.beforeEach(async(to, from, next) => {
           Message.error(error || 'Has Error')
           next(`/login?redirect=${to.path}`)
           NProgress.done()
+        }
+      } else {
+        // 1.2.3 如果vuex种有权限信息，匹配权限信息，匹配ok则放行
+        if (hasPermission(store.getters.perms, to.meta.perm)) {
+          next()
+        } else {
+          next({ path: '/401', replace: true, query: { noGoBack: true }})
         }
       }
     }

@@ -17,4 +17,10 @@
         rid, rname, rdesc, rval, created, updated
     </sql>
 
+
+
+    <select id="getRoleIdsByUserId" resultType="java.lang.String">
+        SELECT r.rid FROM sys_role r, sys_user_role ur
+        WHERE r.rid = ur.role_id AND ur.user_id = #{userId}
+    </select>
 </mapper>

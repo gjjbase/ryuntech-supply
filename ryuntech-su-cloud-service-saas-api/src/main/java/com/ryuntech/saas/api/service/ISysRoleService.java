@@ -7,6 +7,8 @@ import com.ryuntech.common.utils.Result;
 import com.ryuntech.saas.api.model.FinanceUserInfo;
 import com.ryuntech.saas.api.model.SysRole;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -17,5 +19,5 @@ import com.ryuntech.saas.api.model.SysRole;
  */
 public interface ISysRoleService extends IBaseService<SysRole> {
     Result<IPage<SysRole>> pageList(SysRole sysRole, QueryPage queryPage);
-
+    List<String> getRoleIdsByUserId(String userId);
 }

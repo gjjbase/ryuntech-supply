@@ -14,5 +14,17 @@ import java.util.List;
  * @since 2019-09-12
  */
 public interface ISysPermService extends IBaseService<SysPerm> {
+    /**
+     * @param roleId
+     * @return
+     */
     List<SysPerm> getPermsByRoleId(String roleId);
+
+    /**
+     * @param userId
+     * @return
+     */
+    List<SysPerm> getPermsByUserId(String userId);
+
+
 }

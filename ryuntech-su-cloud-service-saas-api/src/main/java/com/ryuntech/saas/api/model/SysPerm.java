@@ -4,14 +4,19 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
 * <p>
@@ -58,17 +63,28 @@ import java.util.List;
             /**
             * 创建时间
             */
-    private LocalDateTime created;
+            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+            @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+            @Column(name = "created")
+    private Date created;
 
             /**
             * 修改时间
             */
-    private LocalDateTime updated;
+            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+            @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+            @Column(name = "created")
+    private Date updated;
 
 
 
     @TableField(exist = false)
     private List<SysPerm> children = new ArrayList<>();
+
+    @TableField(exist = false)
+    Map<Integer, List<SysPerm>> permMap;
+    @TableField(exist = false)
+    Map<String, List<SysPerm>> btnPermMap;
 
 
 }

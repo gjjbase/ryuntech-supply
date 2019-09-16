@@ -6,10 +6,12 @@ import com.ryuntech.common.controller.BaseController;
 import com.ryuntech.common.utils.QueryPage;
 import com.ryuntech.common.utils.Result;
 import com.ryuntech.saas.api.helper.SecurityUtils;
+import com.ryuntech.saas.api.model.Auth;
 import com.ryuntech.saas.api.model.SysPerm;
 import com.ryuntech.saas.api.model.SysUser;
 import com.ryuntech.saas.api.model.SysUserRole;
 import com.ryuntech.saas.api.service.ISysPermService;
+import com.ryuntech.saas.api.service.ISysRoleService;
 import com.ryuntech.saas.api.service.ISysUserRoleService;
 import com.ryuntech.saas.api.service.SysUserService;
 import io.swagger.annotations.Api;
@@ -21,9 +23,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author antu
@@ -40,6 +40,9 @@ public class SysUserController extends BaseController {
 
     @Autowired
     ISysUserRoleService sysUserRoleService;
+
+    @Autowired
+    ISysRoleService sysRoleService;
     @Autowired
     ISysPermService sysPermService;
 
@@ -57,18 +60,9 @@ public class SysUserController extends BaseController {
             return new Result<>(CommonEnums.USER_ERROR);
         }
         if (user != null) {
-            //用户对应的角色
-            SysUserRole sysUserRole = sysUserRoleService.getOne(new QueryWrapper<SysUserRole>().eq("user_id", user.getId()));
-            List<SysPerm> permissions = sysPermService.getPermsByRoleId(sysUserRole.getRoleId());
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            for (SysPerm permission : permissions) {
-                if (permission != null && permission.getPval()!=null) {
-                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission.getPval());
-                    //1：此处将权限信息添加到 GrantedAuthority 对象中，在后面进行全权限验证时会使用GrantedAuthority 对象。
-                    grantedAuthorities.add(grantedAuthority);
-                }
-            }
-            user.setGrantedAuthorities(grantedAuthorities);
+            //用户对应的角色rids角色Id
+            List<SysPerm> permissions = sysPermService.getPermsByUserId(user.getId()+"");
+            putAuth(user, permissions);
         }
         return new Result<>(user);
     }
@@ -87,20 +81,23 @@ public class SysUserController extends BaseController {
             return new Result<>(CommonEnums.USER_ERROR);
         }
         if (user != null) {
-            //用户对应的角色
-            SysUserRole sysUserRole = sysUserRoleService.getOne(new QueryWrapper<SysUserRole>().eq("user_id", user.getId()));
-            List<SysPerm> permissions = sysPermService.getPermsByRoleId(sysUserRole.getRoleId());
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            for (SysPerm permission : permissions) {
-                if (permission != null && permission.getPval()!=null) {
-                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission.getPval());
-                    //1：此处将权限信息添加到 GrantedAuthority 对象中，在后面进行全权限验证时会使用GrantedAuthority 对象。
-                    grantedAuthorities.add(grantedAuthority);
-                }
-            }
-            user.setGrantedAuthorities(grantedAuthorities);
+            //用户对应的角色rids角色Id
+            List<SysPerm> permissions = sysPermService.getPermsByUserId(user.getId()+"");
+            putAuth(user, permissions);
         }
         return new Result<>(user);
+    }
+
+    public static void putAuth(SysUser user, List<SysPerm> permissions) {
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (SysPerm permission : permissions) {
+            if (permission != null && permission.getPval()!=null) {
+                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission.getPval());
+                //1：此处将权限信息添加到 GrantedAuthority 对象中，在后面进行全权限验证时会使用GrantedAuthority 对象。
+                grantedAuthorities.add(grantedAuthority);
+            }
+        }
+        user.setGrantedAuthorities(grantedAuthorities);
     }
 
     /**

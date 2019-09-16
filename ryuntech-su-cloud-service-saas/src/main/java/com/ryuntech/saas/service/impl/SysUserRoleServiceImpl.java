@@ -6,6 +6,8 @@ import com.ryuntech.saas.api.model.SysUserRole;
 import com.ryuntech.saas.api.service.ISysUserRoleService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类

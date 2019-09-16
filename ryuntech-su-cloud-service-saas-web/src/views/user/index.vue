@@ -28,6 +28,11 @@
             {{ scope.row.phone }}
           </template>
         </el-table-column>
+        <el-table-column label="角色" width="150" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.phone }}
+          </template>
+        </el-table-column>
         <el-table-column class-name="status-col" label="头像" width="130" align="center">
           <template slot-scope="scope">
             <img :src="scope.row.avatar" width="100" height="100">

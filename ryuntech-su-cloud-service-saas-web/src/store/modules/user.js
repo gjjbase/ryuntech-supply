@@ -5,7 +5,9 @@ import { resetRouter } from '@/router'
 const state = {
   token: getToken(),
   name: '',
-  avatar: ''
+  avatar: '',
+  roles: [],
+  perms: []
 }
 
 const mutations = {
@@ -17,6 +19,12 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_PERMS: (state, perms) => {
+    state.perms = perms
+  },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
   }
 }
 
@@ -45,16 +53,33 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar } = data
+        const { name, avatar, roles, perms } = data
 
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
+        commit('SET_ROLES', roles)
+        commit('SET_PERMS', perms)
         resolve(data)
       }).catch(error => {
         reject(error)
       })
     })
   },
+
+  /* // 动态修改权限
+  ChangeRoles({ commit }, role) {
+    return new Promise(resolve => {
+      commit('SET_TOKEN', role)
+      setToken(role)
+      getInfo(role).then(response => {
+        const data = response
+        commit('SET_ROLES', data.roles)
+        commit('SET_NAME', data.name)
+        commit('SET_AVATAR', data.avatar)
+        resolve()
+      })
+    })
+  },*/
 
   // user logout
   logout({ commit, state }) {

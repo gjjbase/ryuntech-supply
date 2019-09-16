@@ -1,8 +1,11 @@
 package com.ryuntech.saas.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ryuntech.common.constant.PermInfo;
+import com.ryuntech.common.constant.enums.CommonEnums;
 import com.ryuntech.common.utils.Result;
 import com.ryuntech.saas.api.helper.RequiresPermissions;
 import com.ryuntech.saas.api.helper.constant.PermType;
@@ -19,16 +22,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ClassUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.spring.web.json.Json;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -52,6 +50,43 @@ public class SysPermController {
     @Autowired
     private ApplicationContext context;
 
+
+
+
+    @GetMapping("/list/all")
+    @ApiOperation(value = "查询详权限按钮/元数据信息")
+    public Result listAllPermission() {
+        String oper = "list menu,button,api permissions";
+        QueryWrapper<SysPerm> params = new QueryWrapper<>();
+        params.in("ptype", new Integer[]{PermType.MENU, PermType.BUTTON, PermType.API});
+        List<SysPerm> list = permService.list(params);
+        if (list.isEmpty()){
+            return new Result();
+        }else{
+            Map<Integer, List<SysPerm>> permMap = list.stream().collect(Collectors.groupingBy(SysPerm::getPtype));
+            List<SysPerm> buttonPermList = permMap.get(PermType.BUTTON);
+            Map<String, List<SysPerm>> buttonsGroupedByParent = new HashMap<>();
+            if (buttonPermList!=null&&!buttonPermList.isEmpty()){
+                buttonsGroupedByParent = buttonPermList.stream().collect(Collectors.groupingBy(SysPerm::getParent));
+            }
+            SysPerm sysPerm = new SysPerm();
+            sysPerm.setPermMap(permMap);
+            sysPerm.setBtnPermMap(buttonsGroupedByParent);
+            return new Result(sysPerm);
+        }
+    }
+
+
+    @DeleteMapping
+    public Result delete(@RequestBody SysPerm sysPerm) {
+        String oper = "delete permission";
+        if (org.apache.commons.lang3.StringUtils.isBlank(sysPerm.getPval())) {
+            return new Result(CommonEnums.PARAM_ERROR,"无法删除权限：参数为空（权限值）");
+        }
+        boolean success = permService.removeById(sysPerm.getPval());
+        return new Result(success);
+    }
+
     @GetMapping("/list/btn_perm_map")
     @ApiOperation(value = "查询详权限按钮信息")
     public Result listButtonPermMapGroupByParent() {
@@ -65,6 +100,32 @@ public class SysPermController {
         return new Result<>(buttonsGroupedByParent);
     }
 
+
+
+    @PostMapping("/sync/menu")
+    public Result syncMenuPermission(@RequestBody String body) {
+        String oper = "sync menu permission";
+        log.info("{}, body: {}", oper, body);
+        List<SysPerm> notSyncedPerms = JSON.parseArray(body, SysPerm.class);
+        if (!notSyncedPerms.isEmpty()){
+            permService.remove(new QueryWrapper<SysPerm>().eq("ptype",PermType.MENU));
+            permService.saveOrUpdateBatch(notSyncedPerms);
+        }
+        return new Result();
+    }
+
+
+    @PostMapping("/sync/api")
+    public Result syncApiPermission(@RequestBody String body) {
+        String oper = "sync api permission";
+        log.info("{}, body: {}", oper, body);
+        List<SysPerm> notSyncedPerms = JSON.parseArray(body, SysPerm.class);
+        if (!notSyncedPerms.isEmpty()){
+            permService.remove(new QueryWrapper<SysPerm>().eq("ptype",PermType.API));
+            permService.saveOrUpdateBatch(notSyncedPerms);
+        }
+        return new Result();
+    }
 
     @GetMapping("/meta/api")
     public Result listApiPermMetadata() {
@@ -172,6 +233,29 @@ public class SysPermController {
             perm.setPval(rpAnno.value()[0]);
             return perm;
         }).collect(Collectors.toList());
+    }
+
+
+    @PostMapping
+    public Result add(@RequestBody SysPerm perm) {
+        String oper = "add permission";
+
+        if (org.apache.commons.lang3.StringUtils.isEmpty(perm.getPval())) {
+            return  new Result(CommonEnums.PARAM_ERROR,"权限值不能为空");
+        }
+
+        QueryWrapper<SysPerm> params = new QueryWrapper<>();
+        params.eq("pval", perm.getPval());
+        SysPerm permDB = permService.getOne(params);
+
+        if (permDB != null) {
+            return  new Result(CommonEnums.PARAM_ERROR,"权限值已存在"+ permDB.getPname() + "（" + perm.getPval() + "）");
+        }
+
+        //保存
+        perm.setCreated(new Date());
+        boolean success = permService.saveOrUpdate(perm);
+        return new Result(success);
     }
 
 }

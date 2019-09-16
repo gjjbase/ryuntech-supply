@@ -24,7 +24,7 @@
           <div>提供该项目开发过程的完整文档</div>
         </el-collapse-item>
         <el-collapse-item title="食用说明（必看）" name="5">
-          <div>本项目由 睿云科技 开发</div>
+          <div>本项目由 XSCloud 开发</div>
         </el-collapse-item>
       </el-collapse>
     </el-card>

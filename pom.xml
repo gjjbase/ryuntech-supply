@@ -27,6 +27,10 @@
         <module>ryuntech-su-cloud-service-doc</module>
         <module>ryuntech-su-cloud-service-doc-api</module>
         <module>ryuntech-su-cloud-authorization</module>
+        <module>ryuntech-su-cloud-rabbitmq</module>
+        <module>ryuntech-su-cloud-test</module>
+        <module>ryuntech-su-cloud-message</module>
+        <module>ryuntech-su-cloud-redis</module>
     </modules>
 
     <properties>

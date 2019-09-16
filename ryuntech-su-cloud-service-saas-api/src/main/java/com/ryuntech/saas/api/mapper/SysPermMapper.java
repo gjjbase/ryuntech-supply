@@ -15,5 +15,15 @@ import java.util.List;
  * @since 2019-09-12
  */
 public interface SysPermMapper extends IBaseMapper<SysPerm> {
+    /**
+     * @param roleId
+     * @return
+     */
     List<SysPerm> getPermsByRoleId(@Param("roleId") String roleId);
+
+    /**
+     * @param userId
+     * @return
+     */
+    List<SysPerm> getPermsByUserId(@Param("userId") String userId);
 }

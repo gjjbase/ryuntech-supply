@@ -101,6 +101,7 @@ import roleApi from '@/api/system/role'
 import { parseTime, resetTemp } from '@/utils/index'
 import { pageParamNames, confirm, root } from '@/utils/constants'
 import Pagination from '@/components/Pagination'
+import debounce from 'lodash/debounce'
 
 export default {
   name: 'RoleManage',
@@ -147,15 +148,15 @@ export default {
     this.fetchData()
   },
 
-  /* watch:{
-      //延时查询
-      'tableQuery.rname': debounce( function(){
-        this.fetchData()
-      },500),
-      'tableQuery.rval': debounce( function(){
-        this.fetchData()
-      },500),
-    },//watch*/
+  watch: {
+    // 延时查询
+    'search.rname': debounce(function() {
+      this.fetchData()
+    }, 500),
+    'search.rval': debounce(function() {
+      this.fetchData()
+    }, 500)
+  }, // watch
 
   methods: {
     parseTime,

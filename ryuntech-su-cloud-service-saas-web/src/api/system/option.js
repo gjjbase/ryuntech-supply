@@ -3,14 +3,10 @@
  */
 import request from '@/utils/request'
 
-export default {
-
-  listRoleOptions() {
-    return request({
-      url: '/option/role',
-      method: 'get'
-    })
-  }
-
+export function listRoleOptions() {
+  return request({
+    url: '/saas/option/role',
+    method: 'get'
+  })
 }
 

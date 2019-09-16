@@ -17,7 +17,10 @@ public class Auth {
     private String name;
     /**值*/
     private String val;
-
+    public Auth(String name, String val) {
+        this.name = name;
+        this.val = val;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

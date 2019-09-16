@@ -38,7 +38,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("睿云科技-睿云合伙人")
+                .title("XSCloud")
                 .description("文档地址：")
                 .termsOfServiceUrl("http://www.ryuntech.com/")
                 .contact(new Contact("ryuntech", "https://www.ryuntech.com", ""))

@@ -11,6 +11,8 @@ import com.ryuntech.saas.api.model.SysRole;
 import com.ryuntech.saas.api.service.ISysRoleService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -29,5 +31,11 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
             queryWrapper.eq("rname", sysRole.getRname());
         }
         return super.pageList(queryWrapper,page);
+    }
+
+
+    @Override
+    public List<String> getRoleIdsByUserId(String userId) {
+        return baseMapper.getRoleIdsByUserId(userId);
     }
 }

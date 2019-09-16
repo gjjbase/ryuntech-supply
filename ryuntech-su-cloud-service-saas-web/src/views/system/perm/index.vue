@@ -155,8 +155,8 @@
 <script>
 
 import tree from '../tree'
-import { parseTime, resetTemp } from '@/utils'
-import permApi from '@/api/perm'
+import { parseTime, resetTemp } from '@/utils/index'
+import permApi from '@/api/system/perm'
 import {
   confirm,
   permType,
