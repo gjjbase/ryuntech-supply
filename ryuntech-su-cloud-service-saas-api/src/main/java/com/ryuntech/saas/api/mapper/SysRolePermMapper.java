@@ -1,6 +1,7 @@
 package com.ryuntech.saas.api.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ryuntech.common.mapper.IBaseMapper;
 import com.ryuntech.saas.api.model.SysRole;
 import com.ryuntech.saas.api.model.SysRolePerm;
 

@@ -3,6 +3,7 @@ package com.ryuntech.saas.api.model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ryuntech.common.model.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -26,7 +27,7 @@ import java.util.Date;
     @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     @TableName("sys_role")
-    public class SysRole extends BaseModel{
+    public class SysRole extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,4 +1,4 @@
-package com.ryuntech.saas.api.mapper;
+package com.ryuntech.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;

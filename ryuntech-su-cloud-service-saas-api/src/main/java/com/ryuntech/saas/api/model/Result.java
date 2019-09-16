@@ -2,6 +2,7 @@ package com.ryuntech.saas.api.model;
 
 import com.ryuntech.common.constant.CommonConstants;
 import com.ryuntech.common.constant.enums.CommonEnums;
+import com.ryuntech.common.model.BaseModel;
 import lombok.*;
 
 import java.io.Serializable;

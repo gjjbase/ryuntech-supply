@@ -1,4 +1,4 @@
-package com.ryuntech.saas.api.model;
+package com.ryuntech.common.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;

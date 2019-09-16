@@ -1,7 +1,7 @@
 package com.ryuntech.saas.api.dto;
 
 
-import com.ryuntech.saas.api.model.BaseModel;
+import com.ryuntech.common.model.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

@@ -1,5 +1,6 @@
 package com.ryuntech.saas.api.mapper;
 
+import com.ryuntech.common.mapper.IBaseMapper;
 import com.ryuntech.saas.api.model.Partner;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;

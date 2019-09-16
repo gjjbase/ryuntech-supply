@@ -32,7 +32,7 @@ import static com.ryuntech.common.constant.enums.CommonEnums.PARAM_PARSE_ERROR;
 @RestController
 @RequestMapping("/financeUserInfo")
 @Api(value = "FinanceUserInfoController", tags = {"融资客户信息管理接口"})
-public class FinanceUserInfoController extends BaseController {
+public class FinanceUserInfoController extends ModuleBaseController {
     @Autowired
     private IFinanceUserInfoService iFinanceUserInfoService;
 

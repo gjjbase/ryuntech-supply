@@ -1,71 +1,41 @@
 package com.ryuntech.common.service.impl;
 
-import com.ryuntech.common.service.BaseService;
-import lombok.Getter;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ryuntech.common.mapper.IBaseMapper;
+import com.ryuntech.common.service.IBaseService;
+import com.ryuntech.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.common.Mapper;
-import tk.mybatis.mapper.entity.Example;
 
-import java.util.List;
-
-/**
- * 封装通用Service接口实现类
- *
- * @author antu
- * @date 2019-05-22
- */
-@Service
-public class BaseServiceImpl<T> implements BaseService<T> {
+public    class BaseServiceImpl<M extends IBaseMapper<T>, T> extends ServiceImpl<M, T>  implements IBaseService<T> {
 
     @Autowired
-    @Getter
-    private Mapper<T> mapper;
+    protected M m;
+    protected QueryWrapper<T> queryWrapper =new QueryWrapper<>();
 
     @Override
-    public List<T> selectAll() {
-        return mapper.selectAll();
+    public Result<IPage<T>> pageList(Page<T> page) {
+        IPage<T> userIPage =   m.Pages(page);
+        return new Result(userIPage);
+    }
+
+
+    @Override
+    public Result<IPage<T>> pageList(QueryWrapper<T> queryWrapper, Page<T> page) {
+        IPage<T> iPage = m.selectPage(page, queryWrapper);
+        return new Result(iPage);
     }
 
     @Override
-    public T selectByKey(Object key) {
-        return mapper.selectByPrimaryKey(key);
+    public T saveOrUpdateReturn(T t,QueryWrapper<T> queryWrapper) {
+        boolean b = super.saveOrUpdate(t);
+        if (b){
+            return  getOne(queryWrapper);
+        }
+        return null;
     }
 
-    @Override
-    public void save(T entity) {
-        mapper.insert(entity);
-    }
 
-    @Override
-    public void delete(Object key) {
-        mapper.deleteByPrimaryKey(key);
-    }
-
-    @Override
-    public void batchDelete(List<Long> ids, String property, Class<T> clazz) {
-        Example example = new Example(clazz);
-        example.createCriteria().andIn(property, ids);
-        this.mapper.deleteByExample(example);
-    }
-
-    @Override
-    public void updateAll(T entity) {
-        mapper.updateByPrimaryKey(entity);
-    }
-
-    /**
-     * updateByPrimaryKeySelective()和updateByPrimaryKey()区别是前者会进行字段校验再更新，如果字段值为null就不更新
-     *
-     * @param entity
-     */
-    @Override
-    public void updateNotNull(T entity) {
-        mapper.updateByPrimaryKeySelective(entity);
-    }
-
-    @Override
-    public List<T> selectByExample(Object example) {
-        return mapper.selectByExample(example);
-    }
 }

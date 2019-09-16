@@ -2,8 +2,8 @@ package com.ryuntech.saas.api.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ryuntech.common.mapper.IBaseMapper;
 import com.ryuntech.saas.api.model.Order;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

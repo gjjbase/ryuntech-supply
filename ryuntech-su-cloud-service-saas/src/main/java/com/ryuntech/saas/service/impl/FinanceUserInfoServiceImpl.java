@@ -3,6 +3,7 @@ package com.ryuntech.saas.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ryuntech.common.service.impl.BaseServiceImpl;
 import com.ryuntech.common.utils.QueryPage;
 import com.ryuntech.common.utils.Result;
 import com.ryuntech.saas.api.dto.FinanceOrder;
@@ -45,8 +46,9 @@ public class FinanceUserInfoServiceImpl extends BaseServiceImpl<FinanceUserInfoM
     @Override
     public Result<IPage<FinanceUserInfo>> pageList(FinanceUserInfo financeUserInfo, QueryPage queryPage) {
         Page<FinanceUserInfo> page = new Page<>(queryPage.getPageCode(), queryPage.getPageSize());
-        if (financeUserInfo.getUserId()!=null)
+        if (financeUserInfo.getUserId()!=null) {
             queryWrapper.eq("userId", financeUserInfo.getUserId());
+        }
         return super.pageList(queryWrapper,page);
     }
 

@@ -1,6 +1,7 @@
 package com.ryuntech.saas.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ryuntech.common.service.impl.BaseServiceImpl;
 import com.ryuntech.saas.api.mapper.SysUserRoleMapper;
 import com.ryuntech.saas.api.model.SysUserRole;
 import com.ryuntech.saas.api.service.ISysUserRoleService;

@@ -55,7 +55,7 @@ import static com.ryuntech.common.constant.enums.CommonEnums.PARAM_PARSE_ERROR;
 @RestController
 @RequestMapping("/partner")
 @Api(value = "PartnerController", tags = {"合伙人管理接口"})
-public class PartnerController extends BaseController {
+public class PartnerController extends ModuleBaseController {
     @Autowired
     private IPartnerService iPartnerService;
 

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.ryuntech.common.service.impl.BaseServiceImpl;
 import com.ryuntech.common.utils.QRCodeUtil;
 import com.ryuntech.common.utils.QueryPage;
 import com.ryuntech.common.utils.RandomUtil;

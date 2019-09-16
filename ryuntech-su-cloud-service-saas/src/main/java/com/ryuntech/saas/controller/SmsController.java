@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/sms")
 @Api(value = "SmsController", tags = {"短信发送接口"})
-public class SmsController extends BaseController {
+public class SmsController extends ModuleBaseController {
 
     @Autowired
     MessageSendService messageSendService;

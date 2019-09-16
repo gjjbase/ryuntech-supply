@@ -1,11 +1,8 @@
 package com.ryuntech.saas.controller;
 
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.ryuntech.common.constant.PermInfo;
 import com.ryuntech.common.constant.enums.CommonEnums;
 import com.ryuntech.common.utils.QueryPage;
@@ -26,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +43,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/role")
 @Api(value = "SysRoleController", tags = {"用户角色管理接口"})
-public class SysRoleController extends BaseController {
+public class SysRoleController extends ModuleBaseController {
     @Autowired
     private ISysRoleService roleService;
     @Autowired

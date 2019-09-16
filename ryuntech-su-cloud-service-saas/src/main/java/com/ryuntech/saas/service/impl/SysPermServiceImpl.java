@@ -1,5 +1,6 @@
 package com.ryuntech.saas.service.impl;
 
+import com.ryuntech.common.service.impl.BaseServiceImpl;
 import com.ryuntech.saas.api.mapper.SysPermMapper;
 import com.ryuntech.saas.api.model.SysPerm;
 import com.ryuntech.saas.api.service.ISysPermService;
