@@ -30,7 +30,7 @@ public class SysUser extends BaseModel implements UserDetails {
      * 主键
      */
     @Id
-    private Long id;
+    private String id;
 
     /**
      * 用户名

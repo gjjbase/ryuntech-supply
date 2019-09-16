@@ -20,4 +20,7 @@ import java.util.List;
 public interface ISysRoleService extends IBaseService<SysRole> {
     Result<IPage<SysRole>> pageList(SysRole sysRole, QueryPage queryPage);
     List<String> getRoleIdsByUserId(String userId);
+
+
+    boolean checkRidsContainRval(List<String> rids, String rval);
 }

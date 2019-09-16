@@ -73,4 +73,16 @@ export function changePass(data) {
   })
 }
 
+/**
+ * 更新用户的角色
+ * @param perm
+ */
+export function updateUserRoles(data) {
+  return request({
+    url: '/saas/user/role',
+    method: 'patch',
+    data
+  })
+}
+
 export const upload = process.env.VUE_APP_BASE_API + '/saas/storage/local/upload'

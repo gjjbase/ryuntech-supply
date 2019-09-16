@@ -39,4 +39,13 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
     public List<String> getRoleIdsByUserId(String userId) {
         return baseMapper.getRoleIdsByUserId(userId);
     }
+
+    @Override
+    public boolean checkRidsContainRval(List<String> rids, String rval) {
+        if (rids.isEmpty()) {
+            return false;
+        }
+        Boolean re = baseMapper.checkRidsContainRval(rids, rval);
+        return re==null?false:re.booleanValue();
+    }
 }

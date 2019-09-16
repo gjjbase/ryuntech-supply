@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/system/user'
+import { getList, findById, del, updateUserRoles } from '@/api/system/user'
 import { listRoleOptions } from '@/api/system/option'
 import Pagination from '@/components/Pagination'
 import { root, confirm, pageParamNames } from '@/utils/constants'
@@ -146,7 +146,8 @@ export default {
     fetchData() {
       this.listLoading = true
       getList(this.listQuery, this.search).then(response => {
-        this.list = response.data.rows
+        this.list = response.data.records
+        console.info(response)
         this.total = response.data.total
         this.listLoading = false
       })
@@ -194,12 +195,13 @@ export default {
     },
 
     invokeUpdateUserRolesApi() {
-      userApi.updateUserRoles(this.updateUserRolesData).then(res => {
+      updateUserRoles(this.updateUserRolesData).then(res => {
         const newRoles = this.updateUserRolesData.rids.map(rid => {
           const rname = this.roleMap.get(rid)
           if (rname) return { rid, rname }
         })
-        this.tableData[this.updateUserRolesData.idx].roleList = newRoles
+        this.list[this.updateUserRolesData.idx].roleList = newRoles
+
         this.editRolesDialogVisible = false
         this.$message.success('更新成功')
       })

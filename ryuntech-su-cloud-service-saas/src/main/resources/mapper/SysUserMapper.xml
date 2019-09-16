@@ -11,6 +11,45 @@
         <result property="avatar"  column="avatar" />
         <result property="created"  column="created" jdbcType="TIMESTAMP" />
     </resultMap>
+    <resultMap id="userIncludeRolesMap" extends="userMap" type="com.ryuntech.saas.api.model.SysUser">
+       <!-- <collection property="roleList" columnPrefix="role_" resultMap="com.ryuntech.saas.api.mapper.SysRoleMapper.BaseResultMap">
+        </collection>-->
+      <!--  <collection property="roleList" column="id" javaType="com.ryuntech.saas.api.model.SysRole"
+                     select="com.ryuntech.saas.api.mapper.SysRoleMapper.selectRoleById">
+        </collection>-->
+       <collection property="roleList" column="id" ofType="com.ryuntech.saas.api.model.SysRole" columnPrefix="role_"
+                    select="com.ryuntech.saas.api.mapper.SysRoleMapper.selectRoleById"/>
+        <!-- <collection property="roleList" ofType="com.ryuntech.saas.api.model.SysRole" columnPrefix="role_"
+                    select="com.ryuntech.saas.api.mapper.SysRoleMapper.selectRoleById">  </collection>-->
+<!--            <id property="id" column="rid"/>-->
+    </resultMap>
+
+<!--    resultMap="BaseResultMap" resultType="com.ryuntech.saas.api.model.Order"-->
+    <select id="selectUserRoleById" resultMap="userIncludeRolesMap" resultType="com.ryuntech.saas.api.model.SysUser">
+         select *
+                from sys_user
+        <where>
+            <if test="user.id!=null and user.id!=''">
+                id like concat('%',#{user.id},'%')
+            </if>
+            <if test="user.username!=null and user.username!=''">
+                username like concat('%',#{user.username},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectUsersRoleById" resultMap="userIncludeRolesMap" resultType="com.ryuntech.saas.api.model.SysUser">
+         select *
+                from sys_user
+        <where>
+            <if test="user.id!=null and user.id!=''">
+                id like concat('%',#{user.id},'%')
+            </if>
+            <if test="user.username!=null and user.username!=''">
+                username like concat('%',#{user.username},'%')
+            </if>
+        </where>
+    </select>
 
    <!-- &lt;!&ndash; 一对多：user、role &ndash;&gt;
     <resultMap id="userIncludeRolesMap" extends="userMap" type="com.ryuntech.saas.api.model.SysUser">

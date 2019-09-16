@@ -27,6 +27,9 @@ import java.io.Serializable;
     private String userId;
 
     private String roleId;
-
+    public SysUserRole(String userId, String roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
+    }
 
 }

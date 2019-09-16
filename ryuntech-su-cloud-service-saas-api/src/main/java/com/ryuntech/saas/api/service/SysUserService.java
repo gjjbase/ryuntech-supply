@@ -1,6 +1,8 @@
 package com.ryuntech.saas.api.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ryuntech.common.utils.QueryPage;
 import com.ryuntech.saas.api.model.SysUser;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public interface SysUserService  extends IService<SysUser> {
      * @return
      */
     SysUser findByName(String username);
+
 
     /**
      * 条件查询用户
@@ -47,4 +50,19 @@ public interface SysUserService  extends IService<SysUser> {
      * @param user
      */
     void changePass(SysUser user);
+
+    /**
+     * 查询用户信息
+     * @param user
+     * @return
+     */
+    SysUser selectUserRoleById(SysUser user);
+
+    /**
+     * 分页查看用户信息
+     * @param user
+     * @param queryPage
+     * @return
+     */
+    IPage<SysUser> selectUsersRoleById(SysUser user, QueryPage queryPage);
 }

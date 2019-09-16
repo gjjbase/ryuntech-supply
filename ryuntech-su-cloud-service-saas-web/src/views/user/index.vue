@@ -28,9 +28,9 @@
             {{ scope.row.phone }}
           </template>
         </el-table-column>
-        <el-table-column label="角色" width="150" align="center">
+        <el-table-column label="角色">
           <template slot-scope="scope">
-            {{ scope.row.phone }}
+            <el-tag v-for="role in scope.row.roleList" :key="role.rid" style="margin: 2px;">{{ role.rname }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="头像" width="130" align="center">
@@ -92,6 +92,7 @@ export default {
     }
   },
   created() {
+    console.info('this.fetchData()')
     this.fetchData()
   },
   methods: {
@@ -103,8 +104,10 @@ export default {
     },
     fetchData() {
       this.listLoading = true
+      console.info('fetchData')
       getList(this.listQuery, this.search).then(response => {
-        this.list = response.data.rows
+        console.info(response)
+        this.list = response.data.records
         this.total = response.data.total
         this.listLoading = false
       })

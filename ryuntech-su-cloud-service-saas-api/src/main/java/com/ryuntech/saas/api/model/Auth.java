@@ -17,6 +17,9 @@ public class Auth {
     private String name;
     /**值*/
     private String val;
+    public Auth() {
+
+    }
     public Auth(String name, String val) {
         this.name = name;
         this.val = val;

@@ -17,5 +17,27 @@ import java.util.List;
  */
 public interface SysRoleMapper extends IBaseMapper<SysRole> {
 
+    /**
+     * 根据userid查询权限
+     * @param userId
+     * @return
+     */
     List<String> getRoleIdsByUserId(@Param("userId") String userId);
+
+
+    /**
+     * 根据userid查询角色
+     * @param id
+     * @return
+     */
+    List<SysRole> selectRoleById(@Param("id") String id);
+
+
+    /**
+     *
+     * @param rids
+     * @param rval
+     * @return
+     */
+    Boolean checkRidsContainRval(List<String> rids, String rval);
 }
